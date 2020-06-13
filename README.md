@@ -11,5 +11,5 @@ A place for storing all my slides as I transition from jekyll + github.io site t
     * [Recreating Historical Graphics with `ggplot2`](Misc/GraphicsGroupISU/2018-01-31)
     * [An interactive crash course in `bookdown`](Misc/GraphicsGroupISU/2018-09-28)
     * [Where does the US Government Keep Its Data?](Misc/GraphicsGroupISU/2018-11-16-us-govt-data.html)
-    * [Graphics for the ISU LAS Status of Women Report](Misc/GraphicsGroupISU/2019/02/01)
+    * [Graphics for the ISU LAS Status of Women Report](Misc/GraphicsGroupISU/2019-02-01)
     * [The Uncoast Unconf: Who, What, When, Where, Why, and How? (not necessarily in that order)](Misc/GraphicsGroupISU/2019-04-26)
