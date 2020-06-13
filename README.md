@@ -21,4 +21,5 @@ A place for storing all my slides as I transition from jekyll + github.io site t
     * [Joint Statistical Meetings 2019, Denver, CO](Conferences/jsm19)
     * [Joint Statistical Meetings 2018, Vancouver, BC](Conferences/jsm18/slides.html)
     * [Plotcon 2017, Oakland, CA](Conferences/plotcon17/slides.html)
+    * [Royal Statistical Society 2015 International Conference, Exeter, Devon, UK](Conferences/rss15)
     
