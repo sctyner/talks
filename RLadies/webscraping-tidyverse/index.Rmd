@@ -296,7 +296,7 @@ myhtml %>%
 
 ## Your Turn #2
 
-Find another website you want to scrape (ideas: [all bills in the house so far this year](https://www.congress.gov/search?q={%22congress%22:%22all%22,%22source%22:%22legislation%22,%22search%22:%22actionDateChamber:\%22115|H|2017-02-03\%22+AND+(billIsReserved:\%22N\%22+or+type:\%22AMENDMENT\%22)%22}&pageSort=documentNumber:asc), [video game reviews](http://www.metacritic.com/game), anything Wikipedia) and use *at least* 3 different `rvest` functions in a chain to extract some data.
+Find another website you want to scrape (ideas: [all bills in the house so far this year](https://www.congress.gov/), [video game reviews](http://www.metacritic.com/game), anything Wikipedia) and use *at least* 3 different `rvest` functions in a chain to extract some data.
 
 # Advanced Examples:<br>Into the Weeds<br>![](http://mediamarathoning.com/wp-content/uploads/2013/02/In-the-weeds.jpg)
 
