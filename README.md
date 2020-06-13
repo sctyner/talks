@@ -15,3 +15,4 @@ A place for storing all my slides as I transition from jekyll + github.io site t
     * [The Uncoast Unconf: Who, What, When, Where, Why, and How? (not necessarily in that order)](Misc/GraphicsGroupISU/2019-04-26)
 - Invited Talks 
     * [National Institute of Standards & Technology](Misc/InvitedTalks/nist-sed)
+    * [United States Military Academy](Misc/InvitedTalks/usma)
