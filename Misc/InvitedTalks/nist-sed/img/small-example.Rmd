@@ -1,0 +1,15 @@
+---
+title: "Small Example"
+author: "Sam Tyner"
+date: "2019-06-19"
+output: pdf_document
+---
+
+# Hello world 
+
+Here is a plot that is very interesting. 
+```{r myplot, cache = TRUE, echo = TRUE, out.width= "75%", fig.align='center'} 
+plot(faithful)
+```
+
+As you can see, I have intertwined my discussion of the plot with the plot and the code to generate the plot in one document. 
