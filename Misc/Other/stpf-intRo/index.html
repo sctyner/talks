@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>a quick intRo</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Sam Tyner, Amanda Price" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# a quick intRo
+### Sam Tyner, Amanda Price
+### AAAS STPF R Users Affinity Group
+### 2019/11/18
+
+---
+
+
+
+
+
+
+
+
+
+# Outline 
+
+1. Using R: R GUI, Terminal, RStudio IDE
+2. R Data Types &amp; Structures
+3. Functions &amp; loops
+4. R Packages
+5. Reading data into R 
+
+
+---
+class: inverse, middle, center
+# Using R 
+
+---
+# R Gui 
+
+&lt;img src="img/r-gui.png" width="1707" style="display: block; margin: auto;" /&gt;
+
+---
+# Terminal 
+
+&lt;img src="img/r-term.png" width="3840" style="display: block; margin: auto;" /&gt;
+
+---
+# RStudio
+
+&lt;img src="https://raw.githubusercontent.com/CSAFE-ISU/reu18/master/static/slides/rstats/img/rstudio4panes.png" style="display: block; margin: auto;" /&gt;
+
+---
+# RStudio
+
+1. Source - these are scripts &amp; other files. You edit them here. You can run code with Ctrl + Enter.
+2. Console - where R "lives." Code is executed here. The results also print out here.
+3. Environment and others
+
+    a. Environment: shows what variables and values you have stored in your R session. 
+    
+    b. History: shows all code you've run in the console in the session
+4. Files, Plots, Help, and others
+
+    a. Files: shows &amp; navigates through files on your computer. 
+    
+    b. Plots: shows you any plot that you've created in R. (Note: it does NOT save the plot)
+    
+    c. Packages: lists packages you have installed &amp; are using
+    
+    d. Help: search for functions, topics, etc. to get help
+
+
+
+---
+# The R Console
+
+&lt;img src="https://raw.githubusercontent.com/CSAFE-ISU/reu18/master/static/slides/rstats/img/rprompt.png" style="display: block; margin: auto;" /&gt;
+
+
+---
+# Types of files to know
+
+- **.R**: R scripts. R code is written &amp; saved here.  
+- **.Rmd**: RMarkdown document. Combines R code &amp; Markdown to author reproducible documents
+- **.csv**: Comma Separated Values. A simpler version of an Excel file. Very easy to read .csv data into R. (`read.csv()`)
+- **.txt**: Text files. Can also be read into R very easily (`readLines()`, `read.delim()`)
+
+---
+class: inverse, middle, center
+# R Data Types &amp; Structures
+
+---
+# Basic Data Classes 
+
+Numeric - numbers. Can also distinguish between integers and doubles.
+
+
+```r
+x &lt;- 1L
+y &lt;- 1.5
+typeof(x); typeof(y)
+```
+
+```
+## [1] "integer"
+```
+
+```
+## [1] "double"
+```
+
+---
+# Basic Data Classes 
+
+Character - strings
+
+
+```r
+x &lt;- "Hello darkness my old friend"
+y &lt;- "1"
+typeof(x); typeof(y)
+```
+
+```
+## [1] "character"
+```
+
+```
+## [1] "character"
+```
+
+---
+# Basic Data Classes
+
+Logical - `TRUE` or `FALSE` (also `T` or `F` for short)
+
+
+```r
+x &lt;- TRUE
+y &lt;- FALSE
+z &lt;- F
+typeof(x); typeof(y); typeof(z)
+```
+
+```
+## [1] "logical"
+```
+
+```
+## [1] "logical"
+```
+
+```
+## [1] "logical"
+```
+
+---
+# Data Structures: Vectors
+
+Most vectors are atomic vectors: create with `c()`
+
+
+```r
+# integer 
+c(1L, 2L, 3L)
+```
+
+```
+## [1] 1 2 3
+```
+
+```r
+# numeric 
+(my_vec &lt;- c(pi, exp(1), 1))
+```
+
+```
+## [1] 3.141593 2.718282 1.000000
+```
+
+```r
+# character
+c("Hello", "darkness", "my old", "friend")
+```
+
+```
+## [1] "Hello"    "darkness" "my old"   "friend"
+```
+&lt;!-- # factor - categories 
+as.factor(c("A", "B", "B", "A", "B"))
+--&gt;
+
+---
+# Vectors ⚠️
+
+Warning! Only 1 type of data allowed in vectors! 
+
+
+```r
+# what happens when we try to combine character &amp; number? 
+c("Hello", 3.14)
+```
+
+```
+## [1] "Hello" "3.14"
+```
+
+```r
+# what happens when we try to combine character &amp; logical? 
+c("Hello", F)
+```
+
+```
+## [1] "Hello" "FALSE"
+```
+
+```r
+# what happens when we try to combine logical &amp; number? 
+c(T, 3.14)
+```
+
+```
+## [1] 1.00 3.14
+```
+
+---
+# Data structures: Matrices
+
+A matrix is made up of vectors. All matrix entries must be of the same type. 
+
+
+```r
+# matrix of numerics
+(my_mat1 &lt;- matrix(rnorm(10), nrow = 2))
+```
+
+```
+##             [,1]       [,2]       [,3]       [,4]     [,5]
+## [1,]  0.32908422 -0.3144196  0.5753981 -0.6243501 1.066836
+## [2,] -0.06715841  0.5676212 -0.4382936 -1.1381403 1.998738
+```
+
+```r
+# matrix of characters 
+(my_mat2 &lt;- matrix(LETTERS[1:10], nrow = 2))
+```
+
+```
+##      [,1] [,2] [,3] [,4] [,5]
+## [1,] "A"  "C"  "E"  "G"  "I" 
+## [2,] "B"  "D"  "F"  "H"  "J"
+```
+&lt;!--
+# matrix of integers
+matrix(1:10, nrow = 2)
+--&gt;
+
+---
+# Get stuff out of lists, matrices
+
+- In R, indexing starts at 1.
+- Vectors: use `[]`
+- Matrices: use `[,]`
+
+
+```r
+my_vec[1]
+```
+
+```
+## [1] 3.141593
+```
+
+```r
+my_mat1[1,1]
+```
+
+```
+## [1] 0.3290842
+```
+
+```r
+my_mat2[1,]
+```
+
+```
+## [1] "A" "C" "E" "G" "I"
+```
+
+
+---
+# Data structures: Lists
+
+Can contain any type of data
+ 
+
+```r
+(x &lt;- list(a_matrix = matrix(rnorm(10), nrow = 2), 
+     a_vector = c("A", "B", "C"), 
+     a_list = list(1,2)))
+```
+
+```
+## $a_matrix
+##            [,1]     [,2]       [,3]      [,4]        [,5]
+## [1,] -2.3290193 1.516987  0.7014108 1.4801927 -0.04381861
+## [2,]  0.6253432 0.299102 -0.2229952 0.5289747 -0.48994969
+## 
+## $a_vector
+## [1] "A" "B" "C"
+## 
+## $a_list
+## $a_list[[1]]
+## [1] 1
+## 
+## $a_list[[2]]
+## [1] 2
+```
+
+---
+# Get stuff out of lists
+
+&lt;img src="https://pbs.twimg.com/media/CO2_qPVWsAAErbv?format=png" style="display: block; margin: auto;" /&gt;
+
+
+---
+# Data structures: Data frames
+
+Stores data in rows and columns. Within a column, all items must be the same type. 
+
+
+```r
+data(mtcars)
+head(mtcars)
+```
+
+```
+##                    mpg cyl disp  hp drat    wt  qsec vs am gear carb
+## Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
+## Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
+## Datsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1
+## Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
+## Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2
+## Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1
+```
+
+---
+# Get stuff out of data frames
+
+
+```r
+head(mtcars$mpg)
+```
+
+```
+## [1] 21.0 21.0 22.8 21.4 18.7 18.1
+```
+
+```r
+mtcars[1, ]
+```
+
+```
+##           mpg cyl disp  hp drat   wt  qsec vs am gear carb
+## Mazda RX4  21   6  160 110  3.9 2.62 16.46  0  1    4    4
+```
+
+```r
+head(mtcars[c(T, rep(F, 30), T),])
+```
+
+```
+##             mpg cyl disp  hp drat   wt  qsec vs am gear carb
+## Mazda RX4  21.0   6  160 110 3.90 2.62 16.46  0  1    4    4
+## Volvo 142E 21.4   4  121 109 4.11 2.78 18.60  1  1    4    2
+```
+
+
+---
+class: inverse, middle, center
+# Functions &amp; loops 
+
+---
+# Base R Functions 
+
+Basic Math: `+`, `-`, `*`, `/`, `sin()`, etc.  
+`tail()`: show the last `\(n\)` rows of the data  
+`plot()`: create basic plots  
+`t()`: transpose a matrix  
+ 
+Functions have named arguments: 
+
+
+```r
+# generate 5 random standard normals 
+rnorm(n = 5, mean = 0, sd = 1)
+```
+
+```
+## [1] -0.01542333  0.08750979  1.41664911 -0.54164902  0.39946897
+```
+
+```r
+# fit a linear model 
+lm(mpg ~ wt, data = mtcars)
+```
+
+```
+## 
+## Call:
+## lm(formula = mpg ~ wt, data = mtcars)
+## 
+## Coefficients:
+## (Intercept)           wt  
+##      37.285       -5.344
+```
+
+---
+# Create your own function
+
+
+```r
+my_fun &lt;- function(x){
+  x + 2
+}
+my_fun(2)
+```
+
+```
+## [1] 4
+```
+
+```r
+my_fun2 &lt;- function(name){
+  paste0("My name is ", name)
+}
+my_fun2("Sam")
+```
+
+```
+## [1] "My name is Sam"
+```
+
+---
+# For loops
+
+Do the same thing to a bunch of things 
+
+
+```r
+for (i in 1:10){
+  print(i^2)
+}
+```
+
+```
+## [1] 1
+## [1] 4
+## [1] 9
+## [1] 16
+## [1] 25
+## [1] 36
+## [1] 49
+## [1] 64
+## [1] 81
+## [1] 100
+```
+
+---
+# While loops 
+
+
+```r
+i &lt;- 0
+while (i &lt; 10){
+  print(i)
+  i &lt;- i + 1
+}
+```
+
+```
+## [1] 0
+## [1] 1
+## [1] 2
+## [1] 3
+## [1] 4
+## [1] 5
+## [1] 6
+## [1] 7
+## [1] 8
+## [1] 9
+```
+
+---
+class: inverse, middle, center
+# Packages 📦 📦 📦
+
+---
+# What is an R 📦?
+
+- A collection of additional R functions for a specific purpose. 
+
+Examples: 
+
+- `ggplot2` for creating data visualizations 
+- `lme4` for fitting linear, generalized linear, and nonlinear mixed models 
+- `dplyr` for "tidy" data manipulation
+- `tidyr` for tidying data 
+- `devtools` for creating R packages 
+
+
+---
+# Installing a package 
+
+Before you can use a package, you need to install it: 
+
+
+```r
+# from CRAN
+install.packages(c("ggplot2", "lme4", "dplyr", "tidyr", "devtools"))
+# from Github
+devtools::install_github("tidyverse/ggplot2")
+```
+
+---
+# Using a package 
+
+Two ways: 
+
+- Attach it to the workspace with `library()`: 
+
+
+```r
+library(ggplot2)
+```
+
+- Call the functions out of the package with `::`: 
+
+
+```r
+dplyr::filter(mtcars, mpg &lt; 15)
+```
+
+```
+##                      mpg cyl disp  hp drat    wt  qsec vs am gear carb
+## Duster 360          14.3   8  360 245 3.21 3.570 15.84  0  0    3    4
+## Cadillac Fleetwood  10.4   8  472 205 2.93 5.250 17.98  0  0    3    4
+## Lincoln Continental 10.4   8  460 215 3.00 5.424 17.82  0  0    3    4
+## Chrysler Imperial   14.7   8  440 230 3.23 5.345 17.42  0  0    3    4
+## Camaro Z28          13.3   8  350 245 3.73 3.840 15.41  0  0    3    4
+```
+
+---
+# Finding R packages to use
+
+- CRAN task views: Collections of packages for types of tasks
+    * [Time series](https://cran.r-project.org/web/views/TimeSeries.html)
+    * [Social sciences](https://cran.r-project.org/web/views/SocialSciences.html)
+    * [Econometrics](https://cran.r-project.org/web/views/Econometrics.html) 
+    * [Chemometrics and Computational Physics](https://cran.r-project.org/web/views/ChemPhys.html)
+    * [Many more!](https://cran.r-project.org/web/views/)
+
+
+---
+class: inverse, middle, center
+# Reading data into R 
+
+---
+# Base R 
+
+- `read.csv()`: reads in comma-separatd value files
+- `read.table()`: reads in tab-delimited files 
+- `read.delim()`: reads in arbitrarily delimited files 
+- `readLines()`: reads in text files 
+- `readRDS()`: reads in R data files (RDS)
+
+---
+# Using other packages 
+
+The `readr` package: 
+- `read_csv()`, `read_delim()`, `read_rds()`, etc. 
+
+The `haven` package: 
+- `read_sas()`, `read_spss()`, `read_stata()`, etc.  
+
+The `readxl` package: 
+- `read_excel()`, `read_xls()`, etc.
+
+The `data.table` package: 
+- `fread()` 
+
+---
+# Examples 
+
+
+```r
+commute &lt;- readr::read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-11-05/commute.csv")
+head(commute)
+```
+
+```
+## # A tibble: 6 x 9
+##   city       state    city_size mode      n percent   moe state_abb state_region
+##   &lt;chr&gt;      &lt;chr&gt;    &lt;chr&gt;     &lt;chr&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;       
+## 1 Aberdeen … South D… Small     Bike    110     0.8   0.5 SD        North Centr…
+## 2 Acworth c… Georgia  Small     Bike      0     0     0.4 GA        South       
+## 3 Addison v… Illinois Small     Bike     43     0.2   0.3 IL        North Centr…
+## 4 Adelanto … Califor… Small     Bike      0     0     0.5 CA        West        
+## 5 Adrian ci… Michigan Small     Bike    121     1.5   1   MI        North Centr…
+## 6 Agawam To… Massach… Small     Bike      0     0     0.2 MA        Northeast
+```
+
+---
+# Examples 
+
+
+```r
+iris &lt;- haven::read_sas("dat/iris.sas7bdat")
+head(iris)
+```
+
+```
+## # A tibble: 6 x 5
+##   Sepal_Length Sepal_Width Petal_Length Petal_Width Species
+##          &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt; &lt;chr&gt;  
+## 1          5.1         3.5          1.4         0.2 setosa 
+## 2          4.9         3            1.4         0.2 setosa 
+## 3          4.7         3.2          1.3         0.2 setosa 
+## 4          4.6         3.1          1.5         0.2 setosa 
+## 5          5           3.6          1.4         0.2 setosa 
+## 6          5.4         3.9          1.7         0.4 setosa
+```
+
+---
+# Some data cleaning 
+
+The `janitor` package cleans things up nicely: 
+
+
+```r
+janitor::clean_names(iris)
+```
+
+```
+## # A tibble: 150 x 5
+##    sepal_length sepal_width petal_length petal_width species
+##           &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt; &lt;chr&gt;  
+##  1          5.1         3.5          1.4         0.2 setosa 
+##  2          4.9         3            1.4         0.2 setosa 
+##  3          4.7         3.2          1.3         0.2 setosa 
+##  4          4.6         3.1          1.5         0.2 setosa 
+##  5          5           3.6          1.4         0.2 setosa 
+##  6          5.4         3.9          1.7         0.4 setosa 
+##  7          4.6         3.4          1.4         0.3 setosa 
+##  8          5           3.4          1.5         0.2 setosa 
+##  9          4.4         2.9          1.4         0.2 setosa 
+## 10          4.9         3.1          1.5         0.1 setosa 
+## # … with 140 more rows
+```
+
+---
+# Some data cleaning 
+
+
+```r
+library(readr)
+library(dplyr)
+library(tidyr)
+bob_ross &lt;- read_rds("dat/bobross.rds")
+head(bob_ross)
+```
+
+```
+## # A tibble: 6 x 69
+##   episode title apple_frame aurora_borealis  barn beach  boat bridge building
+##   &lt;chr&gt;   &lt;chr&gt;       &lt;int&gt;           &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;  &lt;int&gt;    &lt;int&gt;
+## 1 S01E01  A WA…           0               0     0     0     0      0        0
+## 2 S01E02  MT. …           0               0     0     0     0      0        0
+## 3 S01E03  EBON…           0               0     0     0     0      0        0
+## 4 S01E04  WINT…           0               0     0     0     0      0        0
+## 5 S01E05  QUIE…           0               0     0     0     0      0        0
+## 6 S01E06  WINT…           0               0     0     0     0      0        0
+## # … with 60 more variables: bushes &lt;int&gt;, cabin &lt;int&gt;, cactus &lt;int&gt;,
+## #   circle_frame &lt;int&gt;, cirrus &lt;int&gt;, cliff &lt;int&gt;, clouds &lt;int&gt;, conifer &lt;int&gt;,
+## #   cumulus &lt;int&gt;, deciduous &lt;int&gt;, diane_andre &lt;int&gt;, dock &lt;int&gt;,
+## #   double_oval_frame &lt;int&gt;, farm &lt;int&gt;, fence &lt;int&gt;, fire &lt;int&gt;,
+## #   florida_frame &lt;int&gt;, flowers &lt;int&gt;, fog &lt;int&gt;, framed &lt;int&gt;, grass &lt;int&gt;,
+## #   guest &lt;int&gt;, half_circle_frame &lt;int&gt;, half_oval_frame &lt;int&gt;, hills &lt;int&gt;,
+## #   lake &lt;int&gt;, lakes &lt;int&gt;, lighthouse &lt;int&gt;, mill &lt;int&gt;, moon &lt;int&gt;,
+## #   mountain &lt;int&gt;, mountains &lt;int&gt;, night &lt;int&gt;, ocean &lt;int&gt;,
+## #   oval_frame &lt;int&gt;, palm_trees &lt;int&gt;, path &lt;int&gt;, person &lt;int&gt;,
+## #   portrait &lt;int&gt;, rectangle_3d_frame &lt;int&gt;, rectangular_frame &lt;int&gt;,
+## #   river &lt;int&gt;, rocks &lt;int&gt;, seashell_frame &lt;int&gt;, snow &lt;int&gt;,
+## #   snowy_mountain &lt;int&gt;, split_frame &lt;int&gt;, steve_ross &lt;int&gt;, structure &lt;int&gt;,
+## #   sun &lt;int&gt;, tomb_frame &lt;int&gt;, tree &lt;int&gt;, trees &lt;int&gt;, triple_frame &lt;int&gt;,
+## #   waterfall &lt;int&gt;, waves &lt;int&gt;, windmill &lt;int&gt;, window_frame &lt;int&gt;,
+## #   winter &lt;int&gt;, wood_framed &lt;int&gt;
+```
+
+---
+# Some data cleaning 
+
+
+```r
+bob_ross %&gt;% 
+  gather(element, present, apple_frame:wood_framed)
+```
+
+```
+## # A tibble: 27,001 x 4
+##    episode title               element     present
+##    &lt;chr&gt;   &lt;chr&gt;               &lt;chr&gt;         &lt;int&gt;
+##  1 S01E01  A WALK IN THE WOODS apple_frame       0
+##  2 S01E02  MT. MCKINLEY        apple_frame       0
+##  3 S01E03  EBONY SUNSET        apple_frame       0
+##  4 S01E04  WINTER MIST         apple_frame       0
+##  5 S01E05  QUIET STREAM        apple_frame       0
+##  6 S01E06  WINTER MOON         apple_frame       0
+##  7 S01E07  AUTUMN MOUNTAINS    apple_frame       0
+##  8 S01E08  PEACEFUL VALLEY     apple_frame       0
+##  9 S01E09  SEASCAPE            apple_frame       0
+## 10 S01E10  MOUNTAIN LAKE       apple_frame       0
+## # … with 26,991 more rows
+```
+
+---
+# Some data cleaning 
+
+
+```r
+bob_ross %&gt;% 
+  gather(element, present, apple_frame:wood_framed) %&gt;% 
+  mutate(present = as.logical(present)) 
+```
+
+```
+## # A tibble: 27,001 x 4
+##    episode title               element     present
+##    &lt;chr&gt;   &lt;chr&gt;               &lt;chr&gt;       &lt;lgl&gt;  
+##  1 S01E01  A WALK IN THE WOODS apple_frame FALSE  
+##  2 S01E02  MT. MCKINLEY        apple_frame FALSE  
+##  3 S01E03  EBONY SUNSET        apple_frame FALSE  
+##  4 S01E04  WINTER MIST         apple_frame FALSE  
+##  5 S01E05  QUIET STREAM        apple_frame FALSE  
+##  6 S01E06  WINTER MOON         apple_frame FALSE  
+##  7 S01E07  AUTUMN MOUNTAINS    apple_frame FALSE  
+##  8 S01E08  PEACEFUL VALLEY     apple_frame FALSE  
+##  9 S01E09  SEASCAPE            apple_frame FALSE  
+## 10 S01E10  MOUNTAIN LAKE       apple_frame FALSE  
+## # … with 26,991 more rows
+```
+
+---
+# Some data cleaning 
+
+
+```r
+bob_ross %&gt;% 
+  gather(element, present, apple_frame:wood_framed) %&gt;% 
+  mutate(present = as.logical(present)) %&gt;% 
+  extract(episode, into = c("season", "ep_num"), 
+          regex = "S(.*)E(.*)")
+```
+
+```
+## # A tibble: 27,001 x 5
+##    season ep_num title               element     present
+##    &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;               &lt;chr&gt;       &lt;lgl&gt;  
+##  1 01     01     A WALK IN THE WOODS apple_frame FALSE  
+##  2 01     02     MT. MCKINLEY        apple_frame FALSE  
+##  3 01     03     EBONY SUNSET        apple_frame FALSE  
+##  4 01     04     WINTER MIST         apple_frame FALSE  
+##  5 01     05     QUIET STREAM        apple_frame FALSE  
+##  6 01     06     WINTER MOON         apple_frame FALSE  
+##  7 01     07     AUTUMN MOUNTAINS    apple_frame FALSE  
+##  8 01     08     PEACEFUL VALLEY     apple_frame FALSE  
+##  9 01     09     SEASCAPE            apple_frame FALSE  
+## 10 01     10     MOUNTAIN LAKE       apple_frame FALSE  
+## # … with 26,991 more rows
+```
+
+---
+# Some data cleaning 
+
+
+```r
+bob_ross %&gt;% 
+  gather(element, present, apple_frame:wood_framed) %&gt;% 
+  mutate(present = as.logical(present)) %&gt;% 
+  extract(episode, into = c("season", "ep_num"), 
+          regex = "S(.*)E(.*)") %&gt;% 
+  mutate_at(1:2, parse_number)
+```
+
+```
+## # A tibble: 27,001 x 5
+##    season ep_num title               element     present
+##     &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;               &lt;chr&gt;       &lt;lgl&gt;  
+##  1      1      1 A WALK IN THE WOODS apple_frame FALSE  
+##  2      1      2 MT. MCKINLEY        apple_frame FALSE  
+##  3      1      3 EBONY SUNSET        apple_frame FALSE  
+##  4      1      4 WINTER MIST         apple_frame FALSE  
+##  5      1      5 QUIET STREAM        apple_frame FALSE  
+##  6      1      6 WINTER MOON         apple_frame FALSE  
+##  7      1      7 AUTUMN MOUNTAINS    apple_frame FALSE  
+##  8      1      8 PEACEFUL VALLEY     apple_frame FALSE  
+##  9      1      9 SEASCAPE            apple_frame FALSE  
+## 10      1     10 MOUNTAIN LAKE       apple_frame FALSE  
+## # … with 26,991 more rows
+```
+
+---
+# Some data cleaning 
+
+
+```r
+bob_ross %&gt;% 
+  gather(element, present, apple_frame:wood_framed) %&gt;% 
+  mutate(present = as.logical(present)) %&gt;% 
+  extract(episode, into = c("season", "ep_num"), 
+          regex = "S(.*)E(.*)") %&gt;% 
+  mutate_at(1:2, parse_number) %&gt;% 
+  arrange(season, ep_num)
+```
+
+```
+## # A tibble: 27,001 x 5
+##    season ep_num title               element         present
+##     &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;               &lt;chr&gt;           &lt;lgl&gt;  
+##  1      1      1 A WALK IN THE WOODS apple_frame     FALSE  
+##  2      1      1 A WALK IN THE WOODS aurora_borealis FALSE  
+##  3      1      1 A WALK IN THE WOODS barn            FALSE  
+##  4      1      1 A WALK IN THE WOODS beach           FALSE  
+##  5      1      1 A WALK IN THE WOODS boat            FALSE  
+##  6      1      1 A WALK IN THE WOODS bridge          FALSE  
+##  7      1      1 A WALK IN THE WOODS building        FALSE  
+##  8      1      1 A WALK IN THE WOODS bushes          TRUE   
+##  9      1      1 A WALK IN THE WOODS cabin           FALSE  
+## 10      1      1 A WALK IN THE WOODS cactus          FALSE  
+## # … with 26,991 more rows
+```
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

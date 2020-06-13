@@ -4,6 +4,9 @@ A place for storing all my slides as I transition from jekyll + github.io site t
 
 ## Links 
 
+- Teaching  
+    * [A Quick IntRo](Misc/Other/stpf-intRo) for the [AAAS Science & Technology Policy Fellowships R Users Affinity Group](https://github.com/AAAS-STPF-R-AG)
+    * [Introduction to R and Statistics](https://csafe-isu.github.io/reu18/slides/) for the CSAFE REU in 2018.
 - Talks given at R-Ladies Ames  
     * [Webscraping with Tidyverse](RLadies/webscraping-tidyverse)
     * [The Life Changing Magic of Tidying Data](RLadies/magic-tidying-data)
@@ -25,4 +28,5 @@ A place for storing all my slides as I transition from jekyll + github.io site t
     * [Royal Statistical Society 2015 International Conference, Exeter, Devon, UK](Conferences/rss15)
 - Other Talks  
     * [Fitting a Random Forest the `tidymodels` way](Misc/Other/csafe-tidymodels), presented to the CSAFE working group
+    
     
