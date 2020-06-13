@@ -44,5 +44,6 @@ vignettes/*.pdf
 
 # data I can't/don't want to push
 Misc/InvitedTalks/usma/dat/sigacts.csv
+Misc/InvitedTalks/usma/code/data-cleaning.R
 RLadies/The Life Changing Magic of Tidying Data/data/baseball.csv
 RLadies/The Life Changing Magic of Tidying Data/data/midwest.csv
