@@ -6,6 +6,7 @@ A place for storing all my slides as I transition from jekyll + github.io site t
 
 - Teaching  
     * [A Quick IntRo](Misc/Other/stpf-intRo) for the [AAAS Science & Technology Policy Fellowships R Users Affinity Group](https://github.com/AAAS-STPF-R-AG)
+    * [The Week of R](http://heike.github.io/rwrks/) with Haley Jeppson and Heike Hofmann
     * [Introduction to R and Statistics](https://csafe-isu.github.io/reu18/slides/) for the CSAFE REU in 2018.
 - Talks given at R-Ladies Ames  
     * [Webscraping with Tidyverse](RLadies/webscraping-tidyverse)
