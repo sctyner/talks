@@ -23,4 +23,6 @@ A place for storing all my slides as I transition from jekyll + github.io site t
     * [Joint Statistical Meetings 2018, Vancouver, BC](Conferences/jsm18/slides.html)
     * [Plotcon 2017, Oakland, CA](Conferences/plotcon17/slides.html)
     * [Royal Statistical Society 2015 International Conference, Exeter, Devon, UK](Conferences/rss15)
+- Other Talks  
+    * [Fitting a Random Forest the `tidymodels` way](Misc/Other/csafe-tidymodels), presented to the CSAFE working group
     

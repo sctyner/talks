@@ -1,0 +1,1146 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Fitting a Random Forest the tidymodels way</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Sam Tyner" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/csafe.css" type="text/css" />
+    <link rel="stylesheet" href="css/csafe-fonts.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Fitting a Random Forest the <code>tidymodels</code> way
+### Sam Tyner
+### 2019/02/13
+
+---
+
+
+
+
+class: inverse
+# Part 1: All about tidy tools
+
+---
+class: primary
+# `tidymodels`?
+
+The manifestation of the tidyverse applied to modeling (as opposed to data). 
+
+&lt;img src="https://avatars1.githubusercontent.com/u/22032646?s=200&amp;v=4" width="50%" /&gt;&lt;img src="https://avatars2.githubusercontent.com/u/29100987?s=200&amp;v=4" width="50%" /&gt;
+
+---
+class: primary
+# Tidy Tools Principles 
+
+From the [Tidy Tools Manifesto](https://cran.r-project.org/web/packages/tidyverse/vignettes/manifesto.html)
+
+1. Reuse existing data structures.
+2. Compose simple functions with the pipe. (`%&gt;%`)
+3. Embrace functional programming.
+4. Design for humans.
+
+---
+class: primary
+# Reuse existing data structures 
+
+Use things of class `data.frame`, `list`, `tibble` in favor of creating a separate data structure / class. 
+
+`tibble` : the `tidyverse` [response](https://cran.r-project.org/web/packages/tibble/vignettes/tibble.html) to the `data.frame` class: 
+
+- It never changes an input’s type (no more `stringsAsFactors = FALSE`!)
+- It never adjusts the names of variables (e.g. inserting periods for spaces)
+- It evaluates its arguments lazily and sequentially, so you can use earlier variables when creating new variables.
+- It never uses `row.names()`. (i.e. don't encode information in someplace that's not in the data table)
+- It only recycles vectors of length 1. (This is because recycling vectors of greater lengths is a frequent source of bugs.)
+
+---
+class: primary
+# Compose simple functions with `%&gt;%` 
+
+Strings functions together in a human readable way. 👀
+
+Tidy Tips for writing functions: 
+
+- Strive to keep functions as simple as possible (but no simpler!). Generally, each function should do one thing well.
+- Avoid mixing side-effects with transformations. Ensure each function either returns an object, or has a side-effect. Don’t do both.
+- Function names should be verbs. The exception is when many functions use the same verb. In that case, focus on the noun. A good example of this is `ggplot2`: almost every function adds something to an existing plot.
+
+Note: Using `%&gt;%` is NOT compulsory in the `tidy` collections of packages.  
+
+
+---
+class:primary
+# Functional programming
+
+R is a functional programming language. Embrace it, don't fight it! 
+
+Python, C#, others are object-oriented programming languages. [(See more)](https://adv-r.hadley.nz/oo.html)
+
+Most important reason for using FP: 
+
+- Use tools that abstract over for-loops, like the `apply` family of functions or the `map` functions in `purrr`.
+
+---
+class: primary
+# Design for 👩‍💻 👨‍💻 👩‍💻
+
+Computing time &lt;&lt; Thinking time 
+
+- Evocative function names that are easy to remember how to use (e.g. `filter`, `select`, etc.)
+- Favour explicit, lengthy names, over short, implicit, names. The shortest names are the most important operations. (e.g `db_list_tables`) 
+- Function families are identified by a common prefix, not a common suffix. This makes autocomplete more helpful, as you can jog your memory with the prompts. (e.g. `str_sub`, `str_replace`, `str_remove` in `stringr`)
+
+---
+class: primary
+# `tidymodels` 📦 📦 📦
+
+All stored in a [Github organization](https://github.com/tidymodels)
+
+&lt;img src="https://raw.githubusercontent.com/tidymodels/yardstick/master/man/figures/logo.png" width="25%" /&gt;&lt;img src="https://raw.githubusercontent.com/topepo/rstudio-conf-2019/master/Materials/images/parsnip.png" width="25%" /&gt;&lt;img src="https://raw.githubusercontent.com/topepo/rstudio-conf-2019/master/Materials/images/broom.png" width="25%" /&gt;&lt;img src="https://raw.githubusercontent.com/topepo/rstudio-conf-2019/master/Materials/images/recipes.png" width="25%" /&gt;&lt;img src="https://raw.githubusercontent.com/tidymodels/rsample/master/rsample_hex_thumb.png" width="25%" /&gt;&lt;img src="https://raw.githubusercontent.com/tidymodels/tidyposterior/master/tidyposterior_hex.png" width="25%" /&gt;
+
+Others: `dials`, `infer`, `probably`, `textrecipes`, `embed`
+
+---
+class: inverse
+# Part 2: The `tidymodels` "Workflow" 
+
+---
+class: primary
+# "Workflow"?
+
+&lt;img src="images/workflow.png" width="75%" style="display: block; margin: auto;" /&gt;
+
+---
+class: primary
+# Where to begin?
+
+At the beginning! 
+
+- Read your data into R
+- Split it up to training and testing 
+- Everything we do for now will be with the training data *only*
+- Don't touch the testing data until the very end 
+
+**Remember:** Set a seed (`set.seed()`) before each piece of the process that involves randomness. 
+
+---
+class: primary
+# 📦: `rsample`
+
+From the [website](https://tidymodels.github.io/rsample/): 
+
+- "The scope of `rsample` is to provide the basic building blocks for creating and analyzing resamples of a data set but does not include code for modeling or calculating statistics."
+- Anything to do with sampling the data: 
+    + splitting into training/testing
+    + sets for cross-validation 
+    + other bootstrapping needs 
+- Don't forget to set the seed! 
+
+---
+class: primary
+# Glass data 
+
+
+```r
+library(tidyverse)
+library(tidymodels)
+
+# get data 
+glass_data &lt;- read_rds("dat/glass_data.rds")
+```
+
+
+---
+class: secondary
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt;   &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Li &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Na &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Mg &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Al &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; K &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Ca &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; match &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.042 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.014 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.004 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.031 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.012 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.018 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.645 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.048 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.037 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.048 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.080 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.062 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.286 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.036 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.041 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.083 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.038 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.097 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.260 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.034 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.024 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.007 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.047 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.050 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.154 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.021 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.005 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.060 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.050 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.007 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:right;"&gt; match &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; n &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 67680 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1440 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+---
+class: primary
+# Split data 
+
+Use 75% for training 25% for testing. Change this with `prop`.
+
+Make sure we get the same proportion of each class in the data with `strata`
+
+
+```r
+set.seed(654321)
+glass_data_split &lt;- initial_split(data = glass_data, prop = 0.75, strata = "match")
+glass_data_train &lt;- training(glass_data_split)
+glass_data_test &lt;- testing(glass_data_split)
+
+dim(glass_data) ; dim(glass_data_train) ; dim(glass_data_test)
+```
+
+```
+## [1] 69120    19
+```
+
+```
+## [1] 51840    19
+```
+
+```
+## [1] 17280    19
+```
+
+
+---
+class: primary
+# Set up CV
+
+Cross-validation (CV) : 
+
+- resample the training data 
+- create some (5 or 10) bootstrap samples of the training set 
+- split up the bss into "analysis" and "assessment" sets 
+- fit the model(s) of interest to each analysis set
+- compare model performance based on the assessment sets
+
+&lt;img src="images/cv-folds.png" width="85%" style="display: block; margin: auto;" /&gt;
+
+---
+class: primary
+# Why CV? 
+
+&lt;img src="images/process.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+- want to find the best model for **all** data, not just your data 
+
+---
+class: primary
+# Split data for CV
+
+
+```r
+set.seed(2453)
+cv_glass_data &lt;- vfold_cv(
+  data = glass_data_train,
+  v = 5,
+  strata = "match"
+)
+cv_glass_data ; cv_glass_data$splits[[1]]
+```
+
+```
+## #  5-fold cross-validation using stratification 
+## # A tibble: 5 x 2
+##   splits                id   
+##   &lt;list&gt;                &lt;chr&gt;
+## 1 &lt;split [41.5K/10.4K]&gt; Fold1
+## 2 &lt;split [41.5K/10.4K]&gt; Fold2
+## 3 &lt;split [41.5K/10.4K]&gt; Fold3
+## 4 &lt;split [41.5K/10.4K]&gt; Fold4
+## 5 &lt;split [41.5K/10.4K]&gt; Fold5
+```
+
+```
+## &lt;Analysis/Assess/Total&gt;
+## &lt;41472/10368/51840&gt;
+```
+
+---
+class: primary 
+# Model(s) of interest
+
+Depending on your data, you will probably have several models you are interested in evaluating.
+
+- Regression (continuous response): 
+    + Linear model
+    + Regression trees
+    + K nearest neighhbors
+    + etc. 
+- Classification (discrete response):
+    + Logsitic regression
+    + Classification trees
+    + Multinomial regression 
+    + etc. 
+
+---
+class: primary
+# 📦: `parsnip`
+
+From the [website](https://tidymodels.github.io/parsnip/): 
+
+The idea of parsnip is to:
+- Separate the definition of a model from its evaluation.
+- Decouple the model specification from the implementation (whether the implementation is in R, spark, or something else). For example, the user would call rand_forest instead of ranger::ranger or other specific packages.
+- Harmonize the argument names (e.g. n.trees, ntrees, trees) so that users can remember a single name. This will help across model types too so that trees will be the same argument across random forest as well as boosting or bagging.
+
+---
+class: primary
+# How? 
+
+Unified tidy interface to many [types of models](https://tidymodels.github.io/parsnip/articles/articles/Models.html)
+
+Example: random forest (mode is regression or classification)
+
+```r
+rand_forest(mode, mtry = NULL, trees = NULL,
+  min_n = NULL)
+```
+
+A random forest model can be fit with `randomForest`, `ranger`, or `spark` by specifying the `engine`: 
+
+```r
+rand_forest(mode, mtry = NULL, trees = NULL,
+  min_n = NULL) %&gt;% 
+  set_engine(engine)
+```
+
+---
+class: primary 
+# RF for glass data 
+
+
+```r
+# parameter specification
+Mtry &lt;- floor(sqrt(18)) # could also choose to tune according to this or another RF parameter 
+mod &lt;- rand_forest(mode = "classification", mtry = Mtry) # other params set to defaults
+# what engine to use to fit the model
+spec_rf &lt;- mod %&gt;% 
+  set_engine("randomForest")
+spec_rf ; class(spec_rf)
+```
+
+```
+## Random Forest Model Specification (classification)
+## 
+## Main Arguments:
+##   mtry = Mtry
+## 
+## Computational engine: randomForest
+```
+
+```
+## [1] "rand_forest" "model_spec"
+```
+
+Note: we don't need the data for this! 
+
+---
+class: primary 
+# 📦: `parsnip`
+
+The fitting of *every possible model* in the `parnsip` package is done with 1 function: 
+
+```r
+fit(object, # has class model_spec
+    formula = NULL, # eg y ~ x
+    data = NULL, # training data
+    control = fit_control()) # control verbosity &amp; error handling
+```
+
+--
+
+&lt;img src="https://media.giphy.com/media/1nQ6af11oUa5Sb5oYg/giphy.gif" width="50%" /&gt;&lt;img src="https://raw.githubusercontent.com/topepo/rstudio-conf-2019/master/Materials/images/parsnip.png" width="30%" /&gt;
+
+---
+class: primary
+# Fit RF to glass data 
+
+```r
+rf_formula &lt;- match ~ . 
+
+fit(
+    object = sprec_rf, 
+    formula =rf_formula, 
+    data = ??? # what data are you fitting it to? 
+  )
+```
+
+--
+
+Could use `data = glass_data_train`. But, we want to pick the best RF via cross-validation. So, use the CV splits. But: 
+
+--
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:right;"&gt; match &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; n &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 40575 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 897 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+---
+class: primary 
+# Prepare data for fitting 
+
+Often, data need some massaging before we can fit a model
+
+- centering &amp; scaling for e.g. SVMs, NNs
+- transformation of variables (e.g. log or Box-Cox transformations)
+- impute missing values
+- develop new features from data variables
+- dummy variables (e.g. CoNNOR uses one-hot encoding)
+
+---
+class: primary
+# 📦: `RECIPES`
+
+From the [website](https://tidymodels.github.io/recipes/): 
+
+
+"The idea of the recipes package is to define a recipe or blueprint that can be used to sequentially define the encodings and preprocessing of the data (i.e. "feature engineering")."
+
+
+```r
+data("Sonar",package = "mlbench")
+sonar_rec &lt;- recipe(Class ~ ., data = Sonar) %&gt;%
+  step_center(all_predictors()) %&gt;%
+  step_scale(all_predictors())
+```
+
+---
+class:secondary
+
+
+```r
+sonar_rec ; class(sonar_rec)
+```
+
+```
+## Data Recipe
+## 
+## Inputs:
+## 
+##       role #variables
+##    outcome          1
+##  predictor         60
+## 
+## Operations:
+## 
+## Centering for all_predictors
+## Scaling for all_predictors
+```
+
+```
+## [1] "recipe"
+```
+
+---
+class: primary
+# Why? 
+
+Preparing your data for fitting with `recipes`
+
+- Keeps track of what you do, both in the code and in the "recipe" object 
+- Stores information from the training data (e.g. for centering, scaling) to use on the testing data
+- Saves you time and energy by automating and documenting the data manipulation necessary for each model you fit
+
+```r
+recipe() %&gt;% prep() %&gt;% bake()/juice()
+
+(define) --&gt; (estimate) --&gt; (apply)
+```
+
+---
+class: secondary 
+
+- `recipe(data, formula)` : The outline of what data manipulation to do. 
+- `step_*()`: additional steps to add to the recipe
+- `prep()` : do the `"recipe"` on the training data
+- `bake()` : do the `"recipe"` on the testing data using info from the training data 
+
+---
+class: primary
+# Recipe for glass data 
+
+What do we need to do to the glass data? 
+
+1. Convert the response from numeric to factor.
+2. Downsample the non-matches. 
+
+
+```r
+rf_recipe &lt;- recipe(rf_formula, data = glass_data_train) %&gt;% 
+  step_bin2factor(match) %&gt;% # convert class to a factor for randomForest
+  step_downsample(match) # downsample the data due to the large number of 0s in the data. 
+```
+
+
+---
+class: secondary 
+
+
+```r
+rf_recipe
+```
+
+```
+## Data Recipe
+## 
+## Inputs:
+## 
+##       role #variables
+##    outcome          1
+##  predictor         18
+## 
+## Operations:
+## 
+## Dummy variable to factor conversion for match
+## Down-sampling based on match
+```
+
+---
+class: primary
+# Can we fit the model yet? 
+
+Almost! First, we have to `prep` the cross-validation sets. 
+
+Downsample inside of resampling: don't just toss a bunch of training data! Only downsample after the data has been split up for CV. 
+
+
+```r
+# do the downsampling ~~inside of resampling~~ 
+cv_glass_data &lt;-  cv_glass_data %&gt;%
+  mutate(recipes = map(splits, prepper, 
+                       recipe = rf_recipe, retain = TRUE))
+```
+
+`retain = TRUE` keeps processed version of the training data around so we don't have to recompute it. 
+
+---
+class: secondary
+
+
+```r
+cv_glass_data
+```
+
+```
+## #  5-fold cross-validation using stratification 
+## # A tibble: 5 x 3
+##   splits                id    recipes 
+##   &lt;list&gt;                &lt;chr&gt; &lt;list&gt;  
+## 1 &lt;split [41.5K/10.4K]&gt; Fold1 &lt;recipe&gt;
+## 2 &lt;split [41.5K/10.4K]&gt; Fold2 &lt;recipe&gt;
+## 3 &lt;split [41.5K/10.4K]&gt; Fold3 &lt;recipe&gt;
+## 4 &lt;split [41.5K/10.4K]&gt; Fold4 &lt;recipe&gt;
+## 5 &lt;split [41.5K/10.4K]&gt; Fold5 &lt;recipe&gt;
+```
+
+```r
+cv_glass_data$splits[[1]]
+```
+
+```
+## &lt;Analysis/Assess/Total&gt;
+## &lt;41472/10368/51840&gt;
+```
+
+
+---
+class: primary
+# Aside: the `purrr` 📦
+
+Snuck the [`purrr`]() package into `mutate`
+
+- `map_*()`: suite of functions to apply functions to elements of a list and return an object (list or vector) the same length as the list
+
+
+```r
+map(
+{{ splits }}, 
+  prepper, 
+  recipe = rf_recipe, retain = TRUE
+)
+```
+
+List of data to use: `splits` column in `cv_glass_data`
+
+---
+class: primary
+# Aside: the `purrr` 📦
+
+Snuck the [`purrr`]() package into `mutate`
+
+- `map_*()`: suite of functions to apply functions to elements of a list and return an object (list or vector) the same length as the list
+
+
+```r
+map(
+  splits, 
+{{ prepper }}, 
+  recipe = rf_recipe, retain = TRUE
+)
+```
+
+Function to use: `prepper()`, a wrapper around `prep()` for iterating over lists
+
+---
+class: primary
+# Aside: the `purrr` 📦
+
+Snuck the [`purrr`]() package into `mutate`
+
+- `map_*()`: suite of functions to apply functions to elements of a list and return an object (list or vector) the same length as the list
+
+
+```r
+map(
+  splits, 
+  prepper, 
+* recipe = rf_recipe, retain = TRUE 
+)
+```
+
+Arguments to pass to the function: `prepper` requires the recipe, and we want to retain the training data for easy access
+
+---
+class: primary
+# Fitting the model! 
+
+
+```r
+fit_rf_to_splits &lt;- function(split, rec = NULL, mspec, form) {
+  if (!is.null(rec)) # if rec is specified (rec = recipe)
+    mod_data &lt;- juice(rec) # return the processed version of the training data 
+  else
+    mod_data &lt;- analysis(split) # if no recipe, use raw cv analysis data 
+  
+  mod_fit &lt;- fit(
+    object = mspec, # which model are you fitting 
+    formula = form, # what is its form?
+    data = mod_data # what data are you fitting it to? 
+  )
+  return(mod_fit)
+}
+
+cv_glass_data_fits &lt;- cv_glass_data %&gt;% 
+  mutate(model = map2(splits, recipes, fit_rf_to_splits, mspec = spec_rf, form = rf_formula))
+```
+
+---
+class: secondary
+
+```r
+cv_glass_data_fits
+## #  5-fold cross-validation using stratification 
+## # A tibble: 5 x 4
+##   splits                id    recipes      model   
+## * &lt;list&gt;                &lt;chr&gt; &lt;list&gt;       &lt;list&gt;  
+## 1 &lt;split [41.5K/10.4K]&gt; Fold1 &lt;S3: recipe&gt; &lt;fit[+]&gt;
+## 2 &lt;split [41.5K/10.4K]&gt; Fold2 &lt;S3: recipe&gt; &lt;fit[+]&gt;
+## 3 &lt;split [41.5K/10.4K]&gt; Fold3 &lt;S3: recipe&gt; &lt;fit[+]&gt;
+## 4 &lt;split [41.5K/10.4K]&gt; Fold4 &lt;S3: recipe&gt; &lt;fit[+]&gt;
+## 5 &lt;split [41.5K/10.4K]&gt; Fold5 &lt;S3: recipe&gt; &lt;fit[+]&gt;
+```
+
+---
+class: secondary
+
+```r
+print(cv_glass_data_fits$model$`1`)
+## parsnip model object
+## 
+## 
+## Call:
+##  randomForest(x = as.data.frame(x), y = y, mtry = ~Mtry) 
+##                Type of random forest: classification
+##                      Number of trees: 500
+## No. of variables tried at each split: 4
+## 
+##         OOB estimate of  error rate: 6.47%
+## Confusion matrix:
+##     yes  no class.error
+## yes 837  21  0.02447552
+## no   90 768  0.10489510
+```
+
+---
+class: primary
+# Comparing model performance
+
+For binary classification: 
+
+- **confusion matrix**: cross-tabulation between observed &amp; predicted classes 
+- **sensitivity** aka true positive rate: out of the actual positives, what proportion did the model classify as positives?
+- **specificty** aka true negative rate: out of the actual negatives, what proportion did the model classify as negatives?
+- **False negative rate** aka Type I error: 1 - specificity (classified true positives as negatives)
+- **False positive rate** aka Type II error: 1 - sensitivity (classified true negatives as positive)
+- **ROC AUC**: area under the receiver operating characteristic curve. Closer to 1 is better. 0.5 is random chance 
+
+
+---
+class: primary
+# ROC Curve Ex. 
+
+&lt;img src="images/ROCex.png" width="60%" style="display: block; margin: auto;" /&gt;
+
+---
+class: primary
+# But first, predict! 
+
+`parsnip` has a nice tidy interface for predicting: 
+
+```r
+predict(object, # has class model_fit 
+        new_data, # assessment/test data 
+        type) # e.g. "prob" for class probability or "class" for class prediction
+```
+
+Just like with `fit()`, this is the same for any model available in `parsnip`
+
+--
+
+&lt;img src="https://media.giphy.com/media/31lPv5L3aIvTi/giphy.gif" width="50%" style="display: block; margin: auto;" /&gt;
+
+
+---
+class: primary
+# Predict for all CV splits
+
+
+```r
+compute_pred &lt;- function(split, model, rec) {
+  # Extract the assessment set
+  assess &lt;- bake(rec, new_data = assessment(split)) 
+  # Compute predictions (a df is returned)
+  predprob &lt;- predict(model, new_data = assess, type = "prob") 
+  predclas &lt;- predict(model, new_data = assess) 
+  bind_cols(assess, predprob, predclas)
+}  
+cv_glass_data_fits &lt;- cv_glass_data_fits %&gt;% 
+  mutate(predictions = pmap(.l = list(splits, model, recipes), .f = compute_pred))
+```
+
+
+
+---
+class: secondary
+
+First 5 rows and last 6 columns of `cv_glass_data_fits$predictions[[1]]`: 
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:right;"&gt; Nd &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Pb &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Rb &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Sr &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Ti &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Zr &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; .pred_yes &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; .pred_no &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; .pred_class &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; -0.067 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.036 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.022 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.063 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.131 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.469 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.084 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.916 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; no &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; -0.043 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.050 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.080 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.072 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.070 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.659 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.092 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.908 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; no &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; -0.102 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.046 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.049 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.108 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.083 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.716 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.072 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.928 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; no &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; -0.480 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.112 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.726 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.055 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.396 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.405 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.000 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.000 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; no &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; -0.414 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.043 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.691 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.062 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.378 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.370 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.000 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.000 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; no &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; -0.437 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.031 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.748 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.041 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.390 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.380 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.000 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.000 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; no &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+---
+class: primary
+# 📦: `yardstick`
+
+From the [website](https://tidymodels.github.io/yardstick): "yardstick is a package to estimate how well models are working using tidy data principles." 
+
+- `conf_mat(truth, estimate)`: confusion matrix
+- `roc_auc(truth, estimate)`: computes area under the ROC curve
+- `spec(truth, estimate)`: computes specificity
+- `sens(truth, estimate)`: computes sensitivity
+- `roc_data(truth, estimate)`: returns a dataframe of values for plotting ROC curves
+- `autoplot()`: plot ROC curve. requires output from `roc_data`.
+
+---
+class: primary
+# Evaluate our RFs
+
+
+```r
+cv_glass_data_fits &lt;- cv_glass_data_fits %&gt;% mutate(conf_mat = map(predictions, ~conf_mat(.x, 
+    match, .pred_class)), roc_auc = map_dbl(predictions, ~roc_auc(.x, match, .pred_yes)$.estimate), 
+    specificity = map_dbl(predictions, ~spec(.x, match, .pred_class)$.estimate), 
+    sensitivity = map_dbl(predictions, ~sens(.x, match, .pred_class)$.estimate), 
+    roc_data = map(predictions, ~roc_curve(.x, match, .pred_yes)))
+names(cv_glass_data_fits)
+```
+
+```
+##  [1] "splits"      "id"          "recipes"     "model"       "predictions"
+##  [6] "conf_mat"    "roc_auc"     "specificity" "sensitivity" "roc_data"
+```
+
+---
+class: secondary
+
+
+```r
+cv_glass_data_fits %&gt;% 
+  select(id, roc_auc, specificity, sensitivity) %&gt;%
+  knitr::kable(format="html", digits = 3)
+```
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; id &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; roc_auc &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; specificity &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; sensitivity &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Fold1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.981 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.905 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.985 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Fold2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.979 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.906 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.957 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Fold3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.980 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.905 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.987 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Fold4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.977 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.894 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.967 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Fold5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.979 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.916 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.950 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+---
+class: secondary
+
+&lt;img src="index_files/figure-html/unnamed-chunk-14-1.png" width="60%" style="display: block; margin: auto;" /&gt;
+
+---
+class: inverse
+# Part 3: The End? 
+
+---
+class: primary
+# What we learned
+
+- The principles of tidy tools
+- The main packages in the `tidymodels` suite of packages
+    + rsample
+    + parsnip
+    + recipes
+    + yardstick
+- How to fit a random forest using these tools
+
+---
+class: primary
+# What we didn't learn
+
+- anything about tuning parameters. See the [`dials`](https://tidymodels.github.io/dials/) 📦
+- anything Bayesian. See the [`tidyposterior`](https://tidymodels.github.io/tidyposterior/) 📦 
+
+---
+class: primary 
+# What's next? 
+
+&lt;img src="https://media1.tenor.com/images/3f39a1f231e89d35b6287437709cce9c/tenor.gif?itemid=5039432" style="display: block; margin: auto;" /&gt;
+
+--
+
+Wednesday, **Feb 27th**: `tidymodels` BYOD DIY
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
