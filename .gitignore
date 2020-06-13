@@ -42,5 +42,7 @@ vignettes/*.pdf
 # mac thing
 *.DS_Store
 
-# data I can't share 
+# data I can't/don't want to push
 Misc/InvitedTalks/usma/dat/sigacts.csv
+RLadies/The Life Changing Magic of Tidying Data/data/baseball.csv
+RLadies/The Life Changing Magic of Tidying Data/data/midwest.csv
