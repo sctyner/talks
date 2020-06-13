@@ -16,6 +16,7 @@ A place for storing all my slides as I transition from jekyll + github.io site t
 - Invited Talks 
     * [National Institute of Standards & Technology](Misc/InvitedTalks/nist-sed)
     * [United States Military Academy](Misc/InvitedTalks/usma)
+    * [Significance Magazine Writing Competition Webinar](Misc/yss-webinar-2018.pdf)
 - Conference Presentations
     * [DC R Conference 2019, Georgetown University](Conferences/dcr19)
     * [Joint Statistical Meetings 2019, Denver, CO](Conferences/jsm19)
