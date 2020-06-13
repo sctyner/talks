@@ -1,0 +1,764 @@
+Major,Gender,Year,Number
+Advertising,Female,2010,65
+Advertising,Male,2010,24
+Anthropology,Female,2010,68
+Anthropology,Male,2010,27
+Biochemistry,Female,2010,81
+Biochemistry,Male,2010,58
+Bioinfo & Com B,Female,2010,5
+Bioinfo & Com B,Male,2010,6
+Biol/Pre-Med Il,Female,2010,10
+Biol/Pre-Med Il,Male,2010,4
+Biology,Female,2010,201
+Biology,Male,2010,150
+Biophysics,Female,2010,2
+Biophysics,Male,2010,3
+Chemistry,Female,2010,47
+Chemistry,Male,2010,71
+Comm Studies,Female,2010,153
+Comm Studies,Male,2010,80
+Computer Sc,Female,2010,10
+Computer Sc,Male,2010,107
+Criminal Jst St,Female,2010,NA
+Criminal Jst St,Male,2010,NA
+Earth Science,Female,2010,5
+Earth Science,Male,2010,6
+Economics,Female,2010,14
+Economics,Male,2010,56
+English,Female,2010,173
+English,Male,2010,70
+Environ Sci LAS,Female,2010,16
+Environ Sci LAS,Male,2010,33
+French,Female,2010,10
+Genetics-LAS,Female,2010,58
+Genetics-LAS,Male,2010,22
+Geology,Female,2010,14
+Geology,Male,2010,30
+German,Female,2010,4
+German,Male,2010,8
+History,Female,2010,89
+History,Male,2010,207
+Interdisc St,Female,2010,98
+Interdisc St,Male,2010,199
+Intnsv Engl LAS,Female,2010,69
+Intnsv Engl LAS,Male,2010,117
+Journ/Mass Comm,Female,2010,111
+Journ/Mass Comm,Male,2010,50
+Lib Arts/Sc Crt,Male,2010,NA
+Lib Arts/Sc Opt,Female,2010,NA
+Lib Arts/Sc Opt,Male,2010,NA
+Lib Arts/Sc Spc,Female,2010,75
+Lib Arts/Sc Spc,Male,2010,85
+Liberal Studies,Female,2010,55
+Liberal Studies,Male,2010,75
+Linguistics,Female,2010,29
+Linguistics,Male,2010,9
+Mathematics,Female,2010,55
+Mathematics,Male,2010,104
+Meteorology,Female,2010,42
+Meteorology,Male,2010,73
+Music,Female,2010,47
+Music,Male,2010,70
+Open Option-LAS,Female,2010,359
+Open Option-LAS,Male,2010,321
+P-Prof Hlth Prg,Female,2010,53
+P-Prof Hlth Prg,Male,2010,17
+Performing Arts,Female,2010,34
+Performing Arts,Male,2010,28
+Philosophy,Female,2010,2
+Philosophy,Male,2010,18
+Physics,Female,2010,11
+Physics,Male,2010,71
+Political Sc,Female,2010,84
+Political Sc,Male,2010,168
+Pre-Advertising,Female,2010,63
+Pre-Advertising,Male,2010,51
+Pre-Computer Sc,Female,2010,14
+Pre-Computer Sc,Male,2010,127
+Pre-Journ/Ms Cm,Female,2010,149
+Pre-Journ/Ms Cm,Male,2010,66
+Pre-Liberal St,Female,2010,21
+Pre-Liberal St,Male,2010,25
+PreBiol/Med Ill,Female,2010,23
+PreBiol/Med Ill,Male,2010,7
+Prep Human Med,Female,2010,51
+Prep Human Med,Male,2010,25
+Prep Law,Female,2010,12
+Prep Law,Male,2010,5
+Psychology,Female,2010,376
+Psychology,Male,2010,198
+Public Relation,Female,2010,NA
+Public Relation,Male,2010,NA
+Religious St,Female,2010,8
+Religious St,Male,2010,11
+Russian St,Female,2010,4
+Sociology,Female,2010,74
+Sociology,Male,2010,37
+Software Engr,Female,2010,2
+Software Engr,Male,2010,64
+Spanish,Female,2010,29
+Spanish,Male,2010,8
+Speech Comm,Female,2010,20
+Speech Comm,Male,2010,15
+Statistics,Female,2010,42
+Statistics,Male,2010,50
+Technical Comm,Female,2010,14
+Technical Comm,Male,2010,7
+Women's Studies,Female,2010,12
+Women's Studies,Male,2010,NA
+World Lng & Cul,Female,2010,32
+World Lng & Cul,Male,2010,21
+Advertising,Female,2011,58
+Advertising,Male,2011,31
+Anthropology,Female,2011,72
+Anthropology,Male,2011,24
+Biochemistry,Female,2011,73
+Biochemistry,Male,2011,60
+Bioinfo & Com B,Female,2011,4
+Bioinfo & Com B,Male,2011,5
+Biol/Pre-Med Il,Female,2011,17
+Biol/Pre-Med Il,Male,2011,3
+Biology,Female,2011,221
+Biology,Male,2011,159
+Biophysics,Female,2011,1
+Biophysics,Male,2011,5
+Chemistry,Female,2011,47
+Chemistry,Male,2011,70
+Comm Studies,Female,2011,152
+Comm Studies,Male,2011,87
+Computer Sc,Female,2011,10
+Computer Sc,Male,2011,132
+Criminal Jst St,Female,2011,NA
+Criminal Jst St,Male,2011,NA
+Earth Science,Female,2011,5
+Earth Science,Male,2011,6
+Economics,Female,2011,20
+Economics,Male,2011,59
+English,Female,2011,166
+English,Male,2011,70
+Environ Sci LAS,Female,2011,30
+Environ Sci LAS,Male,2011,29
+French,Female,2011,2
+Genetics-LAS,Female,2011,52
+Genetics-LAS,Male,2011,27
+Geology,Female,2011,17
+Geology,Male,2011,35
+German,Female,2011,2
+German,Male,2011,3
+History,Female,2011,104
+History,Male,2011,227
+Interdisc St,Female,2011,106
+Interdisc St,Male,2011,220
+Intnsv Engl LAS,Female,2011,43
+Intnsv Engl LAS,Male,2011,80
+Journ/Mass Comm,Female,2011,131
+Journ/Mass Comm,Male,2011,60
+Lib Arts/Sc Crt,Male,2011,NA
+Lib Arts/Sc Opt,Female,2011,6
+Lib Arts/Sc Opt,Male,2011,3
+Lib Arts/Sc Spc,Female,2011,94
+Lib Arts/Sc Spc,Male,2011,87
+Liberal Studies,Female,2011,61
+Liberal Studies,Male,2011,77
+Linguistics,Female,2011,33
+Linguistics,Male,2011,9
+Mathematics,Female,2011,65
+Mathematics,Male,2011,110
+Meteorology,Female,2011,40
+Meteorology,Male,2011,68
+Music,Female,2011,50
+Music,Male,2011,62
+Open Option-LAS,Female,2011,408
+Open Option-LAS,Male,2011,334
+P-Prof Hlth Prg,Female,2011,34
+P-Prof Hlth Prg,Male,2011,20
+Performing Arts,Female,2011,31
+Performing Arts,Male,2011,30
+Philosophy,Female,2011,5
+Philosophy,Male,2011,16
+Physics,Female,2011,19
+Physics,Male,2011,69
+Political Sc,Female,2011,80
+Political Sc,Male,2011,156
+Pre-Advertising,Female,2011,53
+Pre-Advertising,Male,2011,35
+Pre-Computer Sc,Female,2011,15
+Pre-Computer Sc,Male,2011,139
+Pre-Journ/Ms Cm,Female,2011,122
+Pre-Journ/Ms Cm,Male,2011,66
+Pre-Liberal St,Female,2011,24
+Pre-Liberal St,Male,2011,42
+PreBiol/Med Ill,Female,2011,25
+PreBiol/Med Ill,Male,2011,4
+Prep Human Med,Female,2011,52
+Prep Human Med,Male,2011,28
+Prep Law,Female,2011,13
+Prep Law,Male,2011,6
+Psychology,Female,2011,410
+Psychology,Male,2011,205
+Public Relation,Female,2011,NA
+Public Relation,Male,2011,NA
+Religious St,Female,2011,11
+Religious St,Male,2011,7
+Russian St,Female,2011,NA
+Sociology,Female,2011,55
+Sociology,Male,2011,40
+Software Engr,Female,2011,7
+Software Engr,Male,2011,83
+Spanish,Female,2011,17
+Spanish,Male,2011,6
+Speech Comm,Female,2011,22
+Speech Comm,Male,2011,23
+Statistics,Female,2011,42
+Statistics,Male,2011,48
+Technical Comm,Female,2011,18
+Technical Comm,Male,2011,9
+Women's Studies,Female,2011,7
+Women's Studies,Male,2011,NA
+World Lng & Cul,Female,2011,43
+World Lng & Cul,Male,2011,15
+Advertising,Female,2012,58
+Advertising,Male,2012,27
+Anthropology,Female,2012,61
+Anthropology,Male,2012,20
+Biochemistry,Female,2012,65
+Biochemistry,Male,2012,71
+Bioinfo & Com B,Female,2012,4
+Bioinfo & Com B,Male,2012,3
+Biol/Pre-Med Il,Female,2012,15
+Biol/Pre-Med Il,Male,2012,3
+Biology,Female,2012,244
+Biology,Male,2012,168
+Biophysics,Female,2012,NA
+Biophysics,Male,2012,4
+Chemistry,Female,2012,52
+Chemistry,Male,2012,69
+Comm Studies,Female,2012,142
+Comm Studies,Male,2012,76
+Computer Sc,Female,2012,15
+Computer Sc,Male,2012,149
+Criminal Jst St,Female,2012,NA
+Criminal Jst St,Male,2012,NA
+Earth Science,Female,2012,5
+Earth Science,Male,2012,6
+Economics,Female,2012,24
+Economics,Male,2012,59
+English,Female,2012,166
+English,Male,2012,63
+Environ Sci LAS,Female,2012,28
+Environ Sci LAS,Male,2012,23
+French,Female,2012,NA
+Genetics-LAS,Female,2012,44
+Genetics-LAS,Male,2012,24
+Geology,Female,2012,17
+Geology,Male,2012,33
+German,Female,2012,2
+German,Male,2012,NA
+History,Female,2012,114
+History,Male,2012,209
+Interdisc St,Female,2012,115
+Interdisc St,Male,2012,211
+Intnsv Engl LAS,Female,2012,27
+Intnsv Engl LAS,Male,2012,45
+Journ/Mass Comm,Female,2012,136
+Journ/Mass Comm,Male,2012,52
+Lib Arts/Sc Crt,Male,2012,NA
+Lib Arts/Sc Opt,Female,2012,5
+Lib Arts/Sc Opt,Male,2012,7
+Lib Arts/Sc Spc,Female,2012,92
+Lib Arts/Sc Spc,Male,2012,98
+Liberal Studies,Female,2012,55
+Liberal Studies,Male,2012,68
+Linguistics,Female,2012,45
+Linguistics,Male,2012,13
+Mathematics,Female,2012,68
+Mathematics,Male,2012,103
+Meteorology,Female,2012,32
+Meteorology,Male,2012,68
+Music,Female,2012,55
+Music,Male,2012,60
+Open Option-LAS,Female,2012,430
+Open Option-LAS,Male,2012,345
+P-Prof Hlth Prg,Female,2012,35
+P-Prof Hlth Prg,Male,2012,23
+Performing Arts,Female,2012,36
+Performing Arts,Male,2012,31
+Philosophy,Female,2012,6
+Philosophy,Male,2012,19
+Physics,Female,2012,17
+Physics,Male,2012,67
+Political Sc,Female,2012,77
+Political Sc,Male,2012,130
+Pre-Advertising,Female,2012,56
+Pre-Advertising,Male,2012,35
+Pre-Computer Sc,Female,2012,18
+Pre-Computer Sc,Male,2012,159
+Pre-Journ/Ms Cm,Female,2012,137
+Pre-Journ/Ms Cm,Male,2012,81
+Pre-Liberal St,Female,2012,24
+Pre-Liberal St,Male,2012,37
+PreBiol/Med Ill,Female,2012,37
+PreBiol/Med Ill,Male,2012,7
+Prep Human Med,Female,2012,40
+Prep Human Med,Male,2012,40
+Prep Law,Female,2012,8
+Prep Law,Male,2012,5
+Psychology,Female,2012,408
+Psychology,Male,2012,190
+Public Relation,Female,2012,NA
+Public Relation,Male,2012,NA
+Religious St,Female,2012,7
+Religious St,Male,2012,7
+Russian St,Female,2012,NA
+Sociology,Female,2012,55
+Sociology,Male,2012,41
+Software Engr,Female,2012,5
+Software Engr,Male,2012,104
+Spanish,Female,2012,8
+Spanish,Male,2012,2
+Speech Comm,Female,2012,27
+Speech Comm,Male,2012,15
+Statistics,Female,2012,44
+Statistics,Male,2012,43
+Technical Comm,Female,2012,11
+Technical Comm,Male,2012,9
+Women's Studies,Female,2012,6
+Women's Studies,Male,2012,NA
+World Lng & Cul,Female,2012,46
+World Lng & Cul,Male,2012,16
+Advertising,Female,2013,124
+Advertising,Male,2013,72
+Anthropology,Female,2013,56
+Anthropology,Male,2013,16
+Biochemistry,Female,2013,66
+Biochemistry,Male,2013,67
+Bioinfo & Com B,Female,2013,4
+Bioinfo & Com B,Male,2013,7
+Biol/Pre-Med Il,Female,2013,21
+Biol/Pre-Med Il,Male,2013,1
+Biology,Female,2013,259
+Biology,Male,2013,177
+Biophysics,Female,2013,3
+Biophysics,Male,2013,5
+Chemistry,Female,2013,67
+Chemistry,Male,2013,62
+Comm Studies,Female,2013,149
+Comm Studies,Male,2013,79
+Computer Sc,Female,2013,16
+Computer Sc,Male,2013,171
+Criminal Jst St,Female,2013,NA
+Criminal Jst St,Male,2013,NA
+Earth Science,Female,2013,4
+Earth Science,Male,2013,8
+Economics,Female,2013,27
+Economics,Male,2013,54
+English,Female,2013,182
+English,Male,2013,79
+Environ Sci LAS,Female,2013,34
+Environ Sci LAS,Male,2013,34
+French,Female,2013,NA
+Genetics-LAS,Female,2013,45
+Genetics-LAS,Male,2013,35
+Geology,Female,2013,16
+Geology,Male,2013,44
+German,Female,2013,NA
+German,Male,2013,NA
+History,Female,2013,98
+History,Male,2013,202
+Interdisc St,Female,2013,119
+Interdisc St,Male,2013,219
+Intnsv Engl LAS,Female,2013,34
+Intnsv Engl LAS,Male,2013,73
+Journ/Mass Comm,Female,2013,256
+Journ/Mass Comm,Male,2013,153
+Lib Arts/Sc Crt,Male,2013,1
+Lib Arts/Sc Opt,Female,2013,4
+Lib Arts/Sc Opt,Male,2013,6
+Lib Arts/Sc Spc,Female,2013,83
+Lib Arts/Sc Spc,Male,2013,87
+Liberal Studies,Female,2013,50
+Liberal Studies,Male,2013,70
+Linguistics,Female,2013,51
+Linguistics,Male,2013,22
+Mathematics,Female,2013,72
+Mathematics,Male,2013,111
+Meteorology,Female,2013,39
+Meteorology,Male,2013,56
+Music,Female,2013,60
+Music,Male,2013,52
+Open Option-LAS,Female,2013,419
+Open Option-LAS,Male,2013,365
+P-Prof Hlth Prg,Female,2013,50
+P-Prof Hlth Prg,Male,2013,11
+Performing Arts,Female,2013,35
+Performing Arts,Male,2013,31
+Philosophy,Female,2013,7
+Philosophy,Male,2013,18
+Physics,Female,2013,21
+Physics,Male,2013,73
+Political Sc,Female,2013,85
+Political Sc,Male,2013,126
+Pre-Advertising,Female,2013,NA
+Pre-Advertising,Male,2013,NA
+Pre-Computer Sc,Female,2013,27
+Pre-Computer Sc,Male,2013,229
+Pre-Journ/Ms Cm,Female,2013,NA
+Pre-Journ/Ms Cm,Male,2013,NA
+Pre-Liberal St,Female,2013,28
+Pre-Liberal St,Male,2013,39
+PreBiol/Med Ill,Female,2013,27
+PreBiol/Med Ill,Male,2013,7
+Prep Human Med,Female,2013,50
+Prep Human Med,Male,2013,33
+Prep Law,Female,2013,5
+Prep Law,Male,2013,10
+Psychology,Female,2013,447
+Psychology,Male,2013,182
+Public Relation,Female,2013,NA
+Public Relation,Male,2013,NA
+Religious St,Female,2013,7
+Religious St,Male,2013,6
+Russian St,Female,2013,NA
+Sociology,Female,2013,64
+Sociology,Male,2013,42
+Software Engr,Female,2013,9
+Software Engr,Male,2013,140
+Spanish,Female,2013,NA
+Spanish,Male,2013,NA
+Speech Comm,Female,2013,23
+Speech Comm,Male,2013,18
+Statistics,Female,2013,33
+Statistics,Male,2013,45
+Technical Comm,Female,2013,7
+Technical Comm,Male,2013,7
+Women's Studies,Female,2013,7
+Women's Studies,Male,2013,NA
+World Lng & Cul,Female,2013,43
+World Lng & Cul,Male,2013,13
+Advertising,Female,2014,131
+Advertising,Male,2014,85
+Anthropology,Female,2014,49
+Anthropology,Male,2014,14
+Biochemistry,Female,2014,76
+Biochemistry,Male,2014,86
+Bioinfo & Com B,Female,2014,7
+Bioinfo & Com B,Male,2014,8
+Biol/Pre-Med Il,Female,2014,16
+Biol/Pre-Med Il,Male,2014,3
+Biology,Female,2014,252
+Biology,Male,2014,176
+Biophysics,Female,2014,4
+Biophysics,Male,2014,6
+Chemistry,Female,2014,62
+Chemistry,Male,2014,69
+Comm Studies,Female,2014,160
+Comm Studies,Male,2014,74
+Computer Sc,Female,2014,23
+Computer Sc,Male,2014,190
+Criminal Jst St,Female,2014,NA
+Criminal Jst St,Male,2014,NA
+Earth Science,Female,2014,5
+Earth Science,Male,2014,6
+Economics,Female,2014,25
+Economics,Male,2014,60
+English,Female,2014,184
+English,Male,2014,90
+Environ Sci LAS,Female,2014,36
+Environ Sci LAS,Male,2014,26
+French,Female,2014,NA
+Genetics-LAS,Female,2014,56
+Genetics-LAS,Male,2014,37
+Geology,Female,2014,23
+Geology,Male,2014,43
+German,Female,2014,NA
+German,Male,2014,NA
+History,Female,2014,86
+History,Male,2014,191
+Interdisc St,Female,2014,120
+Interdisc St,Male,2014,249
+Intnsv Engl LAS,Female,2014,38
+Intnsv Engl LAS,Male,2014,76
+Journ/Mass Comm,Female,2014,208
+Journ/Mass Comm,Male,2014,137
+Lib Arts/Sc Crt,Male,2014,NA
+Lib Arts/Sc Opt,Female,2014,6
+Lib Arts/Sc Opt,Male,2014,7
+Lib Arts/Sc Spc,Female,2014,106
+Lib Arts/Sc Spc,Male,2014,112
+Liberal Studies,Female,2014,41
+Liberal Studies,Male,2014,45
+Linguistics,Female,2014,54
+Linguistics,Male,2014,20
+Mathematics,Female,2014,70
+Mathematics,Male,2014,108
+Meteorology,Female,2014,34
+Meteorology,Male,2014,58
+Music,Female,2014,65
+Music,Male,2014,49
+Open Option-LAS,Female,2014,416
+Open Option-LAS,Male,2014,362
+P-Prof Hlth Prg,Female,2014,33
+P-Prof Hlth Prg,Male,2014,19
+Performing Arts,Female,2014,31
+Performing Arts,Male,2014,28
+Philosophy,Female,2014,4
+Philosophy,Male,2014,30
+Physics,Female,2014,17
+Physics,Male,2014,80
+Political Sc,Female,2014,83
+Political Sc,Male,2014,127
+Pre-Advertising,Female,2014,NA
+Pre-Advertising,Male,2014,NA
+Pre-Computer Sc,Female,2014,23
+Pre-Computer Sc,Male,2014,262
+Pre-Journ/Ms Cm,Female,2014,NA
+Pre-Journ/Ms Cm,Male,2014,NA
+Pre-Liberal St,Female,2014,14
+Pre-Liberal St,Male,2014,42
+PreBiol/Med Ill,Female,2014,30
+PreBiol/Med Ill,Male,2014,5
+Prep Human Med,Female,2014,31
+Prep Human Med,Male,2014,20
+Prep Law,Female,2014,11
+Prep Law,Male,2014,6
+Psychology,Female,2014,496
+Psychology,Male,2014,176
+Public Relation,Female,2014,132
+Public Relation,Male,2014,36
+Religious St,Female,2014,9
+Religious St,Male,2014,10
+Russian St,Female,2014,NA
+Sociology,Female,2014,59
+Sociology,Male,2014,37
+Software Engr,Female,2014,6
+Software Engr,Male,2014,159
+Spanish,Female,2014,NA
+Spanish,Male,2014,NA
+Speech Comm,Female,2014,20
+Speech Comm,Male,2014,17
+Statistics,Female,2014,34
+Statistics,Male,2014,39
+Technical Comm,Female,2014,8
+Technical Comm,Male,2014,8
+Women's Studies,Female,2014,9
+Women's Studies,Male,2014,1
+World Lng & Cul,Female,2014,56
+World Lng & Cul,Male,2014,16
+Advertising,Female,2015,124
+Advertising,Male,2015,100
+Anthropology,Female,2015,33
+Anthropology,Male,2015,17
+Biochemistry,Female,2015,64
+Biochemistry,Male,2015,80
+Bioinfo & Com B,Female,2015,10
+Bioinfo & Com B,Male,2015,8
+Biol/Pre-Med Il,Female,2015,15
+Biol/Pre-Med Il,Male,2015,3
+Biology,Female,2015,247
+Biology,Male,2015,169
+Biophysics,Female,2015,5
+Biophysics,Male,2015,4
+Chemistry,Female,2015,73
+Chemistry,Male,2015,80
+Comm Studies,Female,2015,145
+Comm Studies,Male,2015,67
+Computer Sc,Female,2015,22
+Computer Sc,Male,2015,235
+Criminal Jst St,Female,2015,NA
+Criminal Jst St,Male,2015,NA
+Earth Science,Female,2015,5
+Earth Science,Male,2015,7
+Economics,Female,2015,23
+Economics,Male,2015,68
+English,Female,2015,172
+English,Male,2015,78
+Environ Sci LAS,Female,2015,29
+Environ Sci LAS,Male,2015,38
+French,Female,2015,NA
+Genetics-LAS,Female,2015,67
+Genetics-LAS,Male,2015,43
+Geology,Female,2015,21
+Geology,Male,2015,38
+German,Female,2015,NA
+German,Male,2015,NA
+History,Female,2015,76
+History,Male,2015,171
+Interdisc St,Female,2015,141
+Interdisc St,Male,2015,237
+Intnsv Engl LAS,Female,2015,27
+Intnsv Engl LAS,Male,2015,39
+Journ/Mass Comm,Female,2015,197
+Journ/Mass Comm,Male,2015,123
+Lib Arts/Sc Crt,Male,2015,NA
+Lib Arts/Sc Opt,Female,2015,2
+Lib Arts/Sc Opt,Male,2015,1
+Lib Arts/Sc Spc,Female,2015,111
+Lib Arts/Sc Spc,Male,2015,133
+Liberal Studies,Female,2015,58
+Liberal Studies,Male,2015,53
+Linguistics,Female,2015,48
+Linguistics,Male,2015,18
+Mathematics,Female,2015,86
+Mathematics,Male,2015,112
+Meteorology,Female,2015,32
+Meteorology,Male,2015,61
+Music,Female,2015,54
+Music,Male,2015,53
+Open Option-LAS,Female,2015,468
+Open Option-LAS,Male,2015,439
+P-Prof Hlth Prg,Female,2015,32
+P-Prof Hlth Prg,Male,2015,15
+Performing Arts,Female,2015,30
+Performing Arts,Male,2015,18
+Philosophy,Female,2015,7
+Philosophy,Male,2015,25
+Physics,Female,2015,16
+Physics,Male,2015,80
+Political Sc,Female,2015,78
+Political Sc,Male,2015,133
+Pre-Advertising,Female,2015,NA
+Pre-Advertising,Male,2015,NA
+Pre-Computer Sc,Female,2015,35
+Pre-Computer Sc,Male,2015,283
+Pre-Journ/Ms Cm,Female,2015,NA
+Pre-Journ/Ms Cm,Male,2015,NA
+Pre-Liberal St,Female,2015,14
+Pre-Liberal St,Male,2015,42
+PreBiol/Med Ill,Female,2015,43
+PreBiol/Med Ill,Male,2015,11
+Prep Human Med,Female,2015,48
+Prep Human Med,Male,2015,29
+Prep Law,Female,2015,9
+Prep Law,Male,2015,6
+Psychology,Female,2015,525
+Psychology,Male,2015,187
+Public Relation,Female,2015,193
+Public Relation,Male,2015,39
+Religious St,Female,2015,6
+Religious St,Male,2015,7
+Russian St,Female,2015,NA
+Sociology,Female,2015,41
+Sociology,Male,2015,32
+Software Engr,Female,2015,18
+Software Engr,Male,2015,205
+Spanish,Female,2015,NA
+Spanish,Male,2015,NA
+Speech Comm,Female,2015,16
+Speech Comm,Male,2015,7
+Statistics,Female,2015,44
+Statistics,Male,2015,36
+Technical Comm,Female,2015,11
+Technical Comm,Male,2015,14
+Women's Studies,Female,2015,11
+Women's Studies,Male,2015,2
+World Lng & Cul,Female,2015,49
+World Lng & Cul,Male,2015,24
+Advertising,Female,2016,114
+Advertising,Male,2016,85
+Anthropology,Female,2016,49
+Anthropology,Male,2016,19
+Biochemistry,Female,2016,84
+Biochemistry,Male,2016,85
+Bioinfo & Com B,Female,2016,11
+Bioinfo & Com B,Male,2016,11
+Biol/Pre-Med Il,Female,2016,10
+Biol/Pre-Med Il,Male,2016,3
+Biology,Female,2016,240
+Biology,Male,2016,167
+Biophysics,Female,2016,2
+Biophysics,Male,2016,2
+Chemistry,Female,2016,71
+Chemistry,Male,2016,89
+Comm Studies,Female,2016,123
+Comm Studies,Male,2016,66
+Computer Sc,Female,2016,24
+Computer Sc,Male,2016,256
+Criminal Jst St,Female,2016,40
+Criminal Jst St,Male,2016,56
+Earth Science,Female,2016,4
+Earth Science,Male,2016,7
+Economics,Female,2016,27
+Economics,Male,2016,69
+English,Female,2016,192
+English,Male,2016,87
+Environ Sci LAS,Female,2016,25
+Environ Sci LAS,Male,2016,37
+French,Female,2016,NA
+Genetics-LAS,Female,2016,71
+Genetics-LAS,Male,2016,28
+Geology,Female,2016,21
+Geology,Male,2016,42
+German,Female,2016,NA
+German,Male,2016,NA
+History,Female,2016,80
+History,Male,2016,157
+Interdisc St,Female,2016,125
+Interdisc St,Male,2016,180
+Intnsv Engl LAS,Female,2016,17
+Intnsv Engl LAS,Male,2016,40
+Journ/Mass Comm,Female,2016,177
+Journ/Mass Comm,Male,2016,143
+Lib Arts/Sc Crt,Male,2016,NA
+Lib Arts/Sc Opt,Female,2016,NA
+Lib Arts/Sc Opt,Male,2016,1
+Lib Arts/Sc Spc,Female,2016,89
+Lib Arts/Sc Spc,Male,2016,91
+Liberal Studies,Female,2016,54
+Liberal Studies,Male,2016,64
+Linguistics,Female,2016,58
+Linguistics,Male,2016,13
+Mathematics,Female,2016,70
+Mathematics,Male,2016,124
+Meteorology,Female,2016,32
+Meteorology,Male,2016,61
+Music,Female,2016,60
+Music,Male,2016,53
+Open Option-LAS,Female,2016,456
+Open Option-LAS,Male,2016,396
+P-Prof Hlth Prg,Female,2016,37
+P-Prof Hlth Prg,Male,2016,15
+Performing Arts,Female,2016,28
+Performing Arts,Male,2016,12
+Philosophy,Female,2016,7
+Philosophy,Male,2016,18
+Physics,Female,2016,13
+Physics,Male,2016,93
+Political Sc,Female,2016,91
+Political Sc,Male,2016,132
+Pre-Advertising,Female,2016,NA
+Pre-Advertising,Male,2016,NA
+Pre-Computer Sc,Female,2016,30
+Pre-Computer Sc,Male,2016,280
+Pre-Journ/Ms Cm,Female,2016,NA
+Pre-Journ/Ms Cm,Male,2016,NA
+Pre-Liberal St,Female,2016,18
+Pre-Liberal St,Male,2016,32
+PreBiol/Med Ill,Female,2016,49
+PreBiol/Med Ill,Male,2016,10
+Prep Human Med,Female,2016,50
+Prep Human Med,Male,2016,36
+Prep Law,Female,2016,5
+Prep Law,Male,2016,5
+Psychology,Female,2016,570
+Psychology,Male,2016,168
+Public Relation,Female,2016,213
+Public Relation,Male,2016,47
+Religious St,Female,2016,4
+Religious St,Male,2016,8
+Russian St,Female,2016,NA
+Sociology,Female,2016,46
+Sociology,Male,2016,33
+Software Engr,Female,2016,28
+Software Engr,Male,2016,253
+Spanish,Female,2016,NA
+Spanish,Male,2016,NA
+Speech Comm,Female,2016,11
+Speech Comm,Male,2016,11
+Statistics,Female,2016,46
+Statistics,Male,2016,48
+Technical Comm,Female,2016,7
+Technical Comm,Male,2016,16
+Women's Studies,Female,2016,8
+Women's Studies,Male,2016,1
+World Lng & Cul,Female,2016,51
+World Lng & Cul,Male,2016,23

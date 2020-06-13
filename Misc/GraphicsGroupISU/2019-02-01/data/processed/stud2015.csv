@@ -1,0 +1,49 @@
+college,gender,grad,count
+CALS,male,undergrad,2273
+Business,male,undergrad,2726
+Design,male,undergrad,803
+Engineering,male,undergrad,6697
+Human Sciences,male,undergrad,902
+LAS,male,undergrad,3670
+Vet Med,male,undergrad,0
+Interdepartmental,male,undergrad,0
+CALS,female,undergrad,2339
+Business,female,undergrad,1435
+Design,female,undergrad,968
+Engineering,female,undergrad,1252
+Human Sciences,female,undergrad,3388
+LAS,female,undergrad,3581
+Vet Med,female,undergrad,0
+Interdepartmental,female,undergrad,0
+CALS,male,grad,427
+Business,male,grad,202
+Design,male,grad,106
+Engineering,male,grad,1042
+Human Sciences,male,grad,191
+LAS,male,grad,715
+Vet Med,male,grad,74
+Interdepartmental,male,grad,199
+CALS,female,grad,336
+Business,female,grad,122
+Design,female,grad,107
+Engineering,female,grad,321
+Human Sciences,female,grad,506
+LAS,female,grad,471
+Vet Med,female,grad,72
+Interdepartmental,female,grad,205
+CALS,male,vet,0
+Business,male,vet,0
+Design,male,vet,0
+Engineering,male,vet,0
+Human Sciences,male,vet,0
+LAS,male,vet,0
+Vet Med,male,vet,128
+Interdepartmental,male,vet,0
+CALS,female,vet,0
+Business,female,vet,0
+Design,female,vet,0
+Engineering,female,vet,0
+Human Sciences,female,vet,0
+LAS,female,vet,0
+Vet Med,female,vet,456
+Interdepartmental,female,vet,0
