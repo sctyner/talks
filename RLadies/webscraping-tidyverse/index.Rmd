@@ -284,11 +284,13 @@ myhtml %>%
 
 - `html_children` - list the "children" of the HTML page. Can be chained like `html_nodes`
 - `html_name` - gives the tags of a nodeset. Use in a chain with `html_children`
+
 ```{r childex}
 myhtml %>% 
   html_children() %>% 
   html_name()
 ```
+
 - `html_form` - parses HTML forms (checkboxes, fill-in-the-blanks, etc.)
 - `html_session` - simulate a session in an html browser; use the functions `jump_to`, `back` to navigate through the page
 
