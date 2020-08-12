@@ -1,0 +1,13 @@
+industry,ownership,perc_by_own
+Manufacturing,foreign,28.5
+Retail trade,foreign,12.6
+Wholesale trade,foreign,9.2
+Administrative and waste services,foreign,8.7
+"Professional, scientific, and technical services",foreign,7.9
+All other industries,foreign,33.1
+Manufacturing,domestic,9.8
+Retail trade,domestic,13.5
+Wholesale trade,domestic,4.9
+Administrative and waste services,domestic,7.1
+"Professional, scientific, and technical services",domestic,7.1
+All other industries,domestic,57.6

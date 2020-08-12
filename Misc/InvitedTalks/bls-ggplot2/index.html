@@ -1,0 +1,2281 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Creating Beautiful Data Visualizations in R:</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Samantha Tyner, Ph.D." />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link href="libs/countdown/countdown.css" rel="stylesheet" />
+    <script src="libs/countdown/countdown.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="custom.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Creating Beautiful Data Visualizations in R:
+## a <code>ggplot2</code> Crash Course
+### Samantha Tyner, Ph.D.
+### Part 1: April 21, 2020, 1-3pm<br>Part 2: April 23, 2020, 1-3pm
+
+---
+
+
+&lt;link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.0/css/all.css" integrity="sha384-aOkxzJ5uQz7WBObEZcHvV5JvRW3TUc2rNPA7pe3AwnsUohiw1Vj2Rgx2KSOkF5+h" crossorigin="anonymous"&gt;
+
+
+
+
+
+
+
+
+# Learning Goals 
+
+Upon completion of this tutorial, you will be able to: 
+
+1. identify the appropriate plot types and corresponding `ggplot2` `geom`s to consider when visualizing your data;
+2. implement the `ggplot2` grammar of graphics by using `ggplot()` and building up plots with the `+` operator;
+3. iterate through multiple visualizations of your data by changing the aesthetic mappings, geometries, and other graph properties;  
+4. incorporate custom elements (colors, fonts, etc.) into your visualizations by adjusting `ggplot2` theme elements; and 
+5. investigate the world of `ggplot2` independently to expand upon the skills learned in the course.
+
+---
+# Outline 
+
+
+Part 1: `ggplot2` basics (April 21)
+
+- Introduction to `ggplot2`'s grammar of graphics 
+- One-variable visualization
+- Two-variable visualization
+- Three or more variable visualization
+
+Part 2: Advanced customization (April 23)
+
+- Combining layers
+- Graph appearance
+    + Themes &amp; Scales
+    + Titles, legends, etc. 
+- `ggplot2` extensions
+- Interactivity with plotly 
+
+---
+class: inverse, center, middle
+# Part 1: `ggplot2` basics 
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="img/ggplot2_exploratory.png" alt="Artwork by &amp;lt;a href=&amp;quot;https://twitter.com/allison_horst&amp;quot;&amp;gt;@allison_horst&amp;lt;/a&amp;gt;" width="40%" /&gt;
+&lt;p class="caption"&gt;Artwork by &lt;a href="https://twitter.com/allison_horst"&gt;@allison_horst&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+
+
+---
+class: inverse, center 
+# `ggplot2` and its Grammar of Graphics
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="img/ggplot2_masterpiece.png" alt="Artwork by &amp;lt;a href=&amp;quot;https://twitter.com/allison_horst&amp;quot;&amp;gt;@allison_horst&amp;lt;/a&amp;gt;" width="50%" /&gt;
+&lt;p class="caption"&gt;Artwork by &lt;a href="https://twitter.com/allison_horst"&gt;@allison_horst&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+
+---
+# What is the grammar of graphics?
+
+From a book, [The Grammar of Graphics](https://www.springer.com/us/book/9781475731002) by Leland Wilkinson (1999) 
+
+&gt; **grammar** (noun):  (1) the study of the classes of words, their inflections, and their functions and relations in the sentence; (2) the principles or rules of an art, science, or technique 
+
+&gt; **grammar of graphics** (noun): a set of principles for constructing data visualizations
+
+&lt;i class="fas fa-bullhorn" style="color: #0F81BF;"&gt;&lt;/i&gt; I will try to use "data visualization" instead of "plot", "graph", "chart", or "graphic" because it is a more precise term. 
+
+
+
+---
+# The language of English grammar
+
+.pull-left[
+- Parts of speech: 
+    * noun
+    * verb
+    * adjective
+    * adverb
+    * pronoun 
+    * conjunction
+    * preposition
+    * interjection
+- Verb tense, word order and sentence structure
+- Punctuation
+] 
+
+.pull-right[
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="img/xkcd-language.png" alt="&amp;lt;a href='https://xkcd.com/1443/'&amp;gt;xkcd.com/1443&amp;lt;/a&amp;gt;" width="80%" /&gt;
+&lt;p class="caption"&gt;&lt;a href='https://xkcd.com/1443/'&gt;xkcd.com/1443&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+
+]
+
+---
+# The language of `ggplot2`'s grammar
+
+
+.pull-left[
+- Data to visualize: a `data.frame`
+    * Or coercible to a `data.frame`
+- Families of functions to build a plot:
+    * `aes` 
+    * `geom_`
+    * `stat_`
+    * `position_`
+    * `theme`
+    * `scale_`
+    * `annotation_`
+    * `guide_` (legends)
+    * `facet_`
+    * `coord_`
+- Operators to combine elements: `+`, `%&gt;%`
+]
+
+.pull-right[
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="img/layers.png" alt="Image from &amp;lt;a href='https://skillgaze.com/2017/10/31/understanding-different-visualization-layers-of-ggplot/'&amp;gt;skillgaze.com&amp;lt;/a&amp;gt;" width="100%" /&gt;
+&lt;p class="caption"&gt;Image from &lt;a href='https://skillgaze.com/2017/10/31/understanding-different-visualization-layers-of-ggplot/'&gt;skillgaze.com&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+]
+    
+---
+# Connecting the two grammars
+
+
+.pull-left[
+#### English grammar
+
+- noun
+- verb
+- pronoun
+- adverb
+- adjective
+- conjunction
+- preposition 
+- interjection
+- verb tense, word order, and sentence structure
+- punctuation
+]
+
+.pull-right[
+#### `ggplot2`'s grammar
+
+- data
+- geom
+- aes mapping 
+- stat
+- theme
+- facets
+- guides/legends
+- annotation
+- scales, coordinate systems, and positions
+- `+` `()` `,` `%&gt;%`
+]
+
+---
+# Connecting the two grammars
+
+### **Sentences** are constructed by combining *words and puncuation* in a logical and coherent way. 
+
+### **Data Visualizations** are constructed by combining *data and visual attributes* in a logical and coherent way. 
+
+**Next**: compare the two grammars and reconstruct a data visualization from [bls.gov](https://www.bls.gov/)  
+
+---
+# A simple data viz
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="img/cpi-chart.png" alt="Source: &amp;lt;a href='https://www.bls.gov/charts/consumer-price-index/consumer-price-index-by-category.htm'&amp;gt;bls.gov&amp;lt;/a&amp;gt;" width="50%" /&gt;
+&lt;p class="caption"&gt;Source: &lt;a href='https://www.bls.gov/charts/consumer-price-index/consumer-price-index-by-category.htm'&gt;bls.gov&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+
+
+---
+# Data ↔️ Noun  
+
+&gt; **noun**: any member of a class of words that can function as .hilite[the main or only elements of subjects of verbs] (A *dog* just barked), or of objects of verbs or prepositions (to send *money* from home).  ([dictionary.com](https://www.dictionary.com/browse/noun?s=t))
+
+### **Data** are the subjects &amp; objects of the data visualization sentence 
+
+&lt;i class="fas fa-bullhorn" style="color: #0F81BF;"&gt;&lt;/i&gt;  `ggplot2` loves [tidy data](https://www.jstatsoft.org/article/view/v059i10)! Data are tidy when 1 row represents 1 observational unit and each column represents one measurement/quality of that observation. (Below: untidy data at left, tidy data at right from Wickham 2014)
+
+&lt;img src="img/untidy.png" width="40%" /&gt;&lt;img src="img/tidy.png" width="40%" /&gt;
+
+
+---
+# Example
+
+.pull-left[
+### Data Visualization (Sentence)
+
+&lt;img src="img/cpi-chart.png" width="100%" style="display: block; margin: auto;" /&gt;
+]
+
+.pull-right[
+### Data (Noun)
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Category &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; % change &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; All items &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2.1 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Food &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2.0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Energy &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.6 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; All items
+less food
+and energy &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2.3 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+]
+
+---
+# In `ggplot2` code
+
+
+```r
+cpi19 &lt;- readr::read_rds("dat/cpi19.rds")
+library(ggplot2)
+ggplot(data = cpi19)
+```
+
+&lt;img src="index_files/figure-html/unnamed-chunk-9-1.png" width="30%" style="display: block; margin: auto;" /&gt;
+
+---
+# Geom ↔️ Verb 
+
+&gt; **verb**: any member of a class of words that function as the main elements of predicates, that typically .hilite[express action, state, or a relation between two things], and that may be inflected for tense, aspect, voice, mood, and to show agreement with their subject or object. ([dictionary.com](https://www.dictionary.com/browse/verb?s=t))
+
+### The **geom** is what relates the data to a visual element.
+
+&lt;div class="figure"&gt;
+&lt;img src="img/geom-basic-2.png" alt="Source: &amp;lt;a href=&amp;quot;https://ggplot2-book.org/individual-geoms.html&amp;quot;&amp;gt;ggplot2 book&amp;lt;/a&amp;gt;" width="12.5%" /&gt;&lt;img src="img/geom-basic-3.png" alt="Source: &amp;lt;a href=&amp;quot;https://ggplot2-book.org/individual-geoms.html&amp;quot;&amp;gt;ggplot2 book&amp;lt;/a&amp;gt;" width="12.5%" /&gt;&lt;img src="img/geom-basic-4.png" alt="Source: &amp;lt;a href=&amp;quot;https://ggplot2-book.org/individual-geoms.html&amp;quot;&amp;gt;ggplot2 book&amp;lt;/a&amp;gt;" width="12.5%" /&gt;&lt;img src="img/geom-basic-5.png" alt="Source: &amp;lt;a href=&amp;quot;https://ggplot2-book.org/individual-geoms.html&amp;quot;&amp;gt;ggplot2 book&amp;lt;/a&amp;gt;" width="12.5%" /&gt;&lt;img src="img/geom-basic-6.png" alt="Source: &amp;lt;a href=&amp;quot;https://ggplot2-book.org/individual-geoms.html&amp;quot;&amp;gt;ggplot2 book&amp;lt;/a&amp;gt;" width="12.5%" /&gt;&lt;img src="img/geom-basic-7.png" alt="Source: &amp;lt;a href=&amp;quot;https://ggplot2-book.org/individual-geoms.html&amp;quot;&amp;gt;ggplot2 book&amp;lt;/a&amp;gt;" width="12.5%" /&gt;&lt;img src="img/geom-basic-8.png" alt="Source: &amp;lt;a href=&amp;quot;https://ggplot2-book.org/individual-geoms.html&amp;quot;&amp;gt;ggplot2 book&amp;lt;/a&amp;gt;" width="12.5%" /&gt;&lt;img src="img/geom-basic.png" alt="Source: &amp;lt;a href=&amp;quot;https://ggplot2-book.org/individual-geoms.html&amp;quot;&amp;gt;ggplot2 book&amp;lt;/a&amp;gt;" width="12.5%" /&gt;
+&lt;p class="caption"&gt;Source: &lt;a href="https://ggplot2-book.org/individual-geoms.html"&gt;ggplot2 book&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+
+---
+# Example
+
+.pull-left[
+### Data Visualization (Sentence)
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="img/cpi-chart.png" alt="Source: &amp;lt;a href='https://www.bls.gov/charts/consumer-price-index/consumer-price-index-by-category.htm'&amp;gt;bls.gov&amp;lt;/a&amp;gt;" width="100%" /&gt;
+&lt;p class="caption"&gt;Source: &lt;a href='https://www.bls.gov/charts/consumer-price-index/consumer-price-index-by-category.htm'&gt;bls.gov&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+]
+
+.pull-right[
+### Geom (Verb)
+
+- bar chart a.k.a. column chart
+- [`geom_col()`](https://ggplot2.tidyverse.org/reference/geom_bar.html)
+
+]
+
+---
+# In `ggplot2` code
+
+We build up a data visualization in `ggplot2` with the `+` operator. 
+
+
+```r
+ggplot(data = cpi19) + 
+  geom_col()
+```
+
+.preman[
+`## Error: geom_col requires the following missing aesthetics: x, y`
+]
+
+&lt;i class="fas fa-bullhorn" style="color: #0F81BF;"&gt;&lt;/i&gt;  The `geom_*()` suite of functions can take many arguments, which vary by the geom type
+
+---
+# aes mapping ↔️ Pronouns
+
+&gt; **pronoun**: any member of a small class of words found in many languages that are used as .hilite[replacements or substitutes for nouns] and noun phrases, and that have very general reference, as I, you, he, this, who, what.  ([dictionary.com](https://www.dictionary.com/browse/pronoun?s=t))
+
+### **Aesthetic** (aes) **mappings** substitute visual properties (aesthetics) for the data
+
+Commonly used `aes` values: 
+
+- Axes: x, y
+- Other visual properties: size, color, fill, shape, alpha (transparency)
+
+---
+# Example
+
+.pull-left[
+### Data Visualization (Sentence)
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="img/cpi-chart.png" alt="Source: &amp;lt;a href='https://www.bls.gov/charts/consumer-price-index/consumer-price-index-by-category.htm'&amp;gt;bls.gov&amp;lt;/a&amp;gt;" width="100%" /&gt;
+&lt;p class="caption"&gt;Source: &lt;a href='https://www.bls.gov/charts/consumer-price-index/consumer-price-index-by-category.htm'&gt;bls.gov&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+]
+
+.pull-right[
+### aes mapping (pronouns)
+
+- x-axis: Category
+- y-axis: % change
+- Fill color: Category
+
+]
+
+---
+# In `ggplot2` code
+
+Use the `aes()` function inside `ggplot()`. (Can also use in `geom_col()`.)
+
+
+```r
+ggplot(data = cpi19,
+       aes(x = Category, y = `% change`, fill = Category)) + 
+  geom_col(width = .6)
+```
+
+&lt;img src="index_files/figure-html/unnamed-chunk-14-1.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+---
+# In `ggplot2` code
+
+- **Note**: aesthetics / aes values do not have to be connected to data. 
+- To change an aes value for the entire plot, use the aes value *outside* of the `aes()` function.
+
+
+```r
+ggplot(data = cpi19, aes(x = Category, y = `% change`)) + 
+  geom_col(width = .6, fill = "#b41f24")
+```
+
+&lt;img src="index_files/figure-html/unnamed-chunk-15-1.png" width="65%" style="display: block; margin: auto;" /&gt;
+
+---
+# Stat ↔️ Adverb
+
+&gt; **adverb**: any member of a class of words that function as .hilite[modifiers of verbs] or clauses ([dictionary.com](https://www.dictionary.com/browse/adverb?s=t))
+
+### The **stat** describes how the data are modified in order to be expressed through the geom. 
+
+&lt;i class="fas fa-bullhorn" style="color: #0F81BF;"&gt;&lt;/i&gt;  Stats and Geoms go together. Every geom has a default stat and vice versa. Stat can be specified inside of a geom and vice versa. 
+
+---
+# Example
+
+.pull-left[
+### Data Visualization (Sentence)
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="img/cpi-chart.png" alt="Source: &amp;lt;a href='https://www.bls.gov/charts/consumer-price-index/consumer-price-index-by-category.htm'&amp;gt;bls.gov&amp;lt;/a&amp;gt;" width="100%" /&gt;
+&lt;p class="caption"&gt;Source: &lt;a href='https://www.bls.gov/charts/consumer-price-index/consumer-price-index-by-category.htm'&gt;bls.gov&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+]
+
+.pull-right[
+### stat (adverb)
+
+- **Identity**: The data are not altered in any way
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Category &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; % change &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; All items &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2.1 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Food &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2.0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Energy &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.6 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; All items
+less food
+and energy &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2.3 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+]
+
+---
+# In `ggplot2` code
+
+`stat_identity` is default for `geom_col`, so it looks the same. 
+
+
+```r
+ggplot(data = cpi19,
+       aes(x = Category, y = `% change`, fill = Category)) + 
+* stat_identity(geom="col", width = .6)
+```
+
+&lt;img src="index_files/figure-html/unnamed-chunk-18-1.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+---
+# Theme ↔️ Adjective 
+
+&gt; **adjective**: any member of a class of words that modify nouns and pronouns, primarily by .hilite[describing a particular quality] of the word they are modifying ([dictionary.com](https://www.dictionary.com/browse/adjective?s=t))
+
+### The **theme** describes the appearance of the plot, such as the background color, font size, positions of labels, etc.
+
+&lt;div class="figure"&gt;
+&lt;img src="img/built-in-1.png" alt="Source: &amp;lt;a href=&amp;quot;https://ggplot2-book.org/polishing.html&amp;quot;&amp;gt;ggplot2 book&amp;lt;/a&amp;gt;" width="16.65%" /&gt;&lt;img src="img/built-in-2.png" alt="Source: &amp;lt;a href=&amp;quot;https://ggplot2-book.org/polishing.html&amp;quot;&amp;gt;ggplot2 book&amp;lt;/a&amp;gt;" width="16.65%" /&gt;&lt;img src="img/built-in-3.png" alt="Source: &amp;lt;a href=&amp;quot;https://ggplot2-book.org/polishing.html&amp;quot;&amp;gt;ggplot2 book&amp;lt;/a&amp;gt;" width="16.65%" /&gt;&lt;img src="img/built-in-4.png" alt="Source: &amp;lt;a href=&amp;quot;https://ggplot2-book.org/polishing.html&amp;quot;&amp;gt;ggplot2 book&amp;lt;/a&amp;gt;" width="16.65%" /&gt;&lt;img src="img/built-in-5.png" alt="Source: &amp;lt;a href=&amp;quot;https://ggplot2-book.org/polishing.html&amp;quot;&amp;gt;ggplot2 book&amp;lt;/a&amp;gt;" width="16.65%" /&gt;&lt;img src="img/built-in-6.png" alt="Source: &amp;lt;a href=&amp;quot;https://ggplot2-book.org/polishing.html&amp;quot;&amp;gt;ggplot2 book&amp;lt;/a&amp;gt;" width="16.65%" /&gt;
+&lt;p class="caption"&gt;Source: &lt;a href="https://ggplot2-book.org/polishing.html"&gt;ggplot2 book&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+
+---
+# Example
+
+.pull-left[
+### Data Visualization (Sentence)
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="img/cpi-chart.png" alt="Source: &amp;lt;a href='https://www.bls.gov/charts/consumer-price-index/consumer-price-index-by-category.htm'&amp;gt;bls.gov&amp;lt;/a&amp;gt;" width="100%" /&gt;
+&lt;p class="caption"&gt;Source: &lt;a href='https://www.bls.gov/charts/consumer-price-index/consumer-price-index-by-category.htm'&gt;bls.gov&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+]
+
+.pull-right[
+### Theme (adjectives)
+
+- white background
+- dotted gray major gridlines for y-axis
+- text font, size &amp; face
+
+]
+
+---
+# In `ggplot2` code
+
+The `theme()` function can modify any non-data element of the plot. 
+
+
+```r
+p &lt;- ggplot(data = cpi19,
+       aes(x = Category, y = `% change`, fill = Category)) + 
+  geom_col(width = .6) 
+```
+
+&lt;i class="fas fa-bullhorn" style="color: #0F81BF;"&gt;&lt;/i&gt;  This is a common trick. Create an object `p` that is the `ggplot` to add to later on.
+
+---
+# In `ggplot2` code
+
+The `theme()` function can modify any non-data element of the plot. 
+
+
+```r
+p2 &lt;- p + theme(
+ panel.background = element_rect(fill = "white", 
+                                 color = "black"),
+ panel.grid.major.y = element_line(color = "gray80", 
+                                   linetype = "dashed"), 
+ axis.text = element_text(family = "Calibri", 
+                          color = "black", 
+                          size = 12), 
+ title = element_text(family = "Arial", 
+                           face = "bold",
+                           size = 14)
+)
+```
+
+---
+# In `ggplot2` code 
+
+
+```r
+p2
+```
+
+&lt;img src="index_files/figure-html/unnamed-chunk-23-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+---
+# Guides ↔️ Prepositions
+
+&gt; **preposition**: any member of a class of words that are used before nouns, pronouns, or other substantives to form phrases functioning as modifiers of verbs, nouns, or adjectives, and that typically .hilite[express a spatial, temporal, or other relationship,] as in, on, by, to, since. ([dictionary.com](https://www.dictionary.com/browse/preposition?s=t))
+
+### The **guide** or **legend** connects non-axis aesthetics in the data visualization like color and size to the data
+---
+# Example
+
+.pull-left[
+### Data Visualization (Sentence)
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="img/cpi-chart.png" alt="Source: &amp;lt;a href='https://www.bls.gov/charts/consumer-price-index/consumer-price-index-by-category.htm'&amp;gt;bls.gov&amp;lt;/a&amp;gt;" width="100%" /&gt;
+&lt;p class="caption"&gt;Source: &lt;a href='https://www.bls.gov/charts/consumer-price-index/consumer-price-index-by-category.htm'&gt;bls.gov&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+]
+
+.pull-right[
+### guide (preposition)
+
+- There is no guide/legend.
+- Not needed here, because color and x-axis are the same.
+
+]
+
+---
+# In `ggplot2` code
+
+The `guides()` function controls all legends by connecting to the aes. 
+
+
+```r
+p3 &lt;- p2 + guides(fill = "none")
+p3
+```
+
+&lt;img src="index_files/figure-html/unnamed-chunk-25-1.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+---
+# Annotations ↔️ Interjections
+
+&gt; **interjection**: any member of a class of words expressing emotion, distinguished in most languages by their use in .hilite[grammatical isolation] ([dictionary.com](https://www.dictionary.com/browse/interjection?s=t))
+
+### An **annotation** is a separate layer that doesn't connect to other elements in the plot and is used to add fixed elements to a data visualization
+
+---
+# Example
+
+.pull-left[
+### Data Visualization (Sentence)
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="img/cpi-chart.png" alt="Source: &amp;lt;a href='https://www.bls.gov/charts/consumer-price-index/consumer-price-index-by-category.htm'&amp;gt;bls.gov&amp;lt;/a&amp;gt;" width="100%" /&gt;
+&lt;p class="caption"&gt;Source: &lt;a href='https://www.bls.gov/charts/consumer-price-index/consumer-price-index-by-category.htm'&gt;bls.gov&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+]
+
+.pull-right[
+### Annotation (interjection)
+
+- Solid gray line at y = 0
+
+
+]
+
+---
+# In `ggplot2` code
+
+The `annotate()` function creates an annotation layer
+
+
+```r
+p4 &lt;- p3 + 
+  annotate("segment", x = -Inf, xend = Inf, 
+                    y = 0, yend = 0, color = "gray80") 
+```
+
+---
+# In `ggplot2` code 
+
+
+```r
+p4
+```
+
+&lt;img src="index_files/figure-html/unnamed-chunk-28-1.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+---
+# Facets ↔️ Conjunctions
+
+&gt; **conjunction**: any member of a small class of words distinguished by their .hilite[function as connectors] between words, phrases, clauses, or sentences. ([dictionary.com](https://www.dictionary.com/browse/conjunction?s=t))
+
+### **Faceting** generates "small multiples", which show the same visualization for different subsets of the data
+
+&lt;i class="fas fa-bullhorn" style="color: #0F81BF;"&gt;&lt;/i&gt;  The current example is not faceted, so I present another toy example. More on faceting later. 
+
+---
+# Example &amp; `ggplot2` code
+
+
+```r
+data(mpg)
+ggplot(mpg, aes(cty, hwy)) + geom_point() + 
+  facet_wrap(vars(drv), labeller = "label_both")
+```
+
+&lt;img src="index_files/figure-html/unnamed-chunk-29-1.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+---
+# Other grammar elements
+
+
+### **Scales**: control how data are translated to visual properties (sentence structure) 
+
+### **Coordinate system**: how data are positioned in a 2D data visualization (verb tense)
+
+### **Position**: How to deal with overlap, if any (word order)
+
+- "native speakers" don't have to think about these too much
+- `ggplot2` has smart defaults here, less work for you
+- Largely up to individual taste/style
+
+
+---
+# Example
+
+.pull-left[
+### Data Visualization (Sentence)
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="img/cpi-chart.png" alt="Source: &amp;lt;a href='https://www.bls.gov/charts/consumer-price-index/consumer-price-index-by-category.htm'&amp;gt;bls.gov&amp;lt;/a&amp;gt;" width="100%" /&gt;
+&lt;p class="caption"&gt;Source: &lt;a href='https://www.bls.gov/charts/consumer-price-index/consumer-price-index-by-category.htm'&gt;bls.gov&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+]
+
+.pull-right[
+#### Scales, coordinate systems, positions (sentence structure, verb tense, word order)
+
+- Scale: y-axis labeled every 0.5%
+- Scale: color of bars 
+- Scale: axes &amp; plot titles
+- Coordinate system: cartesian
+- Position: no position shift (identity)
+ 
+
+]
+
+---
+# In `ggplot2` code 
+
+There are no overlapping elements, so no position needed.
+
+
+```r
+p4 + 
+  scale_y_continuous(name = "Percent", 
+                     breaks = seq(-1, 2.5, by = .5), expand = c(0,0)) + 
+  scale_fill_manual(values = c("#910000", "#2f7ed8",
+                               "#0d233a", "#8bbc21")) +
+  coord_cartesian(ylim = c(-1.05, 2.5)) + 
+  labs(x = "", title = "12-month percentage change, Consumer Price Index,
+selected categories, November 2019, not seasonally adjusted", 
+       subtitle = "Major categories") + 
+  # needed for adjusting the subtitle
+  theme(plot.subtitle = element_text(hjust = .5)) 
+```
+
+---
+
+# In `ggplot2` code 
+
+
+&lt;img src="index_files/figure-html/unnamed-chunk-32-1.png" width="60%" style="display: block; margin: auto;" /&gt;
+
+---
+# Complete `ggplot2` code
+
+
+```r
+ggplot(data = cpi19,
+       aes(x = Category, y = `% change`, fill = Category)) + 
+  geom_col(width = .6) + 
+  scale_y_continuous(name = "Percent", expand = c(0,0),
+                     breaks = seq(-1, 2.5, by = .5)) +
+  scale_fill_manual(values = c("#910000", "#2f7ed8", "#0d233a", 
+                               "#8bbc21"), guide = "none") +
+  coord_cartesian(ylim = c(-1.05, 2.5)) +
+  theme(panel.background = element_rect(fill = "white", color = "black"),
+        panel.grid.major.y = element_line(color = "gray80", linetype = "dashed"), 
+        axis.text = element_text(family = "Calibri", color = "black", size = 12), 
+        title = element_text(family = "Arial", face = "bold", size = 14),
+        plot.subtitle = element_text(hjust = .5)) + 
+  annotate("segment", x = -Inf, xend = Inf, y = 0, yend = 0, color = "gray80") + 
+  labs(x = "", title = "12-month percentage change, Consumer Price Index,
+      selected categories, November 2019, not seasonally adjusted", 
+       subtitle = "Major categories")  
+```
+
+---
+# Complete `ggplot2` code
+
+
+```r
+*ggplot(data = cpi19,
+*      aes(x = Category, y = `% change`, fill = Category)) +
+* geom_col(width = .6) +
+  scale_y_continuous(name = "Percent", expand = c(0,0),
+                     breaks = seq(-1, 2.5, by = .5)) +
+  scale_fill_manual(values = c("#910000", "#2f7ed8", "#0d233a", 
+                               "#8bbc21"), guide = "none") +
+  coord_cartesian(ylim = c(-1.05, 2.5)) +
+  theme(panel.background = element_rect(fill = "white", color = "black"),
+        panel.grid.major.y = element_line(color = "gray80", linetype = "dashed"), 
+        axis.text = element_text(family = "Calibri", color = "black", size = 12), 
+        title = element_text(family = "Arial", face = "bold", size = 14),
+        plot.subtitle = element_text(hjust = .5)) + 
+  annotate("segment", x = -Inf, xend = Inf, y = 0, yend = 0, color = "gray80") + 
+  labs(x = "", title = "12-month percentage change, Consumer Price Index,
+      selected categories, November 2019, not seasonally adjusted", 
+       subtitle = "Major categories")  
+```
+
+---
+# Side-by-side
+
+.pull-left[
+## BLS
+&lt;img src="img/cpi-chart.png" width="90%" style="display: block; margin: auto;" /&gt;
+]
+
+.pull-right[
+## `ggplot2`
+&lt;img src="index_files/figure-html/unnamed-chunk-36-1.png" width="90%" style="display: block; margin: auto;" /&gt;
+]
+
+---
+# What's next? 
+
+More and more detail on the `ggplot2` universe: 
+
+- `geom`s for one- and two-variable visualization
+- Including three or more variables in the visualization 
+    * Colors, sizes, shapes, linetypes
+    * Grouping &amp; faceting 
+    * Maps 
+
+
+
+---
+class: inverse, center 
+# One-variable visualization 
+
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="img/tradition.png" alt="&amp;lt;a href='https://xkcd.com/988/'&amp;gt;xkcd.com/988/&amp;lt;/a&amp;gt;" width="60%" /&gt;
+&lt;p class="caption"&gt;&lt;a href='https://xkcd.com/988/'&gt;xkcd.com/988/&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+
+---
+# Histogram 
+
+&gt; A **histogram** approximates the distribution of a single numeric variable. It shows frequency of values in specified ranges. 
+
+### **`geom_histogram`**
+
+- requires the `x` aesthetic inside `aes()`
+- Specify width of bars with the `bins` or `binwidth` argument
+- Can change appearance of the bars with `color`, `fill`, `alpha` arguments 
+
+---
+# Your Turn
+
+<div class="countdown blink-colon noupdate-30" id="timer_5f340f2b" style="top:0;right:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">04</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+Create the Christmas song histogram. Data are in the `dat/` folder. There are many custom elements here; aim to get 1 or 2 of them in addition to the `ggplot2` defaults.  
+
+
+```r
+library(readr)
+xmas &lt;- read_csv("dat/xmassongs.csv")
+```
+
+&lt;img src="index_files/figure-html/unnamed-chunk-39-1.png" width="75%" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+# Bar chart 
+
+&gt; A **bar chart** displays counts of a categorical variable, and is the categorical equivalent of the histogram. 
+
+### **`geom_bar`**
+
+- requires the `x` aesthetic inside `aes()`
+- Can change appearance of the bars with `color`, `fill`, `alpha` arguments 
+
+---
+# Your Turn
+
+<div class="countdown blink-colon noupdate-30" id="timer_5f340f31" style="top:0;right:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">03</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+Recall the `mpg` data from the facet example. Recreate the bar chart below. Try to match it exactly.
+
+
+```r
+data(mpg)
+```
+&lt;img src="index_files/figure-html/unnamed-chunk-41-1.png" width="65%" style="display: block; margin: auto;" /&gt;
+
+---
+# Density plot 
+
+&gt; A **density** estimate is a smoothed version of the histogram which is especially useful if the data come from a continuous distribution. 
+
+
+### **`geom_density`**
+
+- requires the `x` aesthetic inside `aes()`
+- change the underlying kernel smoother with the `kernel` parameter
+- change bandwidth with the `adjust` parameter
+- Can change appearance of the bars with `color`, `fill`, `alpha` arguments 
+
+---
+# Your Turn
+
+<div class="countdown blink-colon noupdate-20" id="timer_5f3411f8" style="top:0;right:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">02</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+Recreate the density plot below, again using data included `ggplot2`: the `x` column in `diamonds`. Again, there are many style elements here. Aim for one or two. Play around with the kernel &amp; bandwidth parameters.
+
+
+```r
+data("diamonds")
+```
+
+&lt;img src="index_files/figure-html/unnamed-chunk-43-1.png" width="75%" style="display: block; margin: auto;" /&gt;
+
+---
+# Other one-variable viz
+
+- `geom_freqpoly`: behaves the same as `geom_histogram` but with connected lines instead of bars 
+- `geom_dotplot`: show values in bins as individual dots 
+- `geom_rug` (not shown): place lines along an axis for each observation  
+.pull-left[
+`geom_freqpoly`:
+&lt;img src="index_files/figure-html/unnamed-chunk-44-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+`geom_dotplot`:
+&lt;img src="index_files/figure-html/unnamed-chunk-45-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+]
+
+---
+class: inverse, center 
+# Two-variable visualization
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="img/xkcd_grapefruit.png" alt="&amp;lt;a href='https://xkcd.com/388/'&amp;gt;xkcd.com/388&amp;lt;/a&amp;gt;" width="50%" /&gt;
+&lt;p class="caption"&gt;&lt;a href='https://xkcd.com/388/'&gt;xkcd.com/388&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+
+---
+# Which variables?
+
+&lt;img src="img/two-vars.png" width="40%" style="display: block; margin: auto;" /&gt;
+
+---
+# Example data 
+
+Two CPI time series downloaded from BLS: one for the Chicago metro area, and one for the DC metro area.
+
+
+```r
+chi_dmv_cpi &lt;- read_csv("dat/chi_dmv_cpi-99-18.csv")
+glimpse(chi_dmv_cpi)
+```
+
+```
+## Rows: 360
+## Columns: 7
+## $ year       &lt;dbl&gt; 2018, 2018, 2018, 2018, 2018, 2018, 2018, 2018, 2018, 2018…
+## $ period     &lt;dbl&gt; 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 12, 11, 10, 9, 8, 7…
+## $ periodName &lt;chr&gt; "December", "November", "October", "September", "August", …
+## $ cpi        &lt;dbl&gt; 236.796, 237.511, 238.892, 238.957, 238.098, 237.870, 238.…
+## $ area       &lt;chr&gt; "Chicago-Naperville-Elgin, IL-IN-WI", "Chicago-Naperville-…
+## $ area_code  &lt;chr&gt; "S23A", "S23A", "S23A", "S23A", "S23A", "S23A", "S23A", "S…
+## $ date       &lt;date&gt; 2018-12-01, 2018-11-01, 2018-10-01, 2018-09-01, 2018-08-0…
+```
+
+---
+# Two numeric variables 
+
+### `date`, `cpi` 
+
+Focus on the Chicago area for now.  (Code `S23A`)
+
+
+
+```r
+library(dplyr)
+chi_cpi &lt;- chi_dmv_cpi %&gt;% filter(area_code == "S23A")
+```
+
+### **`geom_line`**
+
+- requires the `x, y` aesthetics inside `aes()`
+- Can change appearance of the lines with `color`, `linetype`, `alpha` arguments 
+- The `group` `aes` draws lines according to a grouping variable (later)
+
+---
+# Your Turn
+
+<div class="countdown blink-colon noupdate-20" id="timer_5f340efe" style="top:0;right:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">02</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+Recreate the time series plot below from the Chicago area CPI data. 
+
+&lt;img src="index_files/figure-html/unnamed-chunk-50-1.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+---
+# One numeric, one categorical
+
+### `period`, `cpi`
+
+Continue to focus on the Chicago area for now.  (Code `S23A`)
+
+### **`geom_boxplot`**
+
+- requires the `x,y` aesthetics inside `aes()`
+- Can change appearance of the boxes with `color`, `fill`, `alpha` arguments 
+
+---
+# Your Turn 
+
+<div class="countdown blink-colon noupdate-20" id="timer_5f340f97" style="top:0;right:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">02</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+Recreate this (admittedly unexciting) boxplot of the Chicago area data. 
+
+&lt;img src="index_files/figure-html/unnamed-chunk-51-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+---
+# Two categorical variables
+
+
+Data from BLS: ownership (foreign or domestic) and industry (retail, wholesale, etc.)
+
+.pull-left[
+&lt;img src="img/ownership-chart.png" width="100%" style="display: block; margin: auto;" /&gt;
+]
+
+
+
+```r
+emp_own &lt;-  read_csv("dat/bls-emp-ownership.csv")
+head(emp_own, 3)
+```
+
+```
+## # A tibble: 3 x 3
+##   industry        ownership perc_by_own
+##   &lt;chr&gt;           &lt;chr&gt;           &lt;dbl&gt;
+## 1 Manufacturing   foreign          28.5
+## 2 Retail trade    foreign          12.6
+## 3 Wholesale trade foreign           9.2
+```
+
+
+
+---
+# Two categorical variables 
+
+
+
+
+```r
+ggplot(emp_own, aes(x = ownership, y = industry, size = perc_by_own)) + 
+  geom_count() + 
+  labs(x = "Ownership", y = "Industry", size = "Percent")
+```
+
+&lt;img src="index_files/figure-html/unnamed-chunk-55-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+
+---
+# Your Turn 
+
+<div class="countdown blink-colon noupdate-30" id="timer_5f3410e3" style="top:0;right:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">06</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+Using one or more of the data sets we've seen today, create **two** new two-variable data visualizations. Your visualizations must: 
+
+- Use two variables 
+- Be from 2 of the three categories (2 numeric; 2 categorical; 1 numeric, 1 categorical)
+- Have titles (See `?labs` or `?ggtitle`)
+
+Data sets: 
+
+```r
+cpi19
+diamonds
+mpg
+xmas 
+chi_dmv_cpi
+chi_cpi
+emp_own
+```
+
+---
+class: inverse, center 
+# Three or more variable visualization
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="img/xkcd-3d.png" alt="&amp;lt;a href='https://xkcd.com/880/'&amp;gt;xkcd.com/880&amp;lt;/a&amp;gt;" width="40%" /&gt;
+&lt;p class="caption"&gt;&lt;a href='https://xkcd.com/880/'&gt;xkcd.com/880&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+
+---
+# The limits of `ggplot2`
+
+#### `ggplot2` does not do 3D visualization  
+- (there are ways...but you won't see them here.)
+
+#### `ggplot2` is not interactive 
+- More on this later 
+
+### But, there are plenty of other ways to make informative graphics with `ggplot2` 
+
+---
+# Additional `aes()` mappings
+
+Add a third variable to a plot with:  
+
+&lt;i class="fas fa-rainbow"&gt;&lt;/i&gt; **color** : `color, fill`  
+
+&lt;i class="fas fa-expand-arrows-alt"&gt;&lt;/i&gt; **size**: `size, stroke`   
+
+&lt;i class="fas fa-shapes"&gt;&lt;/i&gt; **shape**: `shape, linetype`  
+
+&lt;i class="fas fa-water"&gt;&lt;/i&gt; **contour lines**: `geom_contour(), geom_density_2d(), z`  
+
+&lt;i class="fas fa-chart-bar"&gt;&lt;/i&gt; **bins**: `geom_bin2d(), geom_hex(), geom_tile()`   
+
+
+---
+# Choosing a mapping 
+
+Image from Garrett Grolemund's [2019 JSM tidyverse tutorial](https://rstudio.cloud/project/385945). 
+
+&lt;img src="img/garrett-aes-vars.PNG" width="50%" style="display: block; margin: auto;" /&gt;
+
+---
+# Add a discrete/categorical variable
+
+Recall the CPI data from before: it has data from the Chicago metro area and the Washington DC metro area. 
+
+
+```
+## # A tibble: 360 x 7
+##     year period periodName   cpi area                       area_code date      
+##    &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt; &lt;chr&gt;                      &lt;chr&gt;     &lt;date&gt;    
+##  1  1999      1 January     166. Chicago-Naperville-Elgin,… S23A      1999-01-01
+##  2  1999      1 January     165. Washington-Arlington-Alex… S35A      1999-01-01
+##  3  1999      2 February    166. Chicago-Naperville-Elgin,… S23A      1999-02-01
+##  4  1999      3 March       167  Chicago-Naperville-Elgin,… S23A      1999-03-01
+##  5  1999      3 March       166. Washington-Arlington-Alex… S35A      1999-03-01
+##  6  1999      4 April       168. Chicago-Naperville-Elgin,… S23A      1999-04-01
+##  7  1999      5 May         168. Chicago-Naperville-Elgin,… S23A      1999-05-01
+##  8  1999      5 May         167  Washington-Arlington-Alex… S35A      1999-05-01
+##  9  1999      6 June        169. Chicago-Naperville-Elgin,… S23A      1999-06-01
+## 10  1999      7 July        169. Chicago-Naperville-Elgin,… S23A      1999-07-01
+## # … with 350 more rows
+```
+
+---
+# Two time series, one plot
+
+Use color to indicate region (S23A is Chicago)
+
+
+```r
+*ggplot(data = chi_dmv_cpi, aes(x = date, y = cpi, color = area_code)) +
+  geom_line() 
+```
+
+&lt;img src="index_files/figure-html/unnamed-chunk-60-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+---
+# Two time series, one plot
+
+Use linetype to indicate region (S23A is Chicago)
+
+
+```r
+*ggplot(data = chi_dmv_cpi, aes(x = date, y = cpi, linetype = area_code)) +
+  geom_line() 
+```
+
+&lt;img src="index_files/figure-html/unnamed-chunk-61-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+
+---
+# Two time series, one plot
+
+Use size to indicate region (S23A is Chicago). &lt;i class="fas fa-bullhorn" style="color: #0F81BF;"&gt;&lt;/i&gt;  Note: I do not recommended this! Why? 
+
+
+```r
+*ggplot(data = chi_dmv_cpi, aes(x = date, y = cpi, size = area_code)) +
+  geom_line() 
+```
+
+&lt;img src="index_files/figure-html/unnamed-chunk-62-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+---
+# Adding a continuous/numeric variable
+
+Add data about the population of the region 
+
+
+```r
+chi_dmv_pop &lt;- read_csv("dat/chi_dmv_pop.csv")
+chi_dmv_cpi_pop &lt;- left_join(chi_dmv_cpi, chi_dmv_pop)
+glimpse(chi_dmv_cpi_pop)
+```
+
+```
+## Rows: 360
+## Columns: 8
+## $ year       &lt;dbl&gt; 2018, 2018, 2018, 2018, 2018, 2018, 2018, 2018, 2018, 2018…
+## $ period     &lt;dbl&gt; 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 12, 11, 10, 9, 8, 7…
+## $ periodName &lt;chr&gt; "December", "November", "October", "September", "August", …
+## $ cpi        &lt;dbl&gt; 236.796, 237.511, 238.892, 238.957, 238.098, 237.870, 238.…
+## $ area       &lt;chr&gt; "Chicago-Naperville-Elgin, IL-IN-WI", "Chicago-Naperville-…
+## $ area_code  &lt;chr&gt; "S23A", "S23A", "S23A", "S23A", "S23A", "S23A", "S23A", "S…
+## $ date       &lt;date&gt; 2018-12-01, 2018-11-01, 2018-10-01, 2018-09-01, 2018-08-0…
+## $ pop_est    &lt;dbl&gt; 9498716, 9498716, 9498716, 9498716, 9498716, 9498716, 9498…
+```
+
+---
+# Size 
+
+
+```r
+*ggplot(data = chi_dmv_cpi_pop, aes(x = date, y = cpi, size = pop_est)) +
+  geom_point(alpha = .5) 
+```
+
+&lt;img src="index_files/figure-html/unnamed-chunk-64-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+---
+# Control for Missings
+
+
+```r
+ggplot(data = chi_dmv_cpi_pop, aes(x = date, y = cpi, size = pop_est)) +
+  geom_point(alpha = .5) + 
+* scale_size_area(na.value = 1)
+```
+
+&lt;img src="index_files/figure-html/unnamed-chunk-65-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+---
+# Color
+
+
+```r
+*ggplot(data = chi_dmv_cpi_pop, aes(x = date, y = cpi, color = pop_est)) +
+  geom_point() 
+```
+
+&lt;img src="index_files/figure-html/unnamed-chunk-66-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+---
+# Grouping
+
+&gt; The `group` aesthetic partitions the data for plotting into groups 
+
+
+```r
+ggplot(data = chi_dmv_cpi_pop, aes(x = date, y = cpi)) + geom_line()
+ggplot(data = chi_dmv_cpi_pop, aes(x = date, y = cpi, group = area_code)) + geom_line()
+```
+
+&lt;img src="index_files/figure-html/unnamed-chunk-67-1.png" width="50%" /&gt;&lt;img src="index_files/figure-html/unnamed-chunk-67-2.png" width="50%" /&gt;
+
+
+---
+# Many groups 
+
+Larger set of CPI data from more major metropolitan areas in the contiguous U.S. 
+
+
+```
+## Rows: 2,981
+## Columns: 15
+## $ series_id     &lt;chr&gt; "CUURA104SA0", "CUURA104SA0", "CUURA104SA0", "CUURA104S…
+## $ year          &lt;dbl&gt; 1997, 1997, 1997, 1997, 1997, 1997, 1997, 1997, 1997, 1…
+## $ period        &lt;dbl&gt; 2, 4, 6, 8, 10, 12, 1, 3, 5, 7, 9, 11, 1, 3, 5, 7, 9, 1…
+## $ value         &lt;dbl&gt; 156.2, 156.6, 157.4, 157.5, 157.9, 157.1, 153.8, 155.4,…
+## $ date          &lt;date&gt; 1997-02-01, 1997-04-01, 1997-06-01, 1997-08-01, 1997-1…
+## $ area_code     &lt;chr&gt; "A104", "A104", "A104", "A104", "A104", "A104", "A210",…
+## $ base_period   &lt;chr&gt; "1982-84=100", "1982-84=100", "1982-84=100", "1982-84=1…
+## $ series_title  &lt;chr&gt; "All items in Pittsburgh, PA, all urban consumers, not …
+## $ begin_year    &lt;dbl&gt; 1917, 1917, 1917, 1917, 1917, 1917, 1914, 1914, 1914, 1…
+## $ begin_period  &lt;chr&gt; "M12", "M12", "M12", "M12", "M12", "M12", "M12", "M12",…
+## $ end_year      &lt;dbl&gt; 1997, 1997, 1997, 1997, 1997, 1997, 2017, 2017, 2017, 2…
+## $ end_period    &lt;chr&gt; "M13", "M13", "M13", "M13", "M13", "M13", "M13", "M13",…
+## $ area_name     &lt;chr&gt; "Pittsburgh, PA", "Pittsburgh, PA", "Pittsburgh, PA", "…
+## $ region        &lt;chr&gt; "northeast", "northeast", "northeast", "northeast", "no…
+## $ sort_sequence &lt;dbl&gt; 9, 9, 9, 9, 9, 9, 19, 19, 19, 19, 19, 19, 19, 19, 19, 1…
+```
+
+---
+# Visualizing many groups
+
+
+```r
+ggplot(data = cpi_all, aes(x = date, y = value, group = area_code)) + 
+  geom_line(alpha = .4)
+```
+
+&lt;img src="index_files/figure-html/unnamed-chunk-69-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+---
+# Add another variable 
+
+
+```r
+ggplot(data = cpi_all, aes(x = date, y = value, group = area_code, color = region)) + 
+  geom_line()
+```
+
+&lt;img src="index_files/figure-html/unnamed-chunk-70-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+---
+# Facets 
+
+&gt; Faceting generates small multiples, each displaying a different subset of the data. Facets are an alternative to aesthetics for displaying additional discrete variables.
+
+- plot subgroups separately
+- can be arranged by rows, columns, or both 
+- can be "wrapped" for many subgroups 
+- great for exploratory analyses 
+
+
+---
+# Faceting functions 
+
+.pull-left[
+
+#### `facet_grid()`
+
+- create a grid of graphs, by rows and columns 
+- use `vars()` to call on the variables 
+- adjust scales with `scales = "free"`
+
+#### `facet_wrap()`
+
+- create small multiples by "wrapping" a series of plots
+- use `vars()` to call on the variables 
+- `nrow` and `ncol` arguments for dictating shape of grid 
+]
+
+.pull-right[
+
+```r
+p &lt;- ggplot(data = cpi_all, aes(x = date, 
+  y = value, group = area_code)) + 
+  geom_line()
+p
+```
+
+&lt;img src="index_files/figure-html/unnamed-chunk-71-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+]
+---
+# Faceting example 
+
+.pull-left[
+
+```r
+p + facet_grid(rows = vars(region))
+```
+
+&lt;img src="index_files/figure-html/unnamed-chunk-72-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+
+```r
+p + facet_wrap(vars(region), ncol = 2)
+```
+
+&lt;img src="index_files/figure-html/unnamed-chunk-73-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+]
+
+---
+# Maps 🗺
+
+Material by [Angela Li](https://bit.ly/dc-spatial-2019)
+
+.pull-left[
+#### Map data is 
+
+- shapefiles:
+    * lines
+    * points 
+    * polygons
+- latlong pairs 
+]
+.pull-right[
+#### Map data is NOT
+
+- addresses 
+- zip codes 
+- counties 
+- cities 
+
+]
+
+If you don't have shapefiles or latlong pairs, you need to geocode! See Angela Li's slides linked above for more info. 
+
+---
+# The `sf` package 
+
+The [`sf`](https://r-spatial.github.io/sf/) package
+
+.pull-left[
+
+- `tidyverse`-compatible spatial data frames
+- "geometry" column stores the spatial information
+
+```r
+library(sf)
+states &lt;- USAboundaries::us_boundaries()
+states %&gt;% select(name, geometry) %&gt;% slice (1:2)
+```
+
+```
+## Simple feature collection with 2 features and 1 field
+## geometry type:  MULTIPOLYGON
+## dimension:      XY
+## bbox:           xmin: -160.2496 ymin: 18.91747 xmax: -66.9499 ymax: 47.45716
+## CRS:            EPSG:4326
+##     name                       geometry
+## 1  Maine MULTIPOLYGON (((-68.92401 4...
+## 2 Hawaii MULTIPOLYGON (((-156.0497 1...
+```
+] 
+.pull-right[
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="img/sf.jpg" alt="Image by &amp;lt;a href=&amp;quot;https://twitter.com/allison_horst&amp;quot;&amp;gt;@allison_horst&amp;lt;/a&amp;gt;" width="100%" /&gt;
+&lt;p class="caption"&gt;Image by &lt;a href="https://twitter.com/allison_horst"&gt;@allison_horst&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+]
+
+---
+# `geom_sf()`
+
+`geom_sf()` requires the `geometry` aes value. Automatically detects column named "geometry" 
+
+
+```r
+states48 &lt;- states %&gt;% filter(stringr::str_detect(name, "Hawaii|Alaska|Puerto", negate = T))
+*ggplot() + geom_sf(data = states48)
+```
+
+&lt;img src="index_files/figure-html/unnamed-chunk-76-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+---
+# Adding color  
+
+Can use the `fill` aes to color geometries by another variable in the data. In this example, we color by the water area in the state.
+
+
+```r
+ggplot() + geom_sf(data = states48, aes(fill = awater)) 
+```
+
+&lt;img src="index_files/figure-html/unnamed-chunk-77-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+---
+# Your Turn 
+
+<div class="countdown blink-colon noupdate-60" id="timer_5f3411c7" style="top:0;right:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">20</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+
+Using a data set of your own or from the web (e.g. Census), create 2 data visualizations: 
+
+- one using facets, visualize 4 or more variables simultaneously 
+- one using a map, use color to represent a variable of interest  
+
+Some R packages containing `sf` data: 
+
+
+```r
+USAboundaries
+USAboundariesData 
+albersusa 
+```
+
+Read in a shapefile with `sf::st_read()`
+
+
+```r
+mydata &lt;- st_read("filepath")
+```
+
+The `readr`, `readxl`, and `haven` packages can be used to read in additional data. 
+
+---
+class: inverse, center, middle
+# Part 2: Advanced customization  
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="img/djnavarro.png" alt="Source &amp;lt;a href='https://twitter.com/djnavarro/status/1243769699055239170?s=20'&amp;gt;@djnavarro&amp;lt;/a&amp;gt;" width="80%" /&gt;
+&lt;p class="caption"&gt;Source &lt;a href='https://twitter.com/djnavarro/status/1243769699055239170?s=20'&gt;@djnavarro&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+
+---
+class: inverse, center
+# Combining layers
+
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="img/layers.png" alt="Image from &amp;lt;a href='https://skillgaze.com/2017/10/31/understanding-different-visualization-layers-of-ggplot/'&amp;gt;skillgaze.com&amp;lt;/a&amp;gt;" width="60%" /&gt;
+&lt;p class="caption"&gt;Image from &lt;a href='https://skillgaze.com/2017/10/31/understanding-different-visualization-layers-of-ggplot/'&gt;skillgaze.com&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+
+---
+# Using the same data 
+
+Add another layer by adding a different geom 
+
+
+```r
+ggplot(data = cpi_all, aes(x = date, y = value)) + 
+  geom_line(aes(group = area_code), alpha = .4) + 
+* geom_smooth(se = FALSE)
+```
+
+&lt;img src="index_files/figure-html/unnamed-chunk-82-1.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+---
+# Your Turn
+
+<div class="countdown blink-colon noupdate-20" id="timer_5f3412ab" style="top:0;right:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">03</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+Recreate this data visualization, which adds a layer to a previous viz. 
+
+&lt;img src="index_files/figure-html/unnamed-chunk-83-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+---
+# Using different data 
+ 
+
+```r
+gens &lt;- read_csv("dat/generations.csv")
+ggplot() + 
+* geom_rect(data = gens,
+*           aes(xmin = birth_start, xmax = birth_end, ymin = 0, ymax = Inf,
+*               fill = generation), color = "black", alpha = .3) +
+  geom_histogram(data = xmas, aes(x = copy_year), binwidth = 10, center = 1935, 
+                 fill = "darkred", color = "black") + 
+  scale_x_continuous(name = "Copyright year", breaks = seq(1930, 2010, by = 10)) + 
+  scale_y_continuous(name = "Count", breaks = 1:12) + 
+  scale_fill_brewer(palette = "Reds") + theme_bw() + 
+  ggtitle("ASCAP Top 25 Holiday Songs of 2019", 
+          subtitle = "Nielsen data from August 2, 2019 to November 21, 2019")
+```
+
+---
+# Using different data 
+ 
+&lt;img src="index_files/figure-html/unnamed-chunk-85-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+---
+# Your Turn
+
+<div class="countdown blink-colon noupdate-20" id="timer_5f341297" style="top:0;right:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">03</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+Using the datasets `cpi_all` and `chi_dmv_cpi`, recreate the following data visualization: 
+
+&lt;img src="index_files/figure-html/unnamed-chunk-86-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+class: inverse, center
+# Graph appearance
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="img/glamourgraphics.png" alt="Image by &amp;lt;a href='https://twitter.com/w_r_chase/status/1155212225621221376'&amp;gt;@w_r_chase&amp;lt;/a&amp;gt;" width="30%" /&gt;
+&lt;p class="caption"&gt;Image by &lt;a href='https://twitter.com/w_r_chase/status/1155212225621221376'&gt;@w_r_chase&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+
+---
+# Scales
+
+&gt; "Scales control the details of how data values are translated to visual properties." 
+
+- Every aes value has a corresponding family of scales functions 
+- Of the form `scale_{aes}_*()`, e.g. `scale_x_continuous()`
+- Values of the * depend on the aes 
+- Possible scale function arguments: 
+    * `name`: label of the axis/legend
+    * `breaks`: numeric positions of breaks on axes/legends
+    * `labels`: labels of the breaks on axes/legends
+    * `limits`: continuous axis limits
+    * `expand`: padding around data 
+    * `na.value`: what to do with missings
+    * `trans`: continuous transformations of data 
+    * `guide`: function to create guide/legend
+    * `date_breaks`: breaks for date variables
+
+
+---
+# Scales for axes
+
+.pull-left[
+`scale_x_*()`, `scale_y_*()`
+- continuous
+- discrete
+- binned
+- log10
+- sqrt 
+- date
+- datetime
+- reverse
+]
+
+.pull-right[
+
+```r
+ggplot(chi_cpi, aes(x = date, y = cpi)) + 
+  geom_line() + 
+  scale_x_date(breaks = "2 years", 
+               date_labels = "%Y")
+```
+
+&lt;img src="index_files/figure-html/unnamed-chunk-88-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+]
+
+---
+# Scales for color
+
+.pull-left[
+`scale_color_*()`, `scale_fill_*()`
+
+- manual 
+- continuous 
+- brewer/distiller/fermenter
+- gradient/gradient2/gradientn
+- steps
+- viridis 
+]
+.pull-right[
+
+```r
+ggplot(chi_dmv_cpi, aes(x = date, y = cpi, 
+  color = area_code)) + geom_line() + 
+  scale_color_manual(
+    values = c("blue", "orange"))
+```
+
+&lt;img src="index_files/figure-html/unnamed-chunk-89-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+]
+
+---
+# Scales for size
+
+.pull-left[
+`scale_*()`
+- `size`
+- `radius` 
+- `size_binned`
+- `size_area`
+- `size_binned_area`
+]
+.pull-right[
+
+```r
+ggplot(data=chi_dmv_cpi_pop, aes(x = date, 
+  y = cpi, size = pop_est)) +
+  geom_point(alpha = .3) + 
+  scale_size_binned("Population",
+                    n.breaks = 5)
+```
+
+&lt;img src="index_files/figure-html/unnamed-chunk-90-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+]
+
+---
+# Other scale functions 
+
+- `scale_alpha_*()`: for mapping a variable to transparency 
+- `scale_linetype_*()`: for mapping a variable to linetype (`geom_line`)
+- `scale_shape_*()`: for mapping a variable to shape (`geom_point`) 
+  
+
+```r
+ggplot(data = mpg, aes(x = cty, y = hwy, shape = class, alpha = cyl)) + 
+  geom_jitter(color = "red") + theme(legend.position = "top") +  
+  scale_shape_manual(values = c("◐", '◑', '◒' ,'◓', '◔','◕','◖'))
+```
+
+&lt;img src="index_files/figure-html/unnamed-chunk-91-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+
+---
+# Labels 
+
+Labels are also scale elements 
+
+- `ggtitle(main, subtitle)`: plot title &amp; subtitle
+- `xlab()`, `ylab()`: axes titles 
+- `labs()`: all of the above plus captions, tags, and other aes values 
+    * e.g. `color = "My variable"` names the legend "My variable" 
+    * `title`: plot title 
+    * `subtitle`: plot subtitle
+    * `caption`: text for bottom right corner of plot area e.g. to ID data source
+    * `tag`: text for top left corner of plot area, e.g. A, B, C when combining many plots together
+
+---
+# Coordinates
+
+The `coord_*()` family of functions dictate position aesthetics (e.g. `x`, `y`):
+
+- Controls the "canvas" the data are "drawn" on
+- Especially useful for maps 
+
+Function examples: 
+
+- `coord_cartesian()`: the default. x, y axes 
+- `coord_polar()`: x becomes radius, y becomes angle
+
+&lt;i class="fas fa-bullhorn" style="color: #0F81BF;"&gt;&lt;/i&gt; You can apply limits and transformations to axes in scales or coordinates (e.g. `xlim()`, `ylim()`) but using coordinates is probably what you want. 
+
+---
+# Example 
+
+All three visualizations below begin with the same plot code: 
+```r
+ggplot(chi_cpi, aes(x = date, y = cpi)) + geom_line() +
+```
+
+&lt;img src="index_files/figure-html/unnamed-chunk-92-1.png" width="33%" /&gt;&lt;img src="index_files/figure-html/unnamed-chunk-92-2.png" width="33%" /&gt;&lt;img src="index_files/figure-html/unnamed-chunk-92-3.png" width="33%" /&gt;
+
+
+
+---
+# Themes
+
+Specific themes: 
+
+- `theme_grey()`: default
+- `theme_bw()`: white background, gray gridlines
+- `theme_classic()`: looks more like base R plots
+- `theme_void()`: removes all background elements, all axes elements, keeps legends 
+
+General `theme` function for advanced customization: 
+
+- `theme()`
+    * adjust the appearance every "non-data element" of the viz
+    * fonts, background, text positioning, legend appearance, facet appearance, etc. 
+- &lt;i class="fas fa-bullhorn" style="color: #0F81BF;"&gt;&lt;/i&gt; Rule of thumb: when changing an element that shows data, use aes() and scales. Otherwise, use themes. 
+
+---
+# Theme elements
+
+Every theme element is either a line, a rect, or text. See [documentation](https://ggplot2.tidyverse.org/reference/theme.html) for more.
+
+To modify a theme element, use: 
+
+- `element_line()`: change lines' appearance (color, linetype, size, etc.)
+- `element_rect()`: change rectangles' appearance (fill, border lines, etc.)
+- `element_text()`: change text elements' appearance (family, face, color, etc.)
+- `element_blank()`: draw nothing. Use to remove a theme element. 
+
+&lt;i class="fas fa-bullhorn" style="color: #0F81BF;"&gt;&lt;/i&gt; Note: there are 92 possible arguments used to modify a ggplot theme. Usually, we will only need to call on a handful. 
+
+---
+# Example 
+
+
+```r
+mytheme &lt;- theme(legend.position =  "top", 
+        axis.text = element_text(face = "italic", color = "navy"), 
+        plot.background = element_rect(fill = "#a0d1f2"), 
+        panel.background = element_blank(), 
+        panel.grid = element_line(linetype = "dotdash"))
+ggplot(data = mpg) + geom_jitter(aes(x = cty, y = hwy, color = class)) + mytheme
+```
+
+&lt;img src="index_files/figure-html/unnamed-chunk-93-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+
+---
+# Legends 
+
+The `guides()` family of functions control legends' appearance  
+- `guide_colorbar()`: continuous colors
+- `guide_legend()`: discrete values (shapes, colors)
+- `guide_axis()`: control axis text/spacing, add a secondary axis 
+- `guide_bins()`: creates "bins" of values in the legend
+- `guide_colorsteps()`: makes colorbar discrete 
+
+&lt;img src="img/guides_examples.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+---
+# Example 
+
+
+```r
+ggplot(data = mpg) + 
+* geom_jitter(aes(x = cty, y = hwy, color = class),key_glyph = draw_key_pointrange) +
+  mytheme + 
+* guides(color = guide_legend(nrow = 1))
+```
+
+&lt;img src="index_files/figure-html/unnamed-chunk-95-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+---
+# Fonts
+
+To change fonts in a `ggplot2` viz: 
+
+- Use the `element_text()` function inside of `theme()`
+    * `family`: font family 
+    * `face` : bold, italic, bold.italic, plain 
+    * `color`, `size`, `angle`, etc. 
+- Include additional fonts with the [`extrafont`](https://github.com/wch/extrafont) package: 
+
+```r
+library(extrafont)
+font_import()
+fonts()
+fonttable()
+```
+
+---
+# Example 
+
+
+```r
+ggplot(data = mpg) + 
+  geom_jitter(aes(x = cty, y = hwy, color = class)) + 
+  theme(text = element_text(family = "Comfortaa"))
+```
+
+&lt;img src="index_files/figure-html/unnamed-chunk-97-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+---
+# Design principles
+
+.pull-left[
+
+Advice on data visualization design from [Will Chase](https://www.williamrchase.com/slides/assets/player/KeynoteDHTMLPlayer.html). 
+
+- Left-align text 
+- Don't make people tilt their heads! 
+- Remove borders &amp; gridlines 
+- Directly label in place of legends 
+- White space is your friend 
+- Use simple, clear fonts
+- Color is hard. (Stick to the available palettes)
+
+Watch Will's talk [here](https://resources.rstudio.com/rstudio-conf-2020/the-glamour-of-graphics-william-chase). 
+]
+.pull-right[
+&lt;img src="img/chase-glamour.png" width="80%" style="display: block; margin: auto;" /&gt;
+]
+
+---
+# Your turn 
+
+<div class="countdown" id="timer_5f341042" style="top:0;right:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">15</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+Try to recreate the XKCD comic at left as closely as possible. (Sam's version is at right.) Use this data: 
+
+
+```r
+xmas2 &lt;- readr::read_rds("dat/xmasdata.rds")
+bbs &lt;- gens %&gt;% slice(2) # baby boomer dates &amp; info
+```
+
+.pull-left[
+&lt;img src="img/tradition.png" width="100%" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+&lt;img src="img/tradition-redo.png" width="85%" style="display: block; margin: auto;" /&gt;
+]
+
+---
+# Your turn hints
+
+
+- Check out the `xkcd` package documentation. (`vignette("xkcd-intro")`) The xkcd font files are stored in the fonts folder. 
+
+--
+
+- geoms used: `tile`, `text`
+
+--
+
+- annotations used: `rect`, `text` (see `?annotate`)
+
+--
+
+- all named arguments of `labs` are used 
+
+--
+
+- scales used: `scale_x_*()`, `scale_size_*()`, `scale_fill_*()`. Fill in the *.
+
+--
+
+- scales used: `scale_x_discrete()`, `scale_size_continuous()`, `scale_fill_manual()`
+
+--
+
+- 9 `theme()` arguments used. 4 are `element_blank()`, 3 are position arguments. 
+
+
+---
+class: inverse, center
+# `ggplot2` extensions
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="img/gganimate_fireworks.PNG" alt="Image by &amp;lt;a href=&amp;quot;https://twitter.com/allison_horst&amp;quot;&amp;gt;@allison_horst&amp;lt;/a&amp;gt;" width="60%" /&gt;
+&lt;p class="caption"&gt;Image by &lt;a href="https://twitter.com/allison_horst"&gt;@allison_horst&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+
+
+---
+# Where to find them
+
+Maintainers of packages can put their `ggplot2` extension on [exts.ggplot2.tidyverse.org/gallery](http://exts.ggplot2.tidyverse.org/gallery/)
+
+&lt;img src="img/ggplot-exts.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+---
+# Animation
+
+[`gganimate`](https://gganimate.com/): a grammar of animated graphics 
+
+&lt;img src="img/gganimate.png" style="position: absolute; top: 5%; right: 5%;"&gt;
+
+From the documentation, here are the `gganimate` function families: 
+
+- `transition_*()`: defines how the data should be spread out and how it relates to itself across time.
+- `view_*()`: defines how the positional scales should change along the animation.
+- `shadow_*()`: defines how data from other points in time should be presented in the given point in time.
+- `enter_*()/exit_*()`: defines how new data should appear and how old data should disappear during the course of the animation.
+- `ease_aes()`: defines how different aesthetics should be eased during transitions.
+
+---
+# Example (code)
+
+
+```r
+library(gganimate)
+ggplot(data = chi_cpi, aes(x = period, y = cpi)) + 
+  geom_line() + 
+* labs(title = 'Year: {closest_state}') +
+* transition_states(year, transition_length = 3, state_length = 2) +
+* shadow_mark(alpha = .3, size = .5) +
+* ease_aes('linear')
+```
+
+Computed transition state variables: 
+
+- {transitioning}: a boolean indicating whether the frame is part of the transitioning phase
+- {previous_state}: name of the last state the animation was at
+- **{closest_state}**: name of the state closest to this frame
+- {next_state}: name of the next state the animation will be part of
+
+
+---
+# Example (animation)
+
+&lt;img src="img/gganimate-example.gif" width="50%" style="display: block; margin: auto;" /&gt;
+
+---
+# Your Turn
+
+<div class="countdown" id="timer_5f3412c1" style="top:0;right:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">07</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+Make an animation using any data we or you have already used in this tutorial. Use at least three `gganimate` functions.
+
+Some possible datasets are: 
+
+```r
+chi_dmv_cpi
+chi_cpi
+cpi_all
+cpi19
+diamonds
+emp_own
+mpg
+states48
+xmas 
+xmas2
+```
+
+
+
+---
+# Domain specific
+
+.pull-left[
+Networks: 
+
+- [geomnet](https://github.com/sctyner/geomnet)
+- [ggraph](https://github.com/thomasp85/ggraph)
+
+Time Series: 
+
+- [ggaluvial](http://corybrunson.github.io/ggalluvial/)
+- [sugrrants](https://pkg.earo.me/sugrrants/)
+
+Sciences: 
+
+- [gggenes](https://wilkox.org/gggenes/)
+- [ggtree](https://guangchuangyu.github.io/software/ggtree/)
+- [ggseqlogo](https://github.com/omarwagih/ggseqlogo)
+- [ggspectra](https://docs.r4photobiology.info/ggspectra/)
+]
+
+.pull-right[
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="img/sugrrants.png" alt="Example of a calendar plot from sugrrants." width="80%" /&gt;
+&lt;p class="caption"&gt;Example of a calendar plot from sugrrants.&lt;/p&gt;
+&lt;/div&gt;
+]
+
+---
+# Appearance customization
+
+
+.pull-left[
+- Arrange ggplots: 
+    * [cowplot](https://wilkelab.org/cowplot/)
+    * [patchwork](https://patchwork.data-imaginist.com/) 
+- Custome themes and/or scales: 
+    * [ggthemes](https://jrnold.github.io/ggthemes/)
+    * [ggsci](https://nanx.me/ggsci/)
+    * [ggtech](https://github.com/ricardo-bion/ggtech)
+    * [ggthemr](https://github.com/cttobin/ggthemr)
+    * [xkcd](https://cran.r-project.org/web/packages/xkcd/index.html)
+    * [ggpubr](https://github.com/kassambara/ggpubr/issues)
+]
+
+.pull-right[
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="img/patchwork_horst.png" alt="Image by &amp;lt;a href='https://twitter.com/allison_horst'&amp;gt;@allison_horst&amp;lt;/a&amp;gt;" width="100%" /&gt;
+&lt;p class="caption"&gt;Image by &lt;a href='https://twitter.com/allison_horst'&gt;@allison_horst&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+]
+---
+# Your Turn
+
+<div class="countdown" id="timer_5f3411b3" style="top:0;right:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">07</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+Explore the ggplot extensions, find one you like, and apply it to a dataset we or you have seen already. 
+
+Reminder of some data sets we've seen already: 
+
+```r
+chi_dmv_cpi
+chi_cpi
+cpi_all
+cpi19
+diamonds
+emp_own
+mpg
+states48
+xmas 
+xmas2
+```
+
+
+---
+class: inverse, center
+# Interactivity with `plotly`
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="https://media.giphy.com/media/JQdiNoDeGStkIfpwPZ/giphy.gif" alt="Image &amp;lt;a href=&amp;quot;https://media.giphy.com/media/JQdiNoDeGStkIfpwPZ/giphy.gif&amp;quot;&amp;gt;source&amp;lt;/a&amp;gt;" width="45%" /&gt;
+&lt;p class="caption"&gt;Image &lt;a href="https://media.giphy.com/media/JQdiNoDeGStkIfpwPZ/giphy.gif"&gt;source&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+
+---
+# What is plotly? 
+
+Plotly ([plotly.com](https://plotly.com/)) is a data visualization and dashboard company 
+
+Provides open-source data visualization libraries for 
+
+- [R](https://plotly.com/r/) 
+- [Python](https://plotly.com/python/) 
+- [JavaScript](https://plotly.com/javascript/)
+
+
+---
+# The `plotly` package
+
+```r
+install.packages("plotly")
+library(plotly)
+s &lt;- seq(1, 4, by = 0.25)
+plot_ly(x = ~s, y = ~s)
+```
+
+&lt;iframe width="1000" height="400" frameborder="0" scrolling="no" src="img/plotly-scatter.html"&gt;&lt;/iframe&gt;
+
+&lt;i class="fas fa-bullhorn" style="color: #0F81BF;"&gt;&lt;/i&gt; `plotly` package syntax looks much more like base plot than ggplot2
+
+
+---
+# `ggplotly()`
+
+Turn a `ggplot2` object into an interactive visualization with one function!
+
+
+```r
+p &lt;- ggplot(data = cpi_all, aes(x = date, y = value, group = area_code)) + geom_line(alpha = .4) 
+ggplotly(p)
+```
+
+&lt;iframe width="1000" height="400" frameborder="0" scrolling="no" src="img/cpi-group-lines.html"&gt;&lt;/iframe&gt;
+
+---
+# Tooltips 
+
+What data should appear in the tooltip (on hover)? 
+
+
+```r
+p &lt;- ggplot(data = cpi_all, aes(x = date, y = value, group = area_code,
+*                               tooltip = area_name, fill = NULL)) +
+  geom_line(alpha = .4) 
+ggplotly(p, tooltip = c("x", "y", "tooltip")) %&gt;% layout(hoverlabel=list(bgcolor="white")) 
+```
+
+&lt;iframe width="1000" height="350" frameborder="0" scrolling="no" src="img/cpi-group-tooltip.html"&gt;&lt;/iframe&gt;
+
+---
+# Linked Views 
+
+Connecting two plots so that interactions on one show changes in the other. See Chapter [15](https://plotly-r.com/introduction.html) of the plotly R book for more.  
+
+
+```r
+d &lt;- highlight_key(cpi_all)
+p1 &lt;- ggplot(data = d, aes(x = date, y = value, group = area_code,
+                                tooltip = area_name, color = region )) + 
+  geom_line() + theme(legend.position = "none")
+p2 &lt;- ggplot(data = d) + 
+  geom_jitter(aes(x = as.factor(period),  y = value, color = region), alpha = .3) + 
+  guides(color = guide_legend(override.aes = list(alpha = 1)))
+
+p1 %&gt;% subplot(p2) %&gt;% 
+  layout(title = "Select points at right to highlight lines at left") %&gt;% 
+  highlight("plotly_selected") 
+```
+
+---
+
+&lt;iframe width="1000" height="700" frameborder="0" scrolling="no" src="img/crosstalk.html"&gt;&lt;/iframe&gt;
+
+---
+# Your Turn
+
+<div class="countdown blink-colon noupdate-30" id="timer_5f341022" style="top:0;right:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">03</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+Create your own interactive visualization with `ggplotly` using any one of the data sets and/or visualizations we've seen already. 
+
+```r
+chi_dmv_cpi
+chi_cpi
+cpi_all
+cpi19
+diamonds
+emp_own
+mpg
+states48
+xmas 
+xmas2
+```
+
+---
+class: inverse, center
+# Conclusion
+
+&lt;img src="https://media.giphy.com/media/lD76yTC5zxZPG/giphy.gif" width="50%" style="display: block; margin: auto;" /&gt;
+
+---
+# Additional resources 
+
+- [ggplot2 book](https://ggplot2-book.org/)
+- [plotly book](https://plotly-r.com/)
+- [R for Data Science book](https://r4ds.had.co.nz/)
+- [Tidy Tuesday](https://github.com/rfordatascience/tidytuesday)
+- [My advice for getting help in R](https://sctyner.github.io/rhelp.html)
+- Thomas Lin Pedersen's ggplot2 webinar: [part 1](https://youtu.be/h29g21z0a68) and [part 2](https://youtu.be/0m4yywqNPVY)
+- [RStudio Cheat Sheets](https://github.com/rstudio/cheatsheets)
+
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

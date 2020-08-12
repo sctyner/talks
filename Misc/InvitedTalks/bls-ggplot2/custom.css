@@ -1,0 +1,12 @@
+.preman .remark-inline-code{
+  display: block;
+  font-family: monospace;
+  white-space: pre;
+  margin: 1em 0px;
+  color: #7D1519;
+}
+
+.hilite {
+  background-color: #bb3539;
+  color: #FFFFFF;
+}

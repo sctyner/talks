@@ -1,0 +1,261 @@
+area_name,short_name,area_code,year,region,pop_est
+"Atlanta-Sandy Springs-Roswell, GA",Atlanta,S35C,2005,south,4828838
+"Baltimore-Columbia-Towson, MD",Baltimore,S35E,2005,south,2583923
+"Boston-Cambridge-Newton, MA-NH",Boston,S11A,2005,northeast,4270631
+"Chicago-Naperville-Elgin, IL-IN-WI",Chicago,S23A,2005,midwest,9272117
+"Cleveland-Akron, OH",Cleveland,A210,2005,midwest,104259
+"Cleveland-Akron, OH",Cleveland,A210,2005,midwest,2082379
+"Dallas-Fort Worth-Arlington, TX",Dallas,S37A,2005,south,5727391
+"Denver-Aurora-Lakewood, CO",Denver,S48B,2005,west,2327901
+"Detroit-Warren-Dearborn, MI",Detroit,S23B,2005,midwest,4428941
+"Houston-The Woodlands-Sugar Land, TX",Houston,S37B,2005,south,5193448
+"Los Angeles-Riverside-Orange County, CA",Los Angeles,A421,2005,west,12703423
+"Los Angeles-Long Beach-Anaheim, CA",Los Angeles,S49A,2005,west,12703423
+"Miami-Fort Lauderdale-West Palm Beach, FL",Miami,S35B,2005,south,5334685
+"Minneapolis-St.Paul-Bloomington, MN-WI",Minneapolis,S24A,2005,midwest,3076239
+"New York-Newark-Jersey City, NY-NJ-PA",New York,S12A,2005,northeast,18351099
+"Philadelphia-Camden-Wilmington, PA-NJ-DE-MD",Philadelphia,S12B,2005,northeast,5644383
+"Phoenix-Mesa-Scottsdale, AZ",Phoenix,S48A,2005,west,3805123
+"Pittsburgh, PA",Pittsburgh,A104,2005,northeast,2314937
+"Riverside-San Bernardino-Ontario, CA",Riverside,S49C,2005,west,3827946
+"St. Louis, MO-IL",St. Louis,S24B,2005,midwest,2725336
+"San Diego-Carlsbad, CA",San Diego,S49E,2005,west,2824259
+"San Francisco-Oakland-Hayward, CA",San Francisco,S49B,2005,west,4071751
+Seattle-Tacoma-Bellevue WA,Seattle,S49D,2005,west,3133715
+"Tampa-St. Petersburg-Clearwater, FL",Tampa,S35D,2005,south,2596556
+"Washington-Baltimore, DC-MD-VA-WV",Washington,A311,2005,south,5119490
+"Washington-Arlington-Alexandria, DC-VA-MD-WV",Washington,S35A,2005,south,5119490
+"Atlanta-Sandy Springs-Roswell, GA",Atlanta,S35C,2006,south,5134871
+"Baltimore-Columbia-Towson, MD",Baltimore,S35E,2006,south,2658405
+"Boston-Cambridge-Newton, MA-NH",Boston,S11A,2006,northeast,4455217
+"Chicago-Naperville-Elgin, IL-IN-WI",Chicago,S23A,2006,midwest,9506859
+"Cleveland-Akron, OH",Cleveland,A210,2006,midwest,108549
+"Cleveland-Akron, OH",Cleveland,A210,2006,midwest,2114155
+"Dallas-Fort Worth-Arlington, TX",Dallas,S37A,2006,south,6006094
+"Denver-Aurora-Lakewood, CO",Denver,S48B,2006,west,2408622
+"Detroit-Warren-Dearborn, MI",Detroit,S23B,2006,midwest,4468966
+"Houston-The Woodlands-Sugar Land, TX",Houston,S37B,2006,south,5542048
+"Los Angeles-Riverside-Orange County, CA",Los Angeles,A421,2006,west,12950129
+"Los Angeles-Long Beach-Anaheim, CA",Los Angeles,S49A,2006,west,12950129
+"Miami-Fort Lauderdale-West Palm Beach, FL",Miami,S35B,2006,south,5463857
+"Minneapolis-St.Paul-Bloomington, MN-WI",Minneapolis,S24A,2006,midwest,3175041
+"New York-Newark-Jersey City, NY-NJ-PA",New York,S12A,2006,northeast,18818536
+"Philadelphia-Camden-Wilmington, PA-NJ-DE-MD",Philadelphia,S12B,2006,northeast,5826742
+"Phoenix-Mesa-Scottsdale, AZ",Phoenix,S48A,2006,west,4039182
+"Pittsburgh, PA",Pittsburgh,A104,2006,northeast,2370776
+"Riverside-San Bernardino-Ontario, CA",Riverside,S49C,2006,west,4026135
+"St. Louis, MO-IL",St. Louis,S24B,2006,midwest,2793988
+"San Diego-Carlsbad, CA",San Diego,S49E,2006,west,2941454
+"San Francisco-Oakland-Hayward, CA",San Francisco,S49B,2006,west,4180027
+Seattle-Tacoma-Bellevue WA,Seattle,S49D,2006,west,3263497
+"Tampa-St. Petersburg-Clearwater, FL",Tampa,S35D,2006,south,2697731
+"Washington-Baltimore, DC-MD-VA-WV",Washington,A311,2006,south,5288670
+"Washington-Arlington-Alexandria, DC-VA-MD-WV",Washington,S35A,2006,south,5288670
+"Atlanta-Sandy Springs-Roswell, GA",Atlanta,S35C,2007,south,5122275
+"Baltimore-Columbia-Towson, MD",Baltimore,S35E,2007,south,2660496
+"Boston-Cambridge-Newton, MA-NH",Boston,S11A,2007,northeast,4467781
+"Chicago-Naperville-Elgin, IL-IN-WI",Chicago,S23A,2007,midwest,9463477
+"Cleveland-Akron, OH",Cleveland,A210,2007,midwest,109555
+"Cleveland-Akron, OH",Cleveland,A210,2007,midwest,2106901
+"Dallas-Fort Worth-Arlington, TX",Dallas,S37A,2007,south,5979240
+"Denver-Aurora-Lakewood, CO",Denver,S48B,2007,west,2413844
+"Detroit-Warren-Dearborn, MI",Detroit,S23B,2007,midwest,4488815
+"Houston-The Woodlands-Sugar Land, TX",Houston,S37B,2007,south,5485720
+"Los Angeles-Riverside-Orange County, CA",Los Angeles,A421,2007,west,12872056
+"Los Angeles-Long Beach-Anaheim, CA",Los Angeles,S49A,2007,west,12872056
+"Miami-Fort Lauderdale-West Palm Beach, FL",Miami,S35B,2007,south,5404990
+"Minneapolis-St.Paul-Bloomington, MN-WI",Minneapolis,S24A,2007,midwest,3172801
+"New York-Newark-Jersey City, NY-NJ-PA",New York,S12A,2007,northeast,18785319
+"Philadelphia-Camden-Wilmington, PA-NJ-DE-MD",Philadelphia,S12B,2007,northeast,5810526
+"Phoenix-Mesa-Scottsdale, AZ",Phoenix,S48A,2007,west,4036744
+"Pittsburgh, PA",Pittsburgh,A104,2007,northeast,2364622
+"Riverside-San Bernardino-Ontario, CA",Riverside,S49C,2007,west,3985508
+"St. Louis, MO-IL",St. Louis,S24B,2007,midwest,2790203
+"San Diego-Carlsbad, CA",San Diego,S49E,2007,west,2954960
+"San Francisco-Oakland-Hayward, CA",San Francisco,S49B,2007,west,4171627
+Seattle-Tacoma-Bellevue WA,Seattle,S49D,2007,west,3259078
+"Tampa-St. Petersburg-Clearwater, FL",Tampa,S35D,2007,south,2687027
+"Washington-Baltimore, DC-MD-VA-WV",Washington,A311,2007,south,5263322
+"Washington-Arlington-Alexandria, DC-VA-MD-WV",Washington,S35A,2007,south,5263322
+"Atlanta-Sandy Springs-Roswell, GA",Atlanta,S35C,2008,south,5251899
+"Baltimore-Columbia-Towson, MD",Baltimore,S35E,2008,south,2662980
+"Boston-Cambridge-Newton, MA-NH",Boston,S11A,2008,northeast,4494144
+"Chicago-Naperville-Elgin, IL-IN-WI",Chicago,S23A,2008,midwest,9502094
+"Cleveland-Akron, OH",Cleveland,A210,2008,midwest,110792
+"Cleveland-Akron, OH",Cleveland,A210,2008,midwest,2095675
+"Dallas-Fort Worth-Arlington, TX",Dallas,S37A,2008,south,6150828
+"Denver-Aurora-Lakewood, CO",Denver,S48B,2008,west,2454378
+"Detroit-Warren-Dearborn, MI",Detroit,S23B,2008,midwest,4456416
+"Houston-The Woodlands-Sugar Land, TX",Houston,S37B,2008,south,5603882
+"Los Angeles-Riverside-Orange County, CA",Los Angeles,A421,2008,west,12818132
+"Los Angeles-Long Beach-Anaheim, CA",Los Angeles,S49A,2008,west,12818132
+"Miami-Fort Lauderdale-West Palm Beach, FL",Miami,S35B,2008,south,5403075
+"Minneapolis-St.Paul-Bloomington, MN-WI",Minneapolis,S24A,2008,midwest,3197225
+"New York-Newark-Jersey City, NY-NJ-PA",New York,S12A,2008,northeast,18925869
+"Philadelphia-Camden-Wilmington, PA-NJ-DE-MD",Philadelphia,S12B,2008,northeast,5822368
+"Phoenix-Mesa-Scottsdale, AZ",Phoenix,S48A,2008,west,4160999
+"Pittsburgh, PA",Pittsburgh,A104,2008,northeast,2355367
+"Riverside-San Bernardino-Ontario, CA",Riverside,S49C,2008,west,4054985
+"St. Louis, MO-IL",St. Louis,S24B,2008,midwest,2803854
+"San Diego-Carlsbad, CA",San Diego,S49E,2008,west,2965943
+"San Francisco-Oakland-Hayward, CA",San Francisco,S49B,2008,west,4222756
+Seattle-Tacoma-Bellevue WA,Seattle,S49D,2008,west,3299005
+"Tampa-St. Petersburg-Clearwater, FL",Tampa,S35D,2008,south,2712042
+"Washington-Baltimore, DC-MD-VA-WV",Washington,A311,2008,south,5306742
+"Washington-Arlington-Alexandria, DC-VA-MD-WV",Washington,S35A,2008,south,5306742
+"Atlanta-Sandy Springs-Roswell, GA",Atlanta,S35C,2009,south,5238994
+"Baltimore-Columbia-Towson, MD",Baltimore,S35E,2009,south,2669987
+"Boston-Cambridge-Newton, MA-NH",Boston,S11A,2009,northeast,4513934
+"Chicago-Naperville-Elgin, IL-IN-WI",Chicago,S23A,2009,midwest,9461816
+"Cleveland-Akron, OH",Cleveland,A210,2009,midwest,110919
+"Cleveland-Akron, OH",Cleveland,A210,2009,midwest,2101821
+"Dallas-Fort Worth-Arlington, TX",Dallas,S37A,2009,south,6144234
+"Denver-Aurora-Lakewood, CO",Denver,S48B,2009,west,2451038
+"Detroit-Warren-Dearborn, MI",Detroit,S23B,2009,midwest,4452548
+"Houston-The Woodlands-Sugar Land, TX",Houston,S37B,2009,south,5595262
+"Los Angeles-Riverside-Orange County, CA",Los Angeles,A421,2009,west,12762126
+"Los Angeles-Long Beach-Anaheim, CA",Los Angeles,S49A,2009,west,12762126
+"Miami-Fort Lauderdale-West Palm Beach, FL",Miami,S35B,2009,south,5484777
+"Minneapolis-St.Paul-Bloomington, MN-WI",Minneapolis,S24A,2009,midwest,3202412
+"New York-Newark-Jersey City, NY-NJ-PA",New York,S12A,2009,northeast,18912644
+"Philadelphia-Camden-Wilmington, PA-NJ-DE-MD",Philadelphia,S12B,2009,northeast,5910593
+"Phoenix-Mesa-Scottsdale, AZ",Phoenix,S48A,2009,west,4151634
+"Pittsburgh, PA",Pittsburgh,A104,2009,northeast,2360259
+"Riverside-San Bernardino-Ontario, CA",Riverside,S49C,2009,west,4022939
+"St. Louis, MO-IL",St. Louis,S24B,2009,midwest,2803776
+"San Diego-Carlsbad, CA",San Diego,S49E,2009,west,2987543
+"San Francisco-Oakland-Hayward, CA",San Francisco,S49B,2009,west,4218534
+Seattle-Tacoma-Bellevue WA,Seattle,S49D,2009,west,3306836
+"Tampa-St. Petersburg-Clearwater, FL",Tampa,S35D,2009,south,2702390
+"Washington-Baltimore, DC-MD-VA-WV",Washington,A311,2009,south,5332297
+"Washington-Arlington-Alexandria, DC-VA-MD-WV",Washington,S35A,2009,south,5332297
+"Atlanta-Sandy Springs-Roswell, GA",Atlanta,S35C,2010,south,5125113
+"Baltimore-Columbia-Towson, MD",Baltimore,S35E,2010,south,2683160
+"Boston-Cambridge-Newton, MA-NH",Boston,S11A,2010,northeast,4489250
+"Chicago-Naperville-Elgin, IL-IN-WI",Chicago,S23A,2010,midwest,9384661
+"Cleveland-Akron, OH",Cleveland,A210,2010,midwest,113882
+"Cleveland-Akron, OH",Cleveland,A210,2010,midwest,2086589
+"Dallas-Fort Worth-Arlington, TX",Dallas,S37A,2010,south,6154265
+"Denver-Aurora-Lakewood, CO",Denver,S48B,2010,west,2464415
+"Detroit-Warren-Dearborn, MI",Detroit,S23B,2010,midwest,4345978
+"Houston-The Woodlands-Sugar Land, TX",Houston,S37B,2010,south,5709313
+"Los Angeles-Riverside-Orange County, CA",Los Angeles,A421,2010,west,12723781
+"Los Angeles-Long Beach-Anaheim, CA",Los Angeles,S49A,2010,west,12723781
+"Miami-Fort Lauderdale-West Palm Beach, FL",Miami,S35B,2010,south,5478869
+"Minneapolis-St.Paul-Bloomington, MN-WI",Minneapolis,S24A,2010,midwest,3229181
+"New York-Newark-Jersey City, NY-NJ-PA",New York,S12A,2010,northeast,18700715
+"Philadelphia-Camden-Wilmington, PA-NJ-DE-MD",Philadelphia,S12B,2010,northeast,5911638
+"Phoenix-Mesa-Scottsdale, AZ",Phoenix,S48A,2010,west,4080707
+"Pittsburgh, PA",Pittsburgh,A104,2010,northeast,2358313
+"Riverside-San Bernardino-Ontario, CA",Riverside,S49C,2010,west,4114751
+"St. Louis, MO-IL",St. Louis,S24B,2010,midwest,2792309
+"San Diego-Carlsbad, CA",San Diego,S49E,2010,west,3022468
+"San Francisco-Oakland-Hayward, CA",San Francisco,S49B,2010,west,4244889
+Seattle-Tacoma-Bellevue WA,Seattle,S49D,2010,west,3356089
+"Tampa-St. Petersburg-Clearwater, FL",Tampa,S35D,2010,south,2745350
+"Washington-Baltimore, DC-MD-VA-WV",Washington,A311,2010,south,5416691
+"Washington-Arlington-Alexandria, DC-VA-MD-WV",Washington,S35A,2010,south,5416691
+"Atlanta-Sandy Springs-Roswell, GA",Atlanta,S35C,2011,south,5213854
+"Baltimore-Columbia-Towson, MD",Baltimore,S35E,2011,south,2697421
+"Boston-Cambridge-Newton, MA-NH",Boston,S11A,2011,northeast,4521737
+"Chicago-Naperville-Elgin, IL-IN-WI",Chicago,S23A,2011,midwest,9425706
+"Cleveland-Akron, OH",Cleveland,A210,2011,midwest,115026
+"Cleveland-Akron, OH",Cleveland,A210,2011,midwest,2080318
+"Dallas-Fort Worth-Arlington, TX",Dallas,S37A,2011,south,6280597
+"Denver-Aurora-Lakewood, CO",Denver,S48B,2011,west,2509230
+"Detroit-Warren-Dearborn, MI",Detroit,S23B,2011,midwest,4320982
+"Houston-The Woodlands-Sugar Land, TX",Houston,S37B,2011,south,5836814
+"Los Angeles-Riverside-Orange County, CA",Los Angeles,A421,2011,west,12777695
+"Los Angeles-Long Beach-Anaheim, CA",Los Angeles,S49A,2011,west,12777695
+"Miami-Fort Lauderdale-West Palm Beach, FL",Miami,S35B,2011,south,5526089
+"Minneapolis-St.Paul-Bloomington, MN-WI",Minneapolis,S24A,2011,midwest,3259654
+"New York-Newark-Jersey City, NY-NJ-PA",New York,S12A,2011,northeast,18796078
+"Philadelphia-Camden-Wilmington, PA-NJ-DE-MD",Philadelphia,S12B,2011,northeast,5938918
+"Phoenix-Mesa-Scottsdale, AZ",Phoenix,S48A,2011,west,4150083
+"Pittsburgh, PA",Pittsburgh,A104,2011,northeast,2357769
+"Riverside-San Bernardino-Ontario, CA",Riverside,S49C,2011,west,4178296
+"St. Louis, MO-IL",St. Louis,S24B,2011,midwest,2801982
+"San Diego-Carlsbad, CA",San Diego,S49E,2011,west,3060849
+"San Francisco-Oakland-Hayward, CA",San Francisco,S49B,2011,west,4292964
+Seattle-Tacoma-Bellevue WA,Seattle,S49D,2011,west,3404443
+"Tampa-St. Petersburg-Clearwater, FL",Tampa,S35D,2011,south,2770114
+"Washington-Baltimore, DC-MD-VA-WV",Washington,A311,2011,south,5503801
+"Washington-Arlington-Alexandria, DC-VA-MD-WV",Washington,S35A,2011,south,5503801
+"Atlanta-Sandy Springs-Roswell, GA",Atlanta,S35C,2012,south,5291701
+"Baltimore-Columbia-Towson, MD",Baltimore,S35E,2012,south,2715650
+"Boston-Cambridge-Newton, MA-NH",Boston,S11A,2012,northeast,4563673
+"Chicago-Naperville-Elgin, IL-IN-WI",Chicago,S23A,2012,midwest,9460763
+"Cleveland-Akron, OH",Cleveland,A210,2012,midwest,115985
+"Cleveland-Akron, OH",Cleveland,A210,2012,midwest,2074824
+"Dallas-Fort Worth-Arlington, TX",Dallas,S37A,2012,south,6400781
+"Denver-Aurora-Lakewood, CO",Denver,S48B,2012,west,2554243
+"Detroit-Warren-Dearborn, MI",Detroit,S23B,2012,midwest,4304617
+"Houston-The Woodlands-Sugar Land, TX",Houston,S37B,2012,south,5962416
+"Los Angeles-Riverside-Orange County, CA",Los Angeles,A421,2012,west,12861864
+"Los Angeles-Long Beach-Anaheim, CA",Los Angeles,S49A,2012,west,12861864
+"Miami-Fort Lauderdale-West Palm Beach, FL",Miami,S35B,2012,south,5598297
+"Minneapolis-St.Paul-Bloomington, MN-WI",Minneapolis,S24A,2012,midwest,3290811
+"New York-Newark-Jersey City, NY-NJ-PA",New York,S12A,2012,northeast,18923404
+"Philadelphia-Camden-Wilmington, PA-NJ-DE-MD",Philadelphia,S12B,2012,northeast,5967349
+"Phoenix-Mesa-Scottsdale, AZ",Phoenix,S48A,2012,west,4210193
+"Pittsburgh, PA",Pittsburgh,A104,2012,northeast,2357981
+"Riverside-San Bernardino-Ontario, CA",Riverside,S49C,2012,west,4234011
+"St. Louis, MO-IL",St. Louis,S24B,2012,midwest,2810367
+"San Diego-Carlsbad, CA",San Diego,S49E,2012,west,3100500
+"San Francisco-Oakland-Hayward, CA",San Francisco,S49B,2012,west,4348880
+Seattle-Tacoma-Bellevue WA,Seattle,S49D,2012,west,3453748
+"Tampa-St. Petersburg-Clearwater, FL",Tampa,S35D,2012,south,2793814
+"Washington-Baltimore, DC-MD-VA-WV",Washington,A311,2012,south,5603696
+"Washington-Arlington-Alexandria, DC-VA-MD-WV",Washington,S35A,2012,south,5603696
+"Atlanta-Sandy Springs-Roswell, GA",Atlanta,S35C,2013,south,5379176
+"Baltimore-Columbia-Towson, MD",Baltimore,S35E,2013,south,2734044
+"Boston-Cambridge-Newton, MA-NH",Boston,S11A,2013,northeast,4604278
+"Chicago-Naperville-Elgin, IL-IN-WI",Chicago,S23A,2013,midwest,9488493
+"Cleveland-Akron, OH",Cleveland,A210,2013,midwest,116793
+"Cleveland-Akron, OH",Cleveland,A210,2013,midwest,2070965
+"Dallas-Fort Worth-Arlington, TX",Dallas,S37A,2013,south,6575833
+"Denver-Aurora-Lakewood, CO",Denver,S48B,2013,west,2601465
+"Detroit-Warren-Dearborn, MI",Detroit,S23B,2013,midwest,4295700
+"Houston-The Woodlands-Sugar Land, TX",Houston,S37B,2013,south,6063540
+"Los Angeles-Riverside-Orange County, CA",Los Angeles,A421,2013,west,12945252
+"Los Angeles-Long Beach-Anaheim, CA",Los Angeles,S49A,2013,west,12945252
+"Miami-Fort Lauderdale-West Palm Beach, FL",Miami,S35B,2013,south,5673185
+"Minneapolis-St.Paul-Bloomington, MN-WI",Minneapolis,S24A,2013,midwest,3391191
+"New York-Newark-Jersey City, NY-NJ-PA",New York,S12A,2013,northeast,19716880
+"Philadelphia-Camden-Wilmington, PA-NJ-DE-MD",Philadelphia,S12B,2013,northeast,5992766
+"Phoenix-Mesa-Scottsdale, AZ",Phoenix,S48A,2013,west,4268289
+"Pittsburgh, PA",Pittsburgh,A104,2013,northeast,2358746
+"Riverside-San Bernardino-Ontario, CA",Riverside,S49C,2013,west,4285443
+"St. Louis, MO-IL",St. Louis,S24B,2013,midwest,2792127
+"San Diego-Carlsbad, CA",San Diego,S49E,2013,west,3138265
+"San Francisco-Oakland-Hayward, CA",San Francisco,S49B,2013,west,4402729
+Seattle-Tacoma-Bellevue WA,Seattle,S49D,2013,west,3504628
+"Tampa-St. Petersburg-Clearwater, FL",Tampa,S35D,2013,south,2819241
+"Washington-Baltimore, DC-MD-VA-WV",Washington,A311,2013,south,5759330
+"Washington-Arlington-Alexandria, DC-VA-MD-WV",Washington,S35A,2013,south,5759330
+"Atlanta-Sandy Springs-Roswell, GA",Atlanta,S35C,2014,south,5455053
+"Baltimore-Columbia-Towson, MD",Baltimore,S35E,2014,south,2753396
+"Boston-Cambridge-Newton, MA-NH",Boston,S11A,2014,northeast,4650876
+"Chicago-Naperville-Elgin, IL-IN-WI",Chicago,S23A,2014,midwest,9516448
+"Cleveland-Akron, OH",Cleveland,A210,2014,midwest,117719
+"Cleveland-Akron, OH",Cleveland,A210,2014,midwest,2067490
+"Dallas-Fort Worth-Arlington, TX",Dallas,S37A,2014,south,6703020
+"Denver-Aurora-Lakewood, CO",Denver,S48B,2014,west,2651392
+"Detroit-Warren-Dearborn, MI",Detroit,S23B,2014,midwest,4292647
+"Houston-The Woodlands-Sugar Land, TX",Houston,S37B,2014,south,6204141
+"Los Angeles-Riverside-Orange County, CA",Los Angeles,A421,2014,west,13060534
+"Los Angeles-Long Beach-Anaheim, CA",Los Angeles,S49A,2014,west,13060534
+"Miami-Fort Lauderdale-West Palm Beach, FL",Miami,S35B,2014,south,5775204
+"Minneapolis-St.Paul-Bloomington, MN-WI",Minneapolis,S24A,2014,midwest,3424786
+"New York-Newark-Jersey City, NY-NJ-PA",New York,S12A,2014,northeast,19865045
+"Philadelphia-Camden-Wilmington, PA-NJ-DE-MD",Philadelphia,S12B,2014,northeast,6015336
+"Phoenix-Mesa-Scottsdale, AZ",Phoenix,S48A,2014,west,4337542
+"Pittsburgh, PA",Pittsburgh,A104,2014,northeast,2358793
+"Riverside-San Bernardino-Ontario, CA",Riverside,S49C,2014,west,4345485
+"St. Louis, MO-IL",St. Louis,S24B,2014,midwest,2797737
+"San Diego-Carlsbad, CA",San Diego,S49E,2014,west,3183143
+"San Francisco-Oakland-Hayward, CA",San Francisco,S49B,2014,west,4466251
+Seattle-Tacoma-Bellevue WA,Seattle,S49D,2014,west,3557037
+"Tampa-St. Petersburg-Clearwater, FL",Tampa,S35D,2014,south,2851235
+"Washington-Baltimore, DC-MD-VA-WV",Washington,A311,2014,south,5863608
+"Washington-Arlington-Alexandria, DC-VA-MD-WV",Washington,S35A,2014,south,5863608

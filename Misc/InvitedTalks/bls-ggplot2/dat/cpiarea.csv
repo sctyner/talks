@@ -1,0 +1,30 @@
+area_code,area_name,region,display_level,selectable,sort_sequence
+A104,"Pittsburgh, PA",northeast,1,TRUE,9
+A210,"Cleveland-Akron, OH",midwest,1,TRUE,19
+A212,"Milwaukee-Racine, WI",midwest,1,TRUE,20
+A213,"Cincinnati-Hamilton, OH-KY-IN",midwest,1,TRUE,21
+A214,"Kansas City, MO-KS",midwest,1,TRUE,22
+A311,"Washington-Baltimore, DC-MD-VA-WV",south,1,TRUE,36
+A421,"Los Angeles-Riverside-Orange County, CA",west,1,TRUE,53
+A425,"Portland-Salem, OR-WA",west,1,TRUE,54
+S11A,"Boston-Cambridge-Newton, MA-NH",northeast,1,TRUE,8
+S12A,"New York-Newark-Jersey City, NY-NJ-PA",northeast,1,TRUE,6
+S12B,"Philadelphia-Camden-Wilmington, PA-NJ-DE-MD",northeast,1,TRUE,7
+S23A,"Chicago-Naperville-Elgin, IL-IN-WI",midwest,1,TRUE,15
+S23B,"Detroit-Warren-Dearborn, MI",midwest,1,TRUE,16
+S24A,"Minneapolis-St.Paul-Bloomington, MN-WI",midwest,1,TRUE,17
+S24B,"St. Louis, MO-IL",midwest,1,TRUE,18
+S35A,"Washington-Arlington-Alexandria, DC-VA-MD-WV",south,1,TRUE,34
+S35B,"Miami-Fort Lauderdale-West Palm Beach, FL",south,1,TRUE,32
+S35C,"Atlanta-Sandy Springs-Roswell, GA",south,1,TRUE,29
+S35D,"Tampa-St. Petersburg-Clearwater, FL",south,1,TRUE,33
+S35E,"Baltimore-Columbia-Towson, MD",south,1,TRUE,35
+S37A,"Dallas-Fort Worth-Arlington, TX",south,1,TRUE,30
+S37B,"Houston-The Woodlands-Sugar Land, TX",south,1,TRUE,31
+S48A,"Phoenix-Mesa-Scottsdale, AZ",west,1,TRUE,49
+S48B,"Denver-Aurora-Lakewood, CO",west,1,TRUE,45
+S49A,"Los Angeles-Long Beach-Anaheim, CA",west,1,TRUE,47
+S49B,"San Francisco-Oakland-Hayward, CA",west,1,TRUE,51
+S49C,"Riverside-San Bernardino-Ontario, CA",west,1,TRUE,48
+S49D,Seattle-Tacoma-Bellevue WA,west,1,TRUE,52
+S49E,"San Diego-Carlsbad, CA",west,1,TRUE,50
