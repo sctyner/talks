@@ -15,6 +15,7 @@ A place for storing all my slides as I transition from jekyll + github.io site t
     * [Plotcon 2017, Oakland, CA](Conferences/plotcon17/slides.html)
     * [Royal Statistical Society 2015 International Conference, Exeter, Devon, UK](Conferences/rss15)
 - Teaching  
+    * [Creating Beautiful Data Visualizations in R with ggplot2](Conferences/user2020): A virtual tutorial I taught as a part of [useR!2020](https://user2020.r-project.org/program/tutorials/), which was also co-hosted by R-Ladies D.C. and R-Ladies NYC. 
     * [A Quick IntRo](Misc/Other/stpf-intRo) for the [AAAS Science & Technology Policy Fellowships R Users Affinity Group](https://github.com/AAAS-STPF-R-AG)
     * [The Week of R](http://heike.github.io/rwrks/) with Haley Jeppson and Heike Hofmann
     * [Introduction to R and Statistics](https://csafe-isu.github.io/reu18/slides/) for the CSAFE REU in 2018.
