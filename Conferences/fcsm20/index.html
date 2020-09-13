@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Visual Complements to p-values</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Samantha C. Tyner, Ph.D." />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link href="libs/font-awesome/css/fontawesome-all.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="custom.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+
+
+
+
+
+
+
+
+
+class: title-slide   
+
+# Visual Complements to `\(p\)`-values
+
+.pull-left[
+## FCSM 2020
+### 14 Sep. 2020
+#### Samantha C. Tyner, Ph.D.
+<i class="fab  fa-twitter "></i> [sctyner](https://twitter.com/sctyner)
+<i class="fab  fa-github "></i> [sctyner](https://github.com/sctyner)
+<i class="fas  fa-globe "></i> [website](https://sctyner.me) 
+
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
+Image credit: [Allison Horst](https://github.com/allisonhorst/stats-illustrations/)
+]
+
+
+---
+# Case Study: Early use of "p-values"
+
+.left-column[
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="img/arbuthnot.jpg" alt="John Arbuthnot. Source: Wikipedia" width="587" /&gt;
+&lt;p class="caption"&gt;John Arbuthnot. Source: Wikipedia&lt;/p&gt;
+&lt;/div&gt;
+]
+
+.right-column[
+[John Arbuthnot](https://en.wikipedia.org/wiki/John_Arbuthnot), "An argument for Divine Providence, taken from the constant regularity observed in the births of both sexes" [1] 
+- Used probability ("p-value") to "prove" divine intervention in the human birth ratio (males are more common than females)
+- Probability calculation that today would be the `\(p\)`-value in a [sign  test](https://en.wikipedia.org/wiki/Sign_test#Example_of_two-sided_sign_test_for_matched_pairs). (`binom.test()` in R) 
+
+]
+
+---
+# Case Study: Early use of "p-values"
+.left-column[
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="img/arbuthnot.jpg" alt="John Arbuthnot. Source: Wikipedia" width="587" /&gt;
+&lt;p class="caption"&gt;John Arbuthnot. Source: Wikipedia&lt;/p&gt;
+&lt;/div&gt;
+]
+.right-column[
+**Summary**  
+🔘 Theory: By "divine provenance" there is a 1:1 ratio of men to women on Earth.  
+🔘 Assume `\(Pr(male)=0.5\)`. In a year, there's a 50% chance that more males than females are born (and vice versa).  
+🔘 In 82 years of London births, more males than females are born. The probability of this is `\((0.5)^{82} = 2.1 \times 10^{-25}\)`.  
+🔘 This number is so small, could not have happened by chance. Thus, "divine provenance" causes more males to be born.   
+🤨 Despite the imbalanced ratio at birth, it remains balanced in adulthood, because more males die than females once born (due to more deaths from hunting for food and going outside the home).	The even ratio is designed by "divine provenance" and thus polygamy is unnatural. 🤔
+]
+
+???
+"The `\(p\)`-value is small, therefore we reject the null hypothesis.") 
+`binom.test(x = 82, n = 82, p = .5, alternative = "greater")`
+
+---
+# Analyzing the Arbuthnot Data
+
+.left-column[
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="img/horst_dists.png" alt="Image by Allison Horst" width="1891" /&gt;
+&lt;p class="caption"&gt;Image by Allison Horst&lt;/p&gt;
+&lt;/div&gt;
+
+]
+
+.right-column[
+Resulting `\(p\)`-value&lt;sup&gt;1&lt;/sup&gt; is incredibly small. How to understand it's smallness? 
+]
+
+.footnote[
+[1] To arrive at the same `\(p\)`-value as Arbuthnot, do this test in R: `binom.test(x = 82, n = 82, p = .5, alternative = "greater")`
+]
+
+---
+# Analyzing the Arbuthnot Data
+
+.left-column[
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="img/horst_dists.png" alt="Image by Allison Horst" width="1891" /&gt;
+&lt;p class="caption"&gt;Image by Allison Horst&lt;/p&gt;
+&lt;/div&gt;
+
+]
+
+.right-column[
+Resulting `\(p\)`-value&lt;sup&gt;1&lt;/sup&gt; is incredibly small. How to understand it's smallness? 
+
+.pull-left[
+3 visual complements for 3 types of analyses: 
+
+- Simulation
+- Frequentist model
+- Bayesian parameter estimation 
+] 
+
+.pull-right[
+Notation:  
+- `\(i\)`: year {1629, 1630, ..., 1710}
+- `\(n_i\)`: number of recorded births in year `\(i\)`
+- `\(y_i\)`: number of male births in year `\(i\)` 
+- `\(p_i\)`: `\(y_i / n_i\)`
+]
+]
+
+.footnote[
+[1] To arrive at the same `\(p\)`-value as Arbuthnot, do this test in R: `binom.test(x = 82, n = 82, p = .5, alternative = "greater")`
+]
+
+???
+Going to perform the analysis of the Arbuthnot data to determine the true proportion of male births. 
+Use three different methods of arriving at an answer, get three different probabilistic answers. 
+
+
+---
+# Simulation Study
+
+.left-column[
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="img/orange_lg_dotplot.png" alt="Image by Allison Horst" width="9681" /&gt;
+&lt;p class="caption"&gt;Image by Allison Horst&lt;/p&gt;
+&lt;/div&gt;
+
+]
+
+.right-column[
+For some large `\(B\)`:
+
+1. For each year `\(i\)`, draw `\(B\)` samples: `\(y^*_{ib} \sim Binom(n_i, 0.5)\)` for `\(b\)` from 1 to B. 
+2. For each year `\(i\)`, compute the proportion of male births in each simulation: `\(p^*_{ib} = y^*_{ib} / n_i\)`
+3. For each year `\(i\)`, compute the proportion of simulations in which the proportion of males is greater than or equal to the observed proportion of males in Arbuthnot's data: `\(P_i^* = \frac{1}{B}\sum_{b = 1}^B \mathbb{I}(p^*_{ib} \geq p_I)\)`.
+4. Compute the average: `\(P^* = \frac{1}{82}\sum_{i = 1629}^{1710} P_i^*\)`. 
+5. Assuming years are independent, compute the joint probability of observing values as or more extreme than Arbuthnot's data: `\(\hat{p} = \prod_{i = 1629}^{1710} P_i^*\)`. 
+]
+
+---
+# Results
+
+
+
+.left-column[
+Average probability, `\(P^*\)`: 0.013
+
+Joint probability, `\(\hat{p}\)`:  
+`\(&lt; 10^{-100}\)`
+]
+
+.right-column[
+&lt;img src="index_files/figure-html/unnamed-chunk-1-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+]
+
+???
+Average proportion ( `\(P^*\)` ): mean proportion of simulated values greater than or equal to the observed. 
+Joint probability ( `\(\hat{p}\)` ): includes continuity correction. 3.1940632\times 10^{-222}
+
+
+---
+# Visualization 
+
+&lt;img src="index_files/figure-html/simviz-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+???
+Can confidently say that Arbuthnot's data show the true "natural" proportion of male births is higher than .5. 
+
+---
+# Frequentist model
+
+.left-column[
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="img/purple_histogram.png" alt="Image by Allison Horst" width="4235" /&gt;
+&lt;p class="caption"&gt;Image by Allison Horst&lt;/p&gt;
+&lt;/div&gt;
+
+]
+
+.right-column[
+**Generalized Linear Mixed-Effects Model:**
+`$$\begin{array} \\
+  y_i  &amp; \sim &amp; Binom(n_i, p_i) \\
+  logit(p_i)  &amp; = &amp; \mu + a_i \\
+  a_i &amp; \sim &amp; N(0, \sigma^2)
+  \end{array}$$`
+
+Use `lme4::glmer()` in R to fit the model to Arbuthnot's data.
+]
+
+???
+If we're doing this the frequentist way, we could fit a generalized linear mixed effects model, supposing there is some baseline population value `\(\mu\)`, then each year has its own random effect, allowing us to predict new years. 
+
+---
+# Results
+
+.pull-left[
+
+Table: Parameter estimates
+
+|term  | estimate| std.error| statistic| p.value|
+|:-----|--------:|---------:|---------:|-------:|
+|mu    |   0.0657|     0.003|   21.9947|       0|
+|sigma |   0.0190|        NA|        NA|      NA|
+
+Table: 95% Confidence Intervals
+
+|      |  2.5 %| 97.5 %|
+|:-----|------:|------:|
+|sigma | 0.0132| 0.0255|
+|mu    | 0.0598| 0.0716|
+
+]
+
+.pull-right[
+**Fitted Model:**
+`$$\begin{array} \\
+  y_i  &amp; \sim &amp; Binom(n_i, p_i) \\
+  logit(p_i)  &amp; = &amp; 0.06565 + a_i \\
+  a_i &amp; \sim &amp; N(0, 3.6149 \times 10^{-4})
+  \end{array}$$`
+  
+**Estimate of population proportion:**  
+`\(logit^{-1}(\hat{\mu}) = logit^{-1}(0.06565) = 0.51641\)`  
+
+
+Table: Fit metrics
+
+|    AIC|    BIC|  logLik| deviance| df.resid|
+|------:|------:|-------:|--------:|--------:|
+| 946.31| 951.12| -471.15|   942.31|       80|
+
+]
+
+
+---
+# Visualization 
+
+.pull-left[
+&lt;img src="index_files/figure-html/popprop-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+]
+
+.pull-right[
+&lt;img src="index_files/figure-html/ridges-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+]
+
+???
+On left: take the 95% CI for mu and get a grid on it. Then, convert mus to probabilities by taking inverse logit. Using those probs, get the pmf of the binomial for some N and each p. Convert the value of x to a prob. based on N to show the range of values possible under the estimated population proportion. 
+
+On right, incorporate the random effects. Sim. 20 values for the random effects, then add them to the estimate of mu. Take inverse logit to get p_is. Simulate 1000 y_i values for each value of p_i and some N, show the dist of values. (y axis is the p_i , x axis is the range of proportion male from the simulations)
+
+---
+# Bayesian approach 
+
+.left-column[
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="img/not_normal.png" alt="Image by Allison Horst" width="2612" /&gt;
+&lt;p class="caption"&gt;Image by Allison Horst&lt;/p&gt;
+&lt;/div&gt;
+
+]
+
+.right-column[
+**Bayesian Hierarchical Model:**
+`$$\begin{array} \\
+  y_i  &amp; \sim &amp; Binom(n_i, p_i) \\
+  p_i  &amp;  \sim &amp; Beta(\alpha, \beta) \\
+  \mu = \frac{\alpha}{\alpha + \beta} &amp; &amp; \eta = \alpha + \beta \\
+  \mu &amp; \sim &amp; Beta(1, 1) \\ 
+  \log(\eta) &amp; \sim &amp; Logistic(\log(\bar{n}), 1) \\ 
+  \end{array}$$`
+  
+Fit to Arbuthnot's data with the `runjags` package in R. 
+]
+
+---
+# Results 
+
+
+
+
+
+Table: Summary of posterior draws of `\(\alpha\)`, `\(\beta\)`
+
+|param | Lower95|  Median|  Upper95|    Mean|      SD|
+|:-----|-------:|-------:|--------:|-------:|-------:|
+|alpha | 2805.40| 5808.95| 10673.32| 6233.47| 2246.01|
+|beta  | 2628.34| 5442.88| 10003.01| 5837.60| 2104.54|
+
+
+
+&lt;img src="index_files/figure-html/bayestab2-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+
+---
+# Visualization
+
+.pull-left[
+&lt;img src="index_files/figure-html/beta-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+]
+
+.pull-right[
+&lt;img src="index_files/figure-html/unnamed-chunk-2-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+]
+
+---
+# Visualization 
+
+.pull-left[
+&lt;img src="index_files/figure-html/ppost-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+]
+
+.pull-right[
+&lt;img src="index_files/figure-html/ppost2-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+]
+
+---
+# Takeaways 
+
+.pull-left[
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="img/summary_statistics.png" alt="Image by Allison Horst" width="10000" /&gt;
+&lt;p class="caption"&gt;Image by Allison Horst&lt;/p&gt;
+&lt;/div&gt;
+]
+
+.pull-right[
+**Dig deep into your model results**
+
+- Think about how you can you show probabilities
+    * What other ways are there to model your data?
+    * What other parameter values could result in your data?
+- Simulation is your friend
+- Take advantage of existing tools (in R or elsewhere)  
+    * [`ggplot2`](https://ggplot2.tidyverse.org/) extensions: [`ggridges`](https://cran.r-project.org/web/packages/ggridges/vignettes/introduction.html), [`ggdist`](https://mjskay.github.io/ggdist/articles/freq-uncertainty-vis.html)
+- Further reading: *Model Visualization* [2; 3] 
+]
+
+---
+# References 
+
+[1] J. Arbuthnot. "An argument for Divine Providence, taken from the
+constant regularity observed in the births of both sexes". In:
+_Philosophical Transactions of the Royal Society of London_ 27.4
+(1710), pp. 186-190. DOI:
+[https://doi.org/10.1098/rstl.1710.0011](https://doi.org/https%3A%2F%2Fdoi.org%2F10.1098%2Frstl.1710.0011).
+
+[2] H. Wickham, D. Cook, and H. Hofmann. "Visualizing statistical
+models: Removing the blindfold". In: _Statistical Analysis and Data
+Mining: The ASA Data Science Journal_ 8.4 (Jul. 2015), pp. 203-225.
+DOI: [
+https://doi.org/10.1002/sam.11271](https://doi.org/%20https%3A%2F%2Fdoi.org%2F10.1002%2Fsam.11271).
+
+[3] A. Loy, H. Hofmann, and D. Cook. "Model Choice and Diagnostics for
+Linear Mixed-Effects Models Using Statistics on Street Corners". In:
+_Journal of Computational and Graphical Statistics_ 26.3 (2017), pp.
+478-492. DOI:
+[10.1080/10618600.2017.1330207](https://doi.org/10.1080%2F10618600.2017.1330207).
+
+### R Packages Used
+
+tidyverse (ggplot2, dplyr, tidyr), lme4, runjags, tidybayes, ggdist, ggridges
+
+---
+class: title-slide
+# Thank you! 
+
+### Contact: 
+<i class="fas  fa-envelope "></i> [sctyner90@gmail.com](mailto:sctyner90@gmail.com)  
+<i class="fab  fa-twitter "></i> [sctyner](https://twitter.com/sctyner)  
+<i class="fab  fa-github "></i> [sctyner](https://github.com/sctyner)  
+<i class="fas  fa-globe "></i> [sctyner.me](https://sctyner.me) 
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
