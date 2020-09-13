@@ -37,7 +37,7 @@ prim_color = "#9A83DE"
 sec_color = "#F89D3F"
 
 style_duo_accent(
-  base_font_size = "22px",
+  base_font_size = "20px",
   primary_color = prim_color,
   secondary_color = sec_color,
   inverse_header_color = "#FFFFFF",
@@ -62,6 +62,8 @@ class: title-slide
 `r fa('twitter')` [sctyner](https://twitter.com/sctyner)
 `r fa('github')` [sctyner](https://github.com/sctyner)
 `r fa('globe')` [sctyner.me](https://sctyner.me) 
+
+Slides available at [bit.ly/viz-fcsm](http://bit.ly/viz-fcsm)
 
 
 <br><br><br><br>
@@ -549,3 +551,5 @@ class: title-slide
 `r fa('twitter')` [sctyner](https://twitter.com/sctyner)  
 `r fa('github')` [sctyner](https://github.com/sctyner)  
 `r fa('globe')` [sctyner.me](https://sctyner.me) 
+
+Slides available at [bit.ly/viz-fcsm](http://bit.ly/viz-fcsm)
