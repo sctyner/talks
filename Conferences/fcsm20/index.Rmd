@@ -59,14 +59,14 @@ class: title-slide
 ## FCSM 2020
 ### 14 Sep. 2020
 #### Samantha C. Tyner, Ph.D.
-`r fa('twitter')` [sctyner](https://twitter.com/sctyner)
-`r fa('github')` [sctyner](https://github.com/sctyner)
+`r fa('twitter')` [sctyner](https://twitter.com/sctyner)  
+`r fa('github')` [sctyner](https://github.com/sctyner)  
 `r fa('globe')` [sctyner.me](https://sctyner.me) 
 
 Slides available at [bit.ly/viz-fcsm](http://bit.ly/viz-fcsm)
 
 
-<br><br><br><br>
+<br><br>
 Image credit: [Allison Horst](https://github.com/allisonhorst/stats-illustrations/)
 ]
 
@@ -528,7 +528,7 @@ knitr::include_graphics("img/summary_statistics.png")
 - Simulation is your friend
 - Take advantage of existing tools (in R or elsewhere)  
     * [`ggplot2`](https://ggplot2.tidyverse.org/) extensions: [`ggridges`](https://cran.r-project.org/web/packages/ggridges/vignettes/introduction.html), [`ggdist`](https://mjskay.github.io/ggdist/articles/freq-uncertainty-vis.html)
-- Further reading: *Model Visualization* `r Cite(myBib, c("modelvis", "streets"))` 
+- Further reading: *Model Visualization*, *Statistics on Street Corners* `r Cite(myBib, c("modelvis", "streets"))` 
 ]
 
 ---
