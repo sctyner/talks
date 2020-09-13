@@ -9,6 +9,7 @@ A place for storing all my slides as I transition from jekyll + github.io site t
     * [United States Military Academy](Misc/InvitedTalks/usma)
     * [Significance Magazine Writing Competition Webinar](Misc/InvitedTalks/yss-webinar-2018.pdf)
 - Conference Presentations
+    * [Federal Committee on Statistical Methodology Conference 2020, Virtual](Conferences/fcsm20)
     * [DC R Conference 2019, Georgetown University](Conferences/dcr19)
     * [Joint Statistical Meetings 2019, Denver, CO](Conferences/jsm19)
     * [Joint Statistical Meetings 2018, Vancouver, BC](Conferences/jsm18/slides.html)
