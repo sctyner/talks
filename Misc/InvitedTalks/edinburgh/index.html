@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>DATA VISUALIZATION IN R</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Sam Tyner, Ph.D." />
+    <meta name="date" content="2021-10-12" />
+    <script src="index_files/header-attrs/header-attrs.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# <em>DATA VISUALIZATION IN R</em>
+## <em>An Introduction with ggplot2</em>
+### <em>Sam Tyner, Ph.D.</em>
+### <em>12 October 2021</em>
+
+---
+
+
+
+
+
+
+
+
+class: inverse center middle
+## *INTRODUCTION TO DATA VISUALIZATION*
+
+---
+## *CHOOSE A VISUALIZATION TYPE*
+
+How many variables? 
+
+--
+- One variable
+- Two variables
+- Three variables
+
+
+What kind of variables? 
+
+--
+- Numeric / Continuous: The range of possible values is (theoretically) infinite. Examples: height, weight, age
+
+--
+- Categorical / Discrete: There are a finite number of categories to which all observations belong. Examples: country, survey responses on Likert scales, age categories
+
+--
+    * ordered: categories have a natural order. Example: income brackets 
+    * unordered: categories don't have order. Example: eye color
+
+---
+## *DATA EXAMPLE*
+
+`mtcars`: Data from the 1974 Motor Trend US magazine. Fuel consumption and 10 aspects of 32 automobiles (1973–74 models). First 6 cars below.
+
+&lt;img src="img/data-ex.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+---
+class: inverse center middle
+## *VISUALIZING ONE VARIABLE*
+
+---
+## *HISTOGRAM*
+
+- For one continuous variable
+- Width of bar shows a range of values of the variable
+- Height shows the number of observations in that range
+
+&lt;img src="index_files/figure-html/hist_plot-1.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+---
+## *BAR CHART*
+
+- For one categorical variable
+- Each bar represents one category
+- Height of bars represents number of observations in that category
+
+&lt;img src="index_files/figure-html/bar_chart-1.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+---
+class: inverse center middle
+## *VISUALIZING TWO VARIABLES*
+
+---
+## What kind of variables? 
+
+&lt;img src="img/two-vars.png" width="45%" style="display: block; margin: auto;" /&gt;
+
+
+---
+## *TWO NUMERIC VARIABLES: Scatterplot*
+
+- Draw points in 2 dimensions: one per observation
+- Values of one variable on X axis, value of the other on Y axis
+
+&lt;img src="index_files/figure-html/scatterplot-1.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+---
+## *TWO NUMERIC VARIABLES: Line chart*
+
+- Connect points in space that represent 2 variables
+- Values of one variable on X axis, value of the other on Y axis
+- Special case: time series chart, where the X axis variable is a time metric
+
+&lt;img src="index_files/figure-html/line_chart-1.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+---
+## *TWO CATEGORICAL VARIABLES: Counts*
+
+- Draws points at the intersections of categories from each variable
+- Size of points represents number of observations in each combination of categories
+
+&lt;img src="index_files/figure-html/count_chart-1.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+---
+## *ONE OF EACH: Box Plot*
+
+- Draw a summary box plot of a numeric variable for each value of the categorical variable
+- Categorical variable can go on either X or Y axis
+
+
+
+&lt;img src="index_files/figure-html/boxplot-1.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+---
+class: inverse center middle
+## *VISUALIZING THREE VARIABLES*
+
+---
+## *3 VARIABLE STRATEGY*
+
+Start with a 2-variable visualization, then add color, shape, or size:
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="img/garrett-aes-vars.PNG" alt="Example: adding 3rd variable to a scatterplot. Source: Garret Grolemund" width="40%" /&gt;
+&lt;p class="caption"&gt;Example: adding 3rd variable to a scatterplot. Source: Garret Grolemund&lt;/p&gt;
+&lt;/div&gt;
+
+
+---
+## *3 VARIABLE EXAMPLE: Scatterplot*
+
+- Color the points according to the transmission type
+- We see that: automatic cars are heavier and have lower MPG than manual cars
+
+&lt;img src="index_files/figure-html/scatterplot_3v-1.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+---
+## *3 VARIABLE EXAMPLE: Box Plot*
+
+- Color by engine type
+- 4 cylinder straight engines have the highest MPGs, and 8 cylinder engines are only v-shaped.
+
+&lt;img src="index_files/figure-html/boxplot_3v-1.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+---
+class: inverse center middle
+## *INTRODUCTION TO THE&lt;br&gt;GRAMMAR OF GRAPHICS*
+
+---
+## *WHAT IS A GRAMMAR?*
+
+&gt; _grammar_ (noun): (1) the study of the classes of words, their inflections, and their functions and relations in the sentence; (2) the principles or rules of an art, science, or technique
+
+
+--
+The grammar of a language is used to construct sentences.
+
+
+--
+The grammar of graphics&lt;sup&gt;1&lt;/sup&gt; is used to construct data visualizations.
+
+.footnote[[1] _The Grammar of Graphics_ is the title of a 1999 book by Leland Wilkinson]
+
+--
+The `gg` in `ggplot2` stands for "grammar of graphics"
+
+---
+## *DATA VIZ "PARTS OF SPEECH"*
+
+.pull-left[
+
+- Data
+    * **What** are you visualizing?
+- Coordinate system (almost always Cartesian)
+    * What is your **canvas** for visualizing? 
+- Mapping
+    * How are you mapping variables to **visual features** (aesthetics)?
+- Geometry (point, line, box plot, etc.)
+    * What **shape(s)** are you drawing?
+    
+]
+
+.pull-right[
+
+
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="img/onept-1.png" alt="Mapping data to x and y axes" width="80%" /&gt;
+&lt;p class="caption"&gt;Mapping data to x and y axes&lt;/p&gt;
+&lt;/div&gt;
+
+]
+
+---
+class: inverse, center, middle
+## *HOW TO BUILD A DATA VISUALIZATION&lt;br&gt;WITH GGPLOT2*
+
+---
+## *BUILDING A VIZ*
+
+1. Need the data loaded in your workspace. 
+
+
+```r
+head(mtcars)
+```
+
+```
+## # A tibble: 6 × 12
+##   car          mpg cyl    disp    hp  drat    wt  qsec vs     am     gear  carb 
+##   &lt;chr&gt;      &lt;dbl&gt; &lt;ord&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;fct&gt;  &lt;fct&gt;  &lt;ord&gt; &lt;ord&gt;
+## 1 Mazda RX4   21   6       160   110  3.9   2.62  16.5 v-sha… manual 4     4    
+## 2 Mazda RX4…  21   6       160   110  3.9   2.88  17.0 v-sha… manual 4     4    
+## 3 Datsun 710  22.8 4       108    93  3.85  2.32  18.6 strai… manual 4     1    
+## 4 Hornet 4 …  21.4 6       258   110  3.08  3.22  19.4 strai… autom… 3     1    
+## 5 Hornet Sp…  18.7 8       360   175  3.15  3.44  17.0 v-sha… autom… 3     2    
+## 6 Valiant     18.1 6       225   105  2.76  3.46  20.2 strai… autom… 3     1
+```
+
+---
+## *BUILDING A VIZ*
+
+2\. Need the `ggplot2` package loaded.
+
+
+```r
+library(ggplot2)
+```
+
+---
+## *BUILDING A VIZ*
+
+3\. Set up your canvas by passing the data to the `ggplot()` function. 
+
+
+```r
+ggplot(data = mtcars)
+```
+
+&lt;img src="index_files/figure-html/skeleton-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+---
+## *BUILDING A VIZ*
+
+4\. Set up your mapping inside of `aes()`. 
+
+
+```r
+ggplot(data = mtcars, 
+*      aes(x = wt, y = mpg))
+```
+
+&lt;img src="index_files/figure-html/skeleton2-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+---
+## *BUILDING A VIZ*
+
+5\. Pick your geometry with a function that starts with `geom_*()`
+
+
+```r
+ggplot(data = mtcars,
+       aes(x = wt, y = mpg)) + 
+* geom_point()
+```
+
+&lt;img src="index_files/figure-html/done-1.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+---
+## *BUILDING A VIZ*
+
+5\. Pick your geometry with a function that starts with `geom_*()`
+
+
+```r
+ggplot(data = mtcars,
+       aes(x = wt, y = mpg)) + 
+* geom_line()
+```
+
+&lt;img src="index_files/figure-html/done2-1.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+---
+class: inverse, center, middle
+## *BEYOND THE BASICS*
+
+---
+class: inverse, center, middle
+## *AESTHETICS: aes()*
+
+---
+## *USING* `aes()` *FOR MAPPING*
+
+- `x`, `y` and other values passed to `aes()` are called **aesthetics**
+--
+
+- Aesthetics can be mapped to data, as in `aes(x = wt , y = mpg)`
+--
+
+- Aesthetics can be mapped to a single value for a geometry, outside of `aes()`
+--
+
+- The mapping function (`aes()`) can go inside of `ggplot()` *or* inside of a `geom_*()` *or* **both**
+
+---
+## *EXAMPLE 1*
+
+.pull-left[
+**Inside** `aes()`
+
+
+```r
+ggplot(data = mtcars,
+       aes(x = wt, y = mpg)) +
+* geom_point(aes(color = am))
+```
+
+&lt;img src="index_files/figure-html/inside-1.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+
+]
+
+.pull-right[
+**Outside** `aes()`
+
+
+```r
+ggplot(data = mtcars,
+       aes(x = wt, y = mpg)) +
+* geom_point(color = "orange")
+```
+
+&lt;img src="index_files/figure-html/outside-1.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+]
+
+---
+## *EXAMPLE 2*
+
+.pull-left[
+**Inside** `aes()`
+
+
+```r
+ggplot(data = mtcars, aes(x = wt, 
+*           y = mpg, size = hp)) +
+  geom_point()
+```
+
+&lt;img src="index_files/figure-html/inside2-1.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+
+]
+
+.pull-right[
+**Outside** `aes()`
+
+
+```r
+ggplot(data = mtcars,
+       aes(x = wt, y = mpg)) +
+* geom_point(size = 5)
+```
+
+&lt;img src="index_files/figure-html/outside2-1.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+]
+
+---
+class: inverse, center, middle
+## *LABELS: labs()*
+
+---
+## *USING* `labs()` *FOR PROPER LABELLING*
+
+The `labs()` function labels plot elements, including:
+
+- `title`: plot title 
+- `subtitle`: plot subtitle
+- `caption`: plot caption (bottom-right)
+- `tag`: tag label (top-left)
+- `alt`: alt-text for the plot
+- Any aesthetic variable mappings: 
+    * `x`: x-axis label
+    * `y`: y-axis label
+    * `color`: if there's a color mapped, the color legend's title
+    * etc.
+
+---
+## *HOW TO LABEL A DATA VIZ*
+
+- Axes should be clearly labeled with units where appropriate:
+
+    * "Fuel Consumption in Miles per Gallon" not "mpg" 
+    * "Age (in years)" not "age" 
+--
+
+- Legends and their values should also be clearly labeled:
+
+    * "Transmission type", "automatic", "manual" not "am", "0", "1"
+    * "Country", "Scotland", "England", "Northern Ireland", "Wales" not "ctry", "SCT", "ENG", "NIR", "WLS"
+--
+
+- The title should clearly convey the message of the plot
+--
+
+- When necessary, provide your data source in the caption.
+
+
+
+---
+## *EXAMPLE 1*
+
+
+
+```r
+ggplot(data = mtcars,
+       aes(x = wt, y = mpg)) + 
+  geom_point() + 
+* labs(x = "Weight (in 1,000s of lbs)",
+*      y = "Fuel consumption (miles per US gallon)",
+*      title = "As weight increases, fuel efficiency decreases",
+*      caption = "Data from the datasets R package")
+```
+
+---
+## *EXAMPLE 1 RESULT*
+
+
+&lt;img src="index_files/figure-html/labs1res-1.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+---
+## *EXAMPLE 2* 
+
+
+```r
+ggplot(data = mtcars,
+       aes(x = wt, y = mpg)) +
+  geom_point(aes(size = hp), shape = 21) + 
+* labs(x = "Weight (in 1,000s of lbs)",
+*      y = "Fuel consumption (miles per US gallon)",
+*      size = "Horsepower",
+*      title = "As weight increases, fuel efficiency decreases",
+*      subtitle = "Heavier, lower efficiency cars also have higher horsepower",
+*      caption = "Data from the datasets R package")
+```
+
+---
+## *EXAMPLE 2 RESULT* 
+
+&lt;img src="index_files/figure-html/labs2res-1.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+---
+class: inverse, center, middle
+## *APPEARANCE: scale_() FUNCTIONS*
+
+---
+## *USING scale_() FUNCTIONS FOR STYLING*
+
+The `scale_()` family of functions is used to modify how the aesthetics are drawn: 
+
+- Change how axes are labeled
+- Change color scheme
+- Change axis limits 
+- Transform axis (e.g. log-transform)
+- Change the number of breaks / labels
+
+---
+## *USING scale_() FUNCTIONS FOR STYLING*
+
+The `scale_()` family of functions is used to modify how the aesthetics are drawn: 
+
+- `scale_x_*()` functions modify the x-axis
+- `scale_y_*()` functions modify the y-axis
+- `scale_color_*()` functions modify the color `aes()` mapping 
+- `scale_fill_*()` functions modify the fill `aes()` mapping
+- `scale_shape_*()` functions modify the shape `aes()` mapping
+- etc.
+
+---
+## *EXAMPLE 1*
+
+Using a `scale_*()` function to change the axes: 
+
+
+```r
+ggplot(data = mtcars,
+       aes(x = wt, y = mpg)) + 
+  geom_point() + 
+  labs(y = "Fuel consumption (miles per US gallon)", 
+       title = "As weight increases, fuel efficiency decreases",
+       caption = "Data from the datasets R package") + 
+* scale_x_continuous(name = "Weight (in 1,000s of lbs)",
+*                    breaks = seq(1.5, 5.5, .5))
+```
+
+---
+## *EXAMPLE 1 RESULT*
+
+&lt;img src="index_files/figure-html/scale1res-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+---
+## *EXAMPLE 2*
+
+Using a `scale_()` function to change color scheme
+
+
+```r
+ggplot(data = mtcars,
+       aes(x = wt, y = mpg)) +
+  geom_point(aes(color = am)) +
+* scale_color_brewer(palette = "Set1")
+```
+
+The website [colorbrewer2.org](https://colorbrewer2.org/) has a lot of colors &amp; color palettes to choose from
+
+---
+## *EXAMPLE 2 RESULT*
+
+&lt;img src="index_files/figure-html/scale2res-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+
+---
+class: inverse, center, middle
+## *APPEARANCE: theme()*
+
+---
+## *USING* `theme` *FUNCTIONS FOR STYLING* 
+
+`ggplot2` has several built-in theme functions. The default is `theme_grey()`: 
+
+&lt;div class="figure"&gt;
+&lt;img src="img/built-in-1.png" alt="Source: &amp;lt;a href=&amp;quot;https://ggplot2-book.org/polishing.html#themes&amp;quot;&amp;gt;ggplot2 book&amp;lt;/a&amp;gt;" width="21%" /&gt;&lt;img src="img/built-in-2.png" alt="Source: &amp;lt;a href=&amp;quot;https://ggplot2-book.org/polishing.html#themes&amp;quot;&amp;gt;ggplot2 book&amp;lt;/a&amp;gt;" width="21%" /&gt;&lt;img src="img/built-in-3.png" alt="Source: &amp;lt;a href=&amp;quot;https://ggplot2-book.org/polishing.html#themes&amp;quot;&amp;gt;ggplot2 book&amp;lt;/a&amp;gt;" width="21%" /&gt;&lt;img src="img/built-in-4.png" alt="Source: &amp;lt;a href=&amp;quot;https://ggplot2-book.org/polishing.html#themes&amp;quot;&amp;gt;ggplot2 book&amp;lt;/a&amp;gt;" width="21%" /&gt;&lt;img src="img/built-in-5.png" alt="Source: &amp;lt;a href=&amp;quot;https://ggplot2-book.org/polishing.html#themes&amp;quot;&amp;gt;ggplot2 book&amp;lt;/a&amp;gt;" width="21%" /&gt;&lt;img src="img/built-in-6.png" alt="Source: &amp;lt;a href=&amp;quot;https://ggplot2-book.org/polishing.html#themes&amp;quot;&amp;gt;ggplot2 book&amp;lt;/a&amp;gt;" width="21%" /&gt;&lt;img src="img/built-in-7.png" alt="Source: &amp;lt;a href=&amp;quot;https://ggplot2-book.org/polishing.html#themes&amp;quot;&amp;gt;ggplot2 book&amp;lt;/a&amp;gt;" width="21%" /&gt;&lt;img src="img/built-in-8.png" alt="Source: &amp;lt;a href=&amp;quot;https://ggplot2-book.org/polishing.html#themes&amp;quot;&amp;gt;ggplot2 book&amp;lt;/a&amp;gt;" width="21%" /&gt;
+&lt;p class="caption"&gt;Source: &lt;a href="https://ggplot2-book.org/polishing.html#themes"&gt;ggplot2 book&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+
+---
+## *USING* `theme` *FUNCTIONS FOR STYLING* 
+
+The `theme()` function gives you control over every single non-data visual element of the plot: 
+
+- fonts used for labels 
+- background color
+- axis text positioning, size, etc. 
+- legend appearance, position, etc.
+
+--
+
+At time of writing, `theme()` takes 92 arguments! You'll never use them all. I typically use only 2-3, and rarely use more than 10.
+
+---
+## `theme()` *ELEMENTS*
+
+There are 4 functions used to modify the theme: 
+
+- `element_rect()`: Change appearance of a rectangle element
+- `element_line()`: Change appearance of a line element
+- `element_text()`: Change appearance of a text element
+- `element_blank()`: Do not draw an element
+
+
+--
+The documentation of the `theme()` function tells you when to use each function
+
+
+---
+## *EXAMPLE 1*
+
+Using a `theme_*()` function: 
+
+
+```r
+ggplot(data = mtcars,
+       aes(x = wt, y = mpg)) + 
+  geom_point() + 
+  labs(x = "Weight (in 1,000s of lbs)",
+       y = "Fuel consumption (miles per US gallon)", 
+       title = "As weight increases, fuel efficiency decreases",
+       caption = "Data from the datasets R package") + 
+* theme_classic()
+```
+
+---
+## *EXAMPLE 1 RESULT*
+
+&lt;img src="index_files/figure-html/theme1res-1.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+---
+## *EXAMPLE 2*
+
+Using the `theme()` function: 
+
+
+```r
+ggplot(data = mtcars,
+       aes(x = wt, y = mpg)) +
+  geom_point(aes(size = hp), shape = 21) + 
+  labs(x = "Weight (in 1,000s of lbs)",
+       y = "Fuel consumption (miles per US gallon)", 
+       size = "Horsepower", 
+       title = "As weight increases, fuel efficiency decreases",
+       subtitle = "Heavier, lower efficiency cars also have higher horsepower",
+       caption = "Data from the datasets R package") + 
+* theme(axis.title.y = element_text(angle = 0),
+*       plot.title.position = "plot",
+*       panel.grid = element_line(color = "red"),
+*       panel.background = element_rect(fill = "white"),
+*       panel.grid.minor = element_blank())
+```
+
+---
+## *EXAMPLE 2 RESULT*
+
+Using the `theme()` function: 
+
+&lt;img src="index_files/figure-html/theme2res-1.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+---
+class: inverse, center, middle
+## *ggplot2 EXTRAS*
+
+---
+## *ggplot2 EXTENSIONS*
+
+Maintainers of packages can put their `ggplot2` extension on [exts.ggplot2.tidyverse.org/gallery](http://exts.ggplot2.tidyverse.org/gallery/)
+
+&lt;img src="img/ggplot-exts.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+---
+## *EXAMPLES OF EXTENSIONS*
+.pull-left[
+**Domain specific**:
+- Networks: 
+    * [geomnet](https://github.com/sctyner/geomnet)
+    * [ggraph](https://github.com/thomasp85/ggraph)
+- Time Series: 
+    * [ggaluvial](http://corybrunson.github.io/ggalluvial/)
+    * [sugrrants](https://pkg.earo.me/sugrrants/)
+- Sciences: 
+    * [gggenes](https://wilkox.org/gggenes/)
+    * [ggtree](https://guangchuangyu.github.io/software/ggtree/)
+    * [ggseqlogo](https://github.com/omarwagih/ggseqlogo)
+    * [ggspectra](https://docs.r4photobiology.info/ggspectra/)
+]
+
+.pull-right[
+**Appearance customization**: 
+
+- Arrange ggplots: 
+    * [cowplot](https://wilkelab.org/cowplot/)
+    * [patchwork](https://patchwork.data-imaginist.com/) 
+    * [gganimate](https://gganimate.com/)
+- Custome themes and/or scales: 
+    * [ggthemes](https://jrnold.github.io/ggthemes/)
+    * [ggsci](https://nanx.me/ggsci/)
+    * [ggtech](https://github.com/ricardo-bion/ggtech)
+    * [ggthemr](https://github.com/cttobin/ggthemr)
+    * [xkcd](https://cran.r-project.org/web/packages/xkcd/index.html)
+    * [ggpubr](https://github.com/kassambara/ggpubr/issues)
+]
+
+
+---
+## *ADDITIONAL RESOURCES*
+
+- [ggplot2 book](https://ggplot2-book.org/): 3rd edition freely available online! This book provides much more detail and covers advanced topics I didn't cover here, such as `stat`s. 
+- [R for Data Science book](https://r4ds.had.co.nz/): Freely available online. Check out Chapter 3 on Data Visualization
+- [Tidy Tuesday](https://github.com/rfordatascience/tidytuesday): Tidy Tuesday is an online learning community. There are many participants worldwide! Use #TidyTuesday on Twitter to find graphics inspiration.
+- [My advice for getting help in R](https://sctyner.me/post/2019-2-17-rhelp/): my top 10 tips for getting help in R when you get stuck.
+- Thomas Lin Pedersen's ggplot2 webinar: [part 1](https://youtu.be/h29g21z0a68) and [part 2](https://youtu.be/0m4yywqNPVY): 
+- [RStudio Cheat Sheets](https://github.com/rstudio/cheatsheets)
+- [Will Chase's Design Talk](https://rstudio.com/resources/rstudioconf-2020/the-glamour-of-graphics/) at rstudio::conf
+- A [4-hour advanced version](https://rstudio.cloud/project/1116791) of this tutorial is available on RStudio Cloud.
+- A [2-hour version](https://sctyner.github.io/talks/Conferences/user2020/#1) of this tutorial is available on my website. 
+
+---
+## *THANKS!*
+
+.left-column[
+
+**Contact me:**
+
+&lt;svg viewBox="0 0 496 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#0045AD;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M336.5 160C322 70.7 287.8 8 248 8s-74 62.7-88.5 152h177zM152 256c0 22.2 1.2 43.5 3.3 64h185.3c2.1-20.5 3.3-41.8 3.3-64s-1.2-43.5-3.3-64H155.3c-2.1 20.5-3.3 41.8-3.3 64zm324.7-96c-28.6-67.9-86.5-120.4-158-141.6 24.4 33.8 41.2 84.7 50 141.6h108zM177.2 18.4C105.8 39.6 47.8 92.1 19.3 160h108c8.7-56.9 25.5-107.8 49.9-141.6zM487.4 192H372.7c2.1 21 3.3 42.5 3.3 64s-1.2 43-3.3 64h114.6c5.5-20.5 8.6-41.8 8.6-64s-3.1-43.5-8.5-64zM120 256c0-21.5 1.2-43 3.3-64H8.6C3.2 212.5 0 233.8 0 256s3.2 43.5 8.6 64h114.6c-2-21-3.2-42.5-3.2-64zm39.5 96c14.5 89.3 48.7 152 88.5 152s74-62.7 88.5-152h-177zm159.3 141.6c71.4-21.2 129.4-73.7 158-141.6h-108c-8.8 56.9-25.6 107.8-50 141.6zM19.3 352c28.6 67.9 86.5 120.4 158 141.6-24.4-33.8-41.2-84.7-50-141.6h-108z"&gt;&lt;/path&gt;&lt;/svg&gt; sctyner.me
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#0045AD;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"&gt;&lt;/path&gt;&lt;/svg&gt; @sctyner
+
+&lt;svg viewBox="0 0 496 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#0045AD;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"&gt;&lt;/path&gt;&lt;/svg&gt; sctyner
+
+&lt;svg viewBox="0 0 448 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#0045AD;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"&gt;&lt;/path&gt;&lt;/svg&gt; /in/sctyner
+
+]
+
+.right-column[
+&lt;img src="https://media.giphy.com/media/LTE92qOkXUEGZ1J3qW/giphy.gif" width="65%" style="display: block; margin: auto;" /&gt;
+]
+
+.footnote[Slides created via the R packages: [`xaringan`](https://github.com/yihui/xaringan) and 
+[`xaringanthemer`](https://github.com/gadenbuie/xaringanthemer)
+]
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"slideNumberFormat": "%current%",
+"highlightStyle": "github",
+"highlightLines": true,
+"ratio": "16:9",
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
