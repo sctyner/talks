@@ -50,6 +50,26 @@ library(icons)
 theme_cols <- c(red = "#BB2C2B", green = "#578A2D", blue = "#0045AD")
 ```
 
+## *OUTLINE* 
+
+- Introduction to data visualization 
+--
+
+- Visualizing 1, 2, or 3+ variables 
+--
+
+- Introduction to the **g**rammar of **g**raphics
+--
+
+- Building a visualization with `ggplot2` 
+--
+
+- Beyond the basics of `ggplot2` 
+--
+
+- `ggplot2` extras 
+
+---
 class: inverse center middle
 ## *INTRODUCTION TO DATA VISUALIZATION*
 
