@@ -146,9 +146,9 @@ class: inverse center middle
 ## *VISUALIZING TWO VARIABLES*
 
 ---
-## What kind of variables? 
+## *WHAT KIND OF VARIABLES?*
 
-```{r twovars, out.width="45%"}
+```{r twovars, out.width="40%"}
 knitr::include_graphics("img/two-vars.png")
 ```
 
@@ -348,7 +348,7 @@ ggplot(data = mtcars)
 
 4\. Set up your mapping inside of `aes()`. 
 
-```{r skeleton2, echo = TRUE, out.width = "80%"}
+```{r skeleton2, echo = TRUE, out.width = "70%"}
 ggplot(data = mtcars, 
        aes(x = wt, y = mpg)) #<<
 ```
