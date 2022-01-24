@@ -5,6 +5,7 @@ A place for storing all my slides as I transition from jekyll + github.io site t
 ## Links 
 
 - Invited Talks 
+    * [R-Ladies Baltimore](RLadies/intro-bookdown)
     * [Lehigh University](Misc/InvitedTalks/lehigh-biostat)
     * [National Institute of Standards & Technology](Misc/InvitedTalks/nist-sed)
     * [United States Military Academy](Misc/InvitedTalks/usma)
