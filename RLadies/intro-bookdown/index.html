@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Introduction to bookdown</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Sam Tyner, Ph.D." />
+    <script src="libs/header-attrs-2.11/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/rladies.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/rladies-fonts.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Introduction to <code>bookdown</code>
+### Sam Tyner, Ph.D.
+### R-Ladies Baltimore &amp; R-Ladies D.C.
+### 25 Jan. 2022 @ 5pm EST
+
+---
+
+
+# Outline
+
+1. Why `bookdown`?
+2. What `bookdown` assumes about you
+5. Your first book with `bookdown`
+3. Tricky little bits
+4. LaTeX vs. `bookdown`
+
+
+
+.footnote[Note: This talk is very similar to one I gave in 2018. I tried to catch all the changes in bookdown since then, but I may have missed something! Always refer to [bookdown.org/yihui/bookdown](https://bookdown.org/yihui/bookdown) for current bookdown syntax]
+
+---
+# Why `bookdown`? 
+
+.pull-left[
+In the package author's [own words](https://slides.yihui.name/2017-rmarkdown-UNL-Yihui-Xie.html#4), books should be:
+
+- easy to write
+- cheap 
+- dynamic
+- quickly edited &amp; re-released
+- authored by a few people, but edited/reviewed/contributed to by many
+]
+
+.pull-right[
+
+![](https://c.tenor.com/lJlfO3D9hLsAAAAd/ted-lasso-roy-kent.gif)
+
+]
+
+---
+# Why `bookdown`?
+
+.left-column[
+![](https://c.tenor.com/gXL1TFPuaWIAAAAM/ted-lasso-coach-beard.gif)
+]
+
+.right-column[
+Familiar with RStudio already? You're set! 
+
+- Requires no additional software (outside of `install.packages("bookdown")`)
+- Write in markdown -- lightweight markup language that's easy to learn 
+- Knit to HTML or PDF (avoid the LaTeX headaches!)
+- Generate figures and tables in the book with R code -- no more copy/pasting 
+
+]
+
+---
+class: inverse, center
+# What does `bookdown` assume about you? 
+
+You know what they say when you assume...
+
+
+![](https://y.yarn.co/0ad32420-a6cb-4026-b71c-0811f23c4900_text.gif)
+
+---
+# R/RStudio
+
+`bookdown` assumes you know how to use R, including
+
+- how to install packages 
+- how to put code chunks in a .Rmd file
+- how to render plots from R code in a .Rmd file
+
+Working knowledge of / a desire to use RStudio is not necessary but is exceedingly helpful.
+
+If you're seeing this, I assume you have this minimal working knowledge of R/RStudio. 
+
+---
+# Markdown
+
+`bookdown` assumes you are comfortable writing in Markdown, including
+
+- headers
+- tables
+- font formatting (*italics*, **bold**, etc.)
+
+Luckily, this is not hard to learn. See the [R Markdown Reference Guide](https://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf) or the [cheat sheet](https://github.com/rstudio/cheatsheets/raw/master/rmarkdown-2.0.pdf)
+
+---
+# `bibtex`
+
+`bookdown` assumes you know how to work with .bib files, including: 
+
+- You know what bibliography style you want 
+- You understand inline citations
+- You understand the structure of entries in a .bib file
+
+See this [user guide](https://www.economics.utoronto.ca/osborne/latex/BIBTEX.HTM) and this [fill-in-the-blank](https://truben.no/latex/bibtex/) Bibtex editor
+
+---
+# LaTeX Math 
+
+`bookdown` assumes you know how to write math things (equations, formulae, etc.) with LaTeX
+
+![](https://media.giphy.com/media/LSRdEQa6DsaZtLi2Gt/giphy.gif)
+
+Here's the [Wikibook](https://en.wikibooks.org/wiki/LaTeX/Mathematics) for LaTeX. Good luck.
+
+If you're seeing this, I assume you're familiar with the not-so-gentle giant that is LaTeX
+
+---
+class: inverse, center
+# Your First Book 
+
+![](https://c.tenor.com/E1R7n5locw0AAAAd/tedlassogifs-sharon-fieldstone.gif)
+
+---
+# Creating a bookdown book from scratch
+
+In RStudio: 
+
+1. File &gt; New Project 
+2. New directory &gt; Book project using bookdown
+3. Choose a folder name and location for the book to live 
+4. Click "Create Project"
+
+&lt;img src="img/newbook1.png" width="33%" /&gt;&lt;img src="img/newbook2.png" width="33%" /&gt;&lt;img src="img/newbook3.png" width="33%" /&gt;
+
+---
+
+&lt;img src="img/result.png" width="1592" /&gt;
+
+---
+class: center, middle
+# Live Demo
+
+![](https://c.tenor.com/B9i71YdJUIEAAAAC/tedlassogifs-ted-lasso.gif)
+---
+class: inverse, center
+# Tricky Little Bits 
+
+![](https://media.giphy.com/media/XFk8MYgtxO5Kau61re/giphy.gif)
+
+---
+# Building the book 
+
+Several ways to build your book: 
+
+1. RStudio &gt; "Build" tab &gt; Build Book 
+2. R console &gt; `bookdown::render_book()`
+3. RStudio Viewer Pane: R console &gt; `bookdown::serve_book()` 
+4. Preview a chapter at a time with `bookdown::preview_chapter()`
+
+.pull-left[
+DO NOT click the Knit button! 
+
+&lt;img src="img/noknit.jpeg" width="267" style="display: block; margin: auto;" /&gt;
+
+]
+
+.pull-right[
+Or else you will 
+
+&lt;img src="https://c.tenor.com/onsoP2CMU7wAAAAC/ted-lasso-tedlassogifs.gif" width="75%" style="display: block; margin: auto auto auto 0;" /&gt;
+
+]
+
+
+---
+# Math mode
+
+For math, sometimes you need to enter mathmode (via `$$`...`$$` or `\(`...`\)`), and sometimes you don't...
+
+- If the math expression creates something in `displaymath` (e.g. `equation`, `eqnarray`, `align`), don't put it in math mode 
+- Otherwise, it needs mathmode (e.g. `matrix`,  `array`, etc.)
+
+.pull-left[
+Need math mode: 
+
+    `$$a^2 + b^2 = c^2$$`
+    
+`$$a^2 + b^2 = c^2$$`     
+]
+.pull-right[
+Don't need math mode: 
+
+    \begin{equation}
+     a^2 + b^2 = c^2
+     \end{equation}
+\begin{equation}
+a^2 + b^2 = c^2
+\end{equation} 
+
+]
+
+---
+# Inserting images
+
+Can do `![caption](path)` like in usual .Rmd things, but (AFAIK):
+
+- Figure numbering is hard (or impossible)
+- "" referencing ""
+- "" alignment ""
+
+
+Instead, do `knitr::include_graphics()` inside an R code chunk. 
+
+Why?
+
+--
+
+- Figure naming, referencing, and numbering included "for free" (`\@ref(fig:chunkname)`)
+- Can control size, alignment, etc. very easily 
+
+---
+# Inserting images
+
+.pull-left[
+
+How to use `knitr::include_graphics()`:
+
+````
+```{r eval=FALSE}
+knitr::include_graphics("https://bit.ly/tlgif2022")
+```
+````
+
+Add code chunk options:
+- fig.height=2
+- fig.align='center'
+- fig.cap = "Ted" 
+- echo=FALSE
+
+To get the result at right.
+]
+
+.pull-right[
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="https://bit.ly/tlgif2022" alt="Ted"  /&gt;
+&lt;p class="caption"&gt;Ted&lt;/p&gt;
+&lt;/div&gt;
+]
+
+---
+# Inserting tables 
+
+Again, can do it in the [usual markdown way](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet#tables), but (AFAIK):
+
+- Table numbering is hard (or impossible)
+- "" captions ""
+- "" referencing ""
+- "" alignment ""
+
+Instead, do `knitr::kable()` inside an R code chunk. 
+
+Why?
+
+--
+
+- Table naming, referencing, and numbering included "for free" (`\@ref(tab:chunkname)`)
+- `caption` is an argument in the function to make table captions
+- Get all the other "good stuff" from LaTeX/`xtable`. e.g. `digits`, `longtable`, etc. (See `?knitr::kable`)
+
+---
+# Inserting tables
+
+How to use `knitr::kable()` to insert tables: 
+
+````
+```{r table2, eval = FALSE}
+knitr::kable(head(mtcars), caption="mtcars data", format = "html")
+```
+````
+
+With chunk options `{results='asis'}` gives:   
+
+&lt;table&gt;
+&lt;caption&gt;mtcars data&lt;/caption&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt;   &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; mpg &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; cyl &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; disp &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; hp &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; drat &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; wt &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; qsec &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; vs &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; am &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; gear &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; carb &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Mazda RX4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 21.0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 6 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 160 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 110 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3.90 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2.620 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 16.46 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Mazda RX4 Wag &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 21.0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 6 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 160 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 110 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3.90 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2.875 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 17.02 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Datsun 710 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 22.8 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 108 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 93 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3.85 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2.320 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 18.61 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Hornet 4 Drive &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 21.4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 6 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 258 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 110 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3.08 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3.215 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 19.44 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Hornet Sportabout &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 18.7 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 8 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 360 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 175 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3.15 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3.440 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 17.02 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Valiant &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 18.1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 6 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 225 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 105 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2.76 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3.460 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 20.22 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+
+---
+class: inverse, center
+# LaTeX v. `bookdown`
+
+![](https://media.giphy.com/media/9F5Y9AeF6IglklluQV/giphy.gif)
+
+---
+# References &amp; Citations
+
+Difference between using LaTeX (left) and using `bookdown` (right) for references:
+
+.pull-left[
+- Label sections with `\label{section-label}` after `\section{Section name}`. Refer to them with `\ref{section` `-label}`.
+
+- Inline citations with `\citet{biblabel}`, `\citep{biblabel}`
+
+- Figure/table references with `\ref{fig-` `or-tab-label}`
+
+- Label equations with `\label{eqnname}` after `begin{equation}`. Refer to them with `\ref{eqn` `name}`.
+]
+
+.pull-right[
+- Label sections with `{#section-label}` after `## Section name`. Refer to them with `\@ref(label)`
+
+- Inline citations with `@biblabel`, `[@biblabel]`
+
+- Figure/table references with `\@ref(fig:figlabel)` / `\@ref(tab:tablabel)`. `figlabel` and `tablabel` should be the code chunk names 
+
+- Label equations with `(\#eq:eqnname)` the line above `\end{equation}`. Refer to them with `\@ref(eq:eqnname)`
+]
+
+---
+# Theorems, Proofs, etc. 
+
+Difference between using LaTeX (left) and using `bookdown` (right) for different [text environments](https://bookdown.org/yihui/bookdown/markdown-extensions-by-bookdown.html#theorems):
+
+.pull-left[
+
+- Use `\begin{}` `\end{}` for `theorem`, `proof`, `definition`, etc. 
+
+- Label and reference them with `\label{` `thmname}` and `\ref{` `thmname}`
+
+]
+
+.pull-right[
+- Use "code chunks" : 
+```
+::: {.theorem #mythm}
+This is a `theorem` environment that can contain **any** 
+_Markdown_ syntax
+:::
+```
+
+- Label them with `#` and reference them with `\@ref(prefix:label)` where `prefix` is one of `thm`, `lem`, [etc.](https://bookdown.org/yihui/bookdown/markdown-extensions-by-bookdown.html#theorems)
+]
+
+---
+# Customization
+
+.pull-left[
+In LaTeX, create custom formats with: 
+
+- `\newcommand{` `}` 
+- `\renewcommand{` `}` 
+- `\newenvironment{` `}` 
+
+]
+
+.pull-right[
+In `bookdown`, create [custom formats](https://bookdown.org/yihui/rmarkdown-cookbook/custom-blocks.html) with: 
+
+- `{block}` environment + custom [CSS](https://github.com/rstudio/bookdown/blob/master/inst/examples/css/style.css) styles 
+- Similar to the way `{.theorem}` works
+
+]
+
+---
+# Other random fun `bookdown` facts
+
+1. Part and Appendix [headers](https://bookdown.org/yihui/bookdown/markdown-extensions-by-bookdown.html#special-headers) for separating different groups of chapters 
+2. Text [references](https://bookdown.org/yihui/bookdown/markdown-extensions-by-bookdown.html#text-references) to save your sanity when writing figure/table captions
+3. You can [embed whole webpages](https://bookdown.org/yihui/bookdown/web-pages-and-shiny-apps.html) in online books written with `bookdown`. (i.e. for `shiny` apps)
+
+&lt;img src="https://c.tenor.com/nqRQOYrv2U4AAAAC/ted-lasso.gif" style="display: block; margin: auto;" /&gt;
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
