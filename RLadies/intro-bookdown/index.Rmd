@@ -382,3 +382,9 @@ In `bookdown`, create [custom formats](https://bookdown.org/yihui/rmarkdown-cook
 knitr::include_graphics("https://c.tenor.com/nqRQOYrv2U4AAAAC/ted-lasso.gif")
 ```
 
+---
+class: inverse, center, middle
+
+![](https://c.tenor.com/RB_rRUZIcBAAAAAC/ted-lasso-thank-you.gif)
+
+## Follow me on Twitter, GitHub, & LinkedIn: @sctyner
